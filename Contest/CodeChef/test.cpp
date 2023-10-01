@@ -43,7 +43,9 @@ int32_t main() {
 
 	auto solve = [&]()->void
 	{
-        
+        int N;
+        cin>>N ;
+        cout<<3*N<<endl;
 	};
 	
 	
