@@ -43,9 +43,55 @@ int32_t main() {
 
 	auto solve = [&]()->void
 	{
-        int N;
-        cin>>N ;
-        cout<<3*N<<endl;
+        int N , M ;
+        cin>>N>>M ;
+        
+        vector<int>A(N),B(M);
+        for( auto &x: A )cin>>x ;
+        for( auto &x: B )cin>>x ;
+
+        vector<int>f ,b ;
+    	for( int i = 0 ; i < N ; i++ )
+    	{
+    		if( A[i] ==  1 )
+    			f.push_back(i+1);
+    		else if( A[i] == 2 )
+    			b.push_back(i+1);
+    	}
+
+
+    	for( auto x : B )
+    	{
+    		if( x == 1 )
+    			cout<<0<<endl;
+    		else
+    		{
+    			int res = N ;
+
+    			int k = lower_bound( all(f) , x ) - f.begin();
+
+    			for( int d = -1 ; f.size() && d <= 0 ; d++ )
+    			{
+    				int p = k + d ;
+    				if( p < 0 || p >= (int)f.size() || f[p] > x )
+    					continue ;
+
+    				int diff = abs( f[p] - x );
+    				res = min( res , diff );
+    			}
+
+    			k =  lower_bound( all(b) , x ) - b.begin();
+
+    			if( k >= 0 && k < (int)b.size() && b.size() && b[k] >= x )
+    				res = min( res , abs(x-b[k]));
+
+    			if(res == N )
+    				cout<<-1<<" ";
+    			else
+    				cout<<res<<" ";
+    		}
+    	}
+    	cout<<endl;
         
 	};
 	
