@@ -26,6 +26,8 @@ vector<int> fact( int N = MAX )
 	return f ;
 }
 
+#define arr array<int,3> 
+#define ar array<int,2>
 
 /********** GO DOWN ***********/
 
@@ -43,6 +45,27 @@ int32_t main() {
 
 	auto solve = [&]()->void
 	{
+        int N ;
+        cin>>N ; 
+        vector< ar > A ( N );
+        for( auto &x : A )cin>>x[1];
+        for( auto &x : A )cin>>x[0];
+        sort(all(A)) ;
+        
+		int res = 0 ;
+		int g = 0 ;
+
+		for( auto x : A )
+		{
+			if( g >= N )
+				break ;
+
+			int d = min( x[1] , N-g ) ;
+			g += d ;
+			res += x[0]*d ;
+		}        
+
+		cout<<res<<endl;
         
 	};
 	
@@ -52,7 +75,7 @@ int32_t main() {
 	
 	
 	
-	
+		
     int test = 1 ;
 	cin>>test;
 	while(test--)
