@@ -1,0 +1,101 @@
+mobious_sol
+
+https://www.codechef.com/viewsolution/1011406146
+https://www.codechef.com/viewsolution/80316365
+
+
+intresting solution: BITSET 
+https://www.codechef.com/viewsolution/75958876
+https://www.codechef.com/viewsolution/75800746
+https://www.codechef.com/viewsolution/70351476
+
+
+// seiving and factoring cool trick
+
+void seive() {
+   rep (i, mxd) f[i] = i;  
+   for (int i= 2; i < mxd; i += 2) f[i] = 2;
+   for (int i = 3; i * i < mxd; i += 2) {
+
+      if (f[i] == i) {
+         for (int j = i * i; j < mxd; j += i) {
+            if (f[j] == j) {
+               f[j] = i;
+            }
+         }
+      }
+   }
+}
+vi factor(int x) {
+   set<int> s;
+   while (x != 1) {
+      s.insert(f[x]);
+      x /= f[x];
+   }
+   if (x > 1) s.insert(x);
+   vi v(al(s));
+   return v;
+}
+
+
+// cool representation makes code more readable 
+
+#define mask(i) (1LL << (i))
+
+
+// use this on every sniptted it makes to avoid single test case error in sublime 
+#define test_case() int T; T = 1; while(T--)
+
+// pbds solution
+
+https://www.codechef.com/viewsolution/98479015
+
+
+
+// do somethong for builtinpop count 
+
+
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+template<class T> 
+using ordered_set= tree<T, null_type, 
+      less<T>, 
+      rb_tree_tag, tree_order_statistics_node_update> ;
+template<class T>       
+using ordered_mset= tree<T, null_type, 
+      less_equal<T>, 
+      rb_tree_tag, tree_order_statistics_node_update> ;
+
+
+
+
+// this debut template 
+
+void __print(int x) {cerr << x;}
+void __print(long x) {cerr << x;}
+void __print(long long x) {cerr << x;}
+void __print(unsigned x) {cerr << x;}
+void __print(unsigned long x) {cerr << x;}
+void __print(unsigned long long x) {cerr << x;}
+void __print(float x) {cerr << x;}
+void __print(double x) {cerr << x;}
+void __print(long double x) {cerr << x;}
+void __print(char x) {cerr << '\'' << x << '\'';}
+void __print(const char *x) {cerr << '\"' << x << '\"';}
+void __print(const string &x) {cerr << '\"' << x << '\"';}
+void __print(bool x) {cerr << (x ? "true" : "false");}
+
+template<typename T, typename V>
+void __print(const pair<T, V> &x) {cerr << '{'; __print(x.first); cerr << ','; __print(x.second); cerr << '}';}
+template<typename T>
+void __print(const T &x) {int f = 0; cerr << '{'; for (auto &i: x) cerr << (f++ ? "," : ""), __print(i); cerr << "}";}
+void _print() {cerr << "]\n";}
+template <typename T, typename... V>
+void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v...);}
+#ifndef ONLINE_JUDGE
+#define what_is(x...) cerr << "[" << #x << "] = ["; _print(x)
+#else
+#define what_is(x...)
+#endif
