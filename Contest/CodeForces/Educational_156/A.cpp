@@ -26,23 +26,6 @@ vector<int> fact( int N = MAX )
 	return f ;
 }
 
-set< int > st ;
-
-void divisors( int N )
-{
-	vector<int>res ;
-	for( int i = 2 ; 2*i <= N ; i++ )
-	{
-		if( N%i == 0)
-		{
-			st.insert(i);
-
-			if( i*i != N )
-				res.push_back(N/i);
-		}
-	}
-}
-
 
 /********** GO DOWN ***********/
 
@@ -57,15 +40,44 @@ int32_t main() {
 	cin.tie(0);
 	cout.tie(0);
 	
+	string baseUrl = "https://www.codechef.com/problems/";
+
+	vector< vector< string > > A ;
 
 	auto solve = [&]()->void
 	{
-       string x ;
-       set<string>st ;
-       while( cin>>x )
-       	st.insert(x);
-       for( auto x : st )
-       	cout<<x<<endl;
+        string x ;
+        vector<string>t,no ;
+      	while(cin>>x)
+      	{
+      		t.push_back(x);
+      		if( t.size() == 600 )
+      		{
+      			A.push_back(t) ;
+      			t = no ;
+      		}
+      	}  
+
+      	A.push_back(t);
+
+
+      	for( auto vec : A )
+      	{
+      		for( auto i : vec )
+      		{
+      			cout<<baseUrl<<i<<endl;
+      		}
+
+
+      		cout<<endl;
+      		cout<<endl;
+      		cout<<endl;
+      		cout<<endl;
+      		cout<<endl;
+      	}
+
+
+
 	};
 	
 	

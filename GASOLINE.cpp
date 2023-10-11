@@ -26,23 +26,6 @@ vector<int> fact( int N = MAX )
 	return f ;
 }
 
-set< int > st ;
-
-void divisors( int N )
-{
-	vector<int>res ;
-	for( int i = 2 ; 2*i <= N ; i++ )
-	{
-		if( N%i == 0)
-		{
-			st.insert(i);
-
-			if( i*i != N )
-				res.push_back(N/i);
-		}
-	}
-}
-
 
 /********** GO DOWN ***********/
 
@@ -60,12 +43,7 @@ int32_t main() {
 
 	auto solve = [&]()->void
 	{
-       string x ;
-       set<string>st ;
-       while( cin>>x )
-       	st.insert(x);
-       for( auto x : st )
-       	cout<<x<<endl;
+        
 	};
 	
 	
@@ -76,7 +54,7 @@ int32_t main() {
 	
 	
     int test = 1 ;
-	// cin>>test;
+	cin>>test;
 	while(test--)
 	solve();
 	
