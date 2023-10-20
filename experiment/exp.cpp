@@ -43,9 +43,55 @@ int32_t main() {
 
 	auto solve = [&]()->void
 	{
-        int x ;
-        cin>>x ;
-        cout<<2*x<<endl;
+        int N ;
+        cin>>N ;
+        vector<int>A(N) ;
+        
+        for( auto &x : A )cin>>x ;
+        vector<int>f(N,1),b(N,1);
+        
+        vector<int>res ;
+        for( int i = 0 ; i < N ; i++ )
+        {
+            auto x = A[i];
+            auto it = lower_bound( res.begin() , res.end() , x ) ;
+            if( it == res.end() )
+            res.push_back(x);
+            else
+            *it = x ;
+            
+            f[i] = res.size();
+        }
+        
+        vector< int > k ;
+        
+        res = k ;
+        int mx = 1 ;
+        
+        for( int i = N-1 ; i >= 0 ; i-- )
+        {
+            int x = A[i] ;
+            auto it = lower_bound( res.begin() , res.end() , -x );
+            
+            if( it == res.end() )
+            res.push_back(-x);
+            else
+            *it = -x ;
+            
+            b[i] = res.size();
+
+            mx = max( mx , f[i] + b[i] );
+            mx = min( mx , N );
+        }
+        
+        cout<<mx<<endl;
+        // for( auto x : f )
+        // 	cout<<x<<" ";
+        // cout<<endl;
+        // for( auto x : b )
+        // 	cout<<x<<" ";
+        // cout<<endl;
+        // cout<<endl;
 	};
 	
 	
@@ -62,3 +108,4 @@ int32_t main() {
 	
 	return 0;
 }
+
