@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std ;
 
+mt19937 mt ;
+
 class T
 {
 public:
@@ -79,7 +81,7 @@ T* join( T* L , T* R )
 
 vector<T*> breakSplit( T* x , vector<int>A )
 {
-	// ( ] // close open type -> [ 0 , A[0]-1 ] , [A[0] , A[1]-1] .... 
+	// close close type
 
 	if( A.size() == 0 || x == nullptr )
 		return { x } ;

@@ -1,9 +1,16 @@
+/*
+ Author: Aditya Raghav [ zerojude ]
+ INDIA 
+*/
+
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
 
 #define int long long
+mt19937 mt ;
 #define all(x) begin(x) , end(x) 
+#define mask(i) (1LL << (i))
 const int mod = pow(10,9)+7 ;
 const int MAX = pow(10,5)+1 ;
 const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
@@ -19,13 +26,15 @@ int inverse( int a )
 {
     return mod_pow(a,mod-2);
 }
-vector<int> fact( int N = MAX )
+vector<int> factorial( int N = MAX )
 {
 	vector<int>f(N,1);
 	for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
 	return f ;
 }
 
+#define arr array<int,3> 
+#define ar array<int,2>
 
 /********** GO DOWN ***********/
 
@@ -43,18 +52,54 @@ int32_t main() {
 
 	auto solve = [&]()->void
 	{
-        
+		int N , Q ;
+		cin>>N>>Q ;
+
+		vector< int > A(N);
+		for( auto &x : A )cin>>x ;
+
+		vector< int > f( N , 1 ) , b( N , 1 );
+
+		for( int i = 1 ; i < N ; i++ )
+		if( A[i] == A[i-1] )
+			f[i] = 1 + f[i-1];
+		
+		for( int i = N-2 ; i >= 0 ; i-- )
+		if( A[i] == A[i+1] )
+			b[i] = 1 + b[i+1];
+
+		for( int q = 0 ; q < Q ; q++ )
+		{
+			int L , R , k ;
+			cin>>L>>R>>k ;
+			L--;
+			R--;
+			int len = R-L+1;
+			int found = 0 ;
+			for( int tries = 0 ; !found && tries <= 50 ; tries++ )
+			{
+				int in = L + (mt()%len);
+				int front = min( f[in] , in-L+1 );
+				int back = min( b[in] , R-in+1 );
+				if( front + back - 1 >= k )
+				{
+					found = 1 ;
+					cout<<A[in]<<endl;
+					break ;
+				}
+			}
+
+			if(!found)
+				cout<<-1<<endl;
+			
+		}
+
 	};
 	
-	
-	
-	
-	
-	
-	
-	
+
+		
     int test = 1 ;
-	cin>>test;
+	// cin>>test;
 	while(test--)
 	solve();
 	

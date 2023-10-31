@@ -4,13 +4,13 @@
 class SegmentTreeNode {
 public:
     int start, end, data;
-    int lazy; // Lazy update for assignment
+    int lazy;
 
     SegmentTreeNode* left;
     SegmentTreeNode* right;
 
     SegmentTreeNode(int start_, int end_)
-        : start(start_), end(end_), data(0), lazy(-1), left(nullptr), right(nullptr) {}
+        : start(start_), end(end_), data(0), lazy(0), left(nullptr), right(nullptr) {}
 
     ~SegmentTreeNode() {
         delete left;
@@ -46,16 +46,15 @@ public:
     }
 
     void propagateLazy(SegmentTreeNode* node) {
-        if (node->lazy != -1) {
-            // Apply assignment update
-            if (node->start != node->end) {
-                node->left->lazy = node->lazy;
-                node->right->lazy = node->lazy;
-            }
-            node->left->data = (node->left->end - node->left->start + 1) * node->lazy;
-            node->right->data = (node->right->end - node->right->start + 1) * node->lazy;
+        if (node->lazy != 0) {
+            node->data += (node->end - node->start + 1) * node->lazy;
 
-            node->lazy = -1;
+            if (node->start != node->end) {
+                node->left->lazy += node->lazy;
+                node->right->lazy += node->lazy;
+            }
+
+            node->lazy = 0;
         }
     }
 
@@ -64,9 +63,12 @@ public:
             return;
 
         if (node->start >= l && node->end <= r) {
-            // Set the lazy value for assignment
-            node->lazy = val;
-            node->data = (node->end - node->start + 1) * val;
+            node->data += (node->end - node->start + 1) * val;
+
+            if (node->start != node->end) {
+                node->left->lazy += val;
+                node->right->lazy += val;
+            }
         } else {
             propagateLazy(node);
             updateRange(node->left, l, r, val);
@@ -102,7 +104,6 @@ public:
     }
 };
 
-
 int main() {
     std::vector<int> arr = {1, 3, 5, 7, 9, 11};
     SegmentTree st(arr);
@@ -110,9 +111,8 @@ int main() {
     // Query range [0, 3] before any updates
     std::cout << "Sum in range [0, 3]: " << st.query(0, 3) << std::endl;
 
-    // Update range [0, 3] with assignment value 10
-    st.updateRange(0, 3, 10);
-    st.updateRange(1, 1, 30);
+    // Update range [0, 3] with value 2
+    st.updateRange(0, 3, 2);
 
     // Query range [0, 3] after update
     std::cout << "Sum in range [0, 3]: " << st.query(0, 3) << std::endl;
