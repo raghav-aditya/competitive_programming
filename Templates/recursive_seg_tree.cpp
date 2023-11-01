@@ -80,10 +80,8 @@ private:
         if (l <= node->st && node->en <= r) {
             return node->value;
         }
-        int leftValue = query(node->left, l, r);
-        int rightValue = query(node->right, l, r);
 
-        return leftValue + rightValue;
+        return query(node->left, l, r) + query(node->right, l, r);
     }
 
 
