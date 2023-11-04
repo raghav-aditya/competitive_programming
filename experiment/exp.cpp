@@ -1,121 +1,92 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
-class SegmentTreeNode {
-public:
-    int start, end, data;
-    int lazy; // Lazy update for assignment
+#define bit(n) (1<<(n))
+#define inf 1000000000
+#define eps 1e-9
+#define pi 3.1415926535897932385
+#define pb push_back
+#define sz size()
+#define mp make_pair
+#define cl clear()
+#define all(a) a.begin(),a.end()
+#define fill(ar,val) memset(ar,val,sizeof ar)
+#define MIN(a,b) if(a>(b)) a=(b)
+#define MAX(a,b) if(a<(b)) a=(b)
+#define sqr(x) ((x)*(x))
+#define min(a,b) ((a)<(b)?(a):(b))
+#define max(a,b) ((a)>(b)?(a):(b))
 
-    SegmentTreeNode* left;
-    SegmentTreeNode* right;
+#define N 55555
 
-    SegmentTreeNode(int start_, int end_)
-        : start(start_), end(end_), data(0), lazy(-1), left(nullptr), right(nullptr) {}
+int b[N],a[N];
+int n;
 
-    ~SegmentTreeNode() {
-        delete left;
-        delete right;
-    }
-};
+void add(int x,int d)
+{
+    for(;x<=n;x+=(x&-x)) a[x]+=d;
+}
 
-class SegmentTree {
-private:
-    SegmentTreeNode* root;
+int getsum(int x)
+{
+    int s=0;
+    for(;x>0;x-=(x&-x)) s+=a[x];
+    return s;
+}
 
-public:
-    SegmentTree(const std::vector<int>& arr) {
-        root = build(0, arr.size() - 1, arr);
-    }
-
-    SegmentTreeNode* build(int start, int end, const std::vector<int>& arr) {
-        if (start > end)
-            return nullptr;
-
-        SegmentTreeNode* node = new SegmentTreeNode(start, end);
-
-        if (start == end) {
-            node->data = arr[start];
-        } else {
-            int mid = (start + end) / 2;
-            node->left = build(start, mid, arr);
-            node->right = build(mid + 1, end, arr);
-            node->data = node->left->data + node->right->data;
+int main()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("in.txt","r",stdin);
+    #endif
+    int T,t=0;
+    for(scanf("%d",&T);T--;)
+    {
+        int m,i;
+        scanf("%d%d",&m,&n);
+        m++;
+        fill(a,0);
+        for(i=1;i<=n;i++)
+        {
+            scanf("%d",&b[i]);
+            b[i]++;
+            add(i,b[i]);
         }
-
-        return node;
-    }
-
-    void propagateLazy(SegmentTreeNode* node) {
-        if (node->lazy != -1) {
-            // Apply assignment update
-            if (node->start != node->end) {
-                node->left->lazy = node->lazy;
-                node->right->lazy = node->lazy;
+        scanf("\n");
+        printf("Case #%d:\n",++t);
+        char type;
+        while(scanf("%c",&type)>0)
+        {
+            if(type=='E') break;
+            if(type=='C')
+            {
+                int x,d;
+                scanf("%d%d",&x,&d);
+                d++;
+                add(x,d-b[x]);
+                b[x]=d;
             }
-            node->left->data = (node->left->end - node->left->start + 1) * node->lazy;
-            node->right->data = (node->right->end - node->right->start + 1) * node->lazy;
-
-            node->lazy = -1;
+            else
+            {
+                int x;
+                scanf("%d",&x);
+                int it;
+                for(i=it=0;;it++)
+                {
+                    int si=getsum(i);
+                    int l=i,r=n+1;
+                    while(l+1<r)
+                    {
+                        int mid=(l+r)/2;
+                        if(m<getsum(mid)-si) r=mid; else l=mid;
+                    }
+                    if(x<=l) break;
+                    i=l;
+                }
+                printf("%d\n",it+1);
+            }
+            scanf("\n");
         }
+        printf("\n");
     }
-
-    void updateRange(SegmentTreeNode* node, int l, int r, int val) {
-        if (node == nullptr || node->start > r || node->end < l)
-            return;
-
-        if (node->start >= l && node->end <= r) {
-            // Set the lazy value for assignment
-            node->lazy = val;
-            node->data = (node->end - node->start + 1) * val;
-        } else {
-            propagateLazy(node);
-            updateRange(node->left, l, r, val);
-            updateRange(node->right, l, r, val);
-            node->data = node->left->data + node->right->data;
-        }
-    }
-
-    void updateRange(int l, int r, int val) {
-        updateRange(root, l, r, val);
-    }
-
-    int query(SegmentTreeNode* node, int l, int r) {
-        if (node == nullptr || node->start > r || node->end < l)
-            return 0;
-
-        if (node->start >= l && node->end <= r) {
-            return node->data;
-        } else {
-            propagateLazy(node);
-            int leftSum = query(node->left, l, r);
-            int rightSum = query(node->right, l, r);
-            return leftSum + rightSum;
-        }
-    }
-
-    int query(int l, int r) {
-        return query(root, l, r);
-    }
-
-    ~SegmentTree() {
-        delete root;
-    }
-};
-
-
-int main() {
-    std::vector<int> arr = {1, 3, 5, 7, 9, 11};
-    SegmentTree st(arr);
-
-    // Query range [0, 3] before any updates
-    std::cout << "Sum in range [0, 3]: " << st.query(0, 3) << std::endl;
-
-    // Update range [0, 3] with assignment value 10
-    st.updateRange(0, 3, 10);
-    st.updateRange(1, 1, 30);
-
-    // Query range [0, 3] after update
-    std::cout << "Sum in range [0, 3]: " << st.query(0, 3) << std::endl;
-
     return 0;
 }
