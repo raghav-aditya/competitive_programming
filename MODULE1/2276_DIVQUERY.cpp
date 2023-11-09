@@ -27,9 +27,9 @@ int inverse( int a )
 }
 vector<int> factorial( int N = MAX )
 {
-    vector<int>f(N,1);
-    for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
-    return f ;
+	vector<int>f(N,1);
+	for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
+	return f ;
 }
 
 #define arr array<int,3> 
@@ -46,63 +46,56 @@ vector<int> factorial( int N = MAX )
 
 
 int32_t main() {
-    // your code goes here
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    
+	// your code goes here
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	
 
+	auto solve = [&]()->void
+	{
+		
 
-int N , M ;
-vector< int > A , B ;
-vector< vector< int > > dp ;
+		int N , Q ;
+		cin>>N>>Q ;
+		vector<int>A(N);
+		for( auto &x: A )cin>>x ;
 
+		set< int > uniq( all(A) );
 
+		unordered_map< int , vector< int > > factors ;
 
+		for( int i = 0 ; i < N ; i++ )
+		{
+			for( int f = 1 ; f*f <= A[i] ; f++ )
+			{
+				if(A[i]%f)
+					continue ;
 
+				factors[f].push_back(i);
 
+				if(f*f != A[i])
+					factors[A[i]/f].push_back(i);
+			}
+		}
 
+		for( int q = 0 ; q < Q ; q++ )
+		{
+			int l , r , k ;
+			cin>>l>>r>>k ;
+			l--; r--;
 
+			cout<<upper_bound(all(factors[k]) , r) - lower_bound(all(factors[k]) , l)<<endl;
+		}
 
+	};
+	
 
-
-
-
-
-
-
-        for( int i = 0 ; i < N ; i++ )
-            dp[i][0] = 1 ;
-
-        int res = 0 ;
-        
-        for( int i = 0 ; i < N ; i++ )
-        for( int j = 1 ; j < M ; j++ )
-        {
-            int val = A[i] + B[j];
-            for( int k = 0 ; k < i ; k++ )
-            {
-                if( A[k] + B[j-1] <= val )
-                dp[i][j] += dp[k][j-1];
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return 0;
+		
+    int test = 1 ;
+	// cin>>test;
+	while(test--)
+	solve();
+	
+	return 0;
 }

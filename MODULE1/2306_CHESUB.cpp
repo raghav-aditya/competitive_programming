@@ -27,9 +27,9 @@ int inverse( int a )
 }
 vector<int> factorial( int N = MAX )
 {
-    vector<int>f(N,1);
-    for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
-    return f ;
+	vector<int>f(N,1);
+	for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
+	return f ;
 }
 
 #define arr array<int,3> 
@@ -42,67 +42,28 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
-
 int32_t main() {
-    // your code goes here
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    
+	// your code goes here
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	
+
+	int dp[100010][110];
+	int prefix[100010][110];
 
 
-int N , M ;
-vector< int > A , B ;
-vector< vector< int > > dp ;
+	auto solve = [&]()->void
+	{
+		
+	};
+	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        for( int i = 0 ; i < N ; i++ )
-            dp[i][0] = 1 ;
-
-        int res = 0 ;
-        
-        for( int i = 0 ; i < N ; i++ )
-        for( int j = 1 ; j < M ; j++ )
-        {
-            int val = A[i] + B[j];
-            for( int k = 0 ; k < i ; k++ )
-            {
-                if( A[k] + B[j-1] <= val )
-                dp[i][j] += dp[k][j-1];
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return 0;
+		
+    int test = 1 ;
+	cin>>test;
+	while(test--)
+	solve();
+	
+	return 0;
 }
