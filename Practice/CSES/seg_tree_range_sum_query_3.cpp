@@ -42,8 +42,41 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-int dp[100010][110];
-int prefix[100010][110];
+class seg_tree
+{
+	vector<int>T;
+	int N ;
+public:
+	seg_tree( const vector<int>&A )
+	{
+		this->N = A.size();
+		T.resize(2*N,0);
+		for( int i = 0 ; i < N ; i++ )
+			T[i+N] = A[i];
+		for( int i = N-1 ; i > 0 ; i-- )
+			T[i] = min( T[2*i] , T[2*i+1]);
+	}
+
+	void update( int p , int x )
+	{
+		for( T[p+=N] = x ; p >>= 1 ; )
+		{
+			T[p] = min( T[p<<1] , T[p<<1|1] ) ;
+		}
+	}
+
+	int get( int a , int b )
+	{
+		int res = INT_MAX ;
+		for( a += N , b += N+1 ; a < b ; a >>= 1 , b >>= 1 )
+		{
+			if(a&1) res = min( res , T[a++] );
+			if(b&1) res = min( res , T[--b] );
+		}
+		return res;
+	}
+
+};
 
 int32_t main() {
 	// your code goes here
@@ -51,51 +84,37 @@ int32_t main() {
 	cin.tie(0);
 	cout.tie(0);
 	
-	// memset( dp , 0 , sizeof dp );
-	// memset( prefix , 0 , sizeof prefix );
-
 
 	auto solve = [&]()->void
 	{
-		 
-		int N , K ;
-		cin>>N>>K ;
-		vector<int>A(N); for( auto &x : A ) cin>>x ;
-		vector<int>B(K); iota(all(B),1);
+		int N , Q ;
+		cin>>N>>Q ;
+		vector<int>A(N); for( auto &x : A )cin>>x ;
 
-		for( int i = 0 ; i < N ; i++ )
-		{	dp[i][0] = 0 ;
-			prefix[i][0] = 0 ;
-			for( int j = 1 ; j <= K ; j++ )
-			{
-				dp[i][j] = -oo ;
-				prefix[i][j] = -oo ;
-			} 
-		}
+		seg_tree st(A);
 
-		dp[0][1] = A[0]*B[0] ;
-		prefix[0][1] = dp[0][1] ; 
-
-
-		for( int i = 1 ; i < N ; i++ )
-		for( int j = 1 ; j <= K ; j++ )
+		for( int q = 0 ; q < Q ; q++ )
 		{
-			dp[i][j] = max( prefix[i-1][j-1] , dp[i-1][j] ) + A[i]*B[j-1];
-			dp[i][j] = max( dp[i][j] , -oo );
-			prefix[i][j] = max( prefix[i-1][j] , dp[i][j] );
+			int t , a , b ;
+			cin>>t>>a>>b ;
+			if(t==1)
+			{
+				a--;
+				st.update(a,b);
+			}
+			else
+			{
+				a--;b--;
+				cout<<st.get(a,b)<<endl;
+			}
 		}
-
-		int res = INT_MIN ;
-		for( int i = 0 ; i < N ; i++ )
-			res = max( res , dp[i][K] );
-		cout<<res<<endl;
 
 	};
 	
 
 		
     int test = 1 ;
-	cin>>test;
+	// cin>>test;
 	while(test--)
 	solve();
 	

@@ -42,8 +42,38 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-int dp[100010][110];
-int prefix[100010][110];
+class seg_tree
+{
+	vector<int>T;
+	int N ;
+public:
+	seg_tree( const vector<int>&A )
+	{
+		this->N = A.size();
+		T.resize(2*N,0);
+		for( int i = 0 ; i < N ; i++ )
+			T[i+N] = A[i];
+		
+	}
+
+	void update( int a , int b , int x )
+	{
+		for( a += N , b += N+1 ; a < b ; a >>= 1 , b >>= 1 )
+		{
+			if(a&1) T[a++] += x ;
+			if(b&1) T[--b] += x ;
+		}
+	}
+
+	int get( int p )
+	{
+		int res = 0 ;
+		for( p += N ; p > 0 ; p >>= 1 )
+			res += T[p];
+		return res ;
+	}
+
+};
 
 int32_t main() {
 	// your code goes here
@@ -51,51 +81,40 @@ int32_t main() {
 	cin.tie(0);
 	cout.tie(0);
 	
-	// memset( dp , 0 , sizeof dp );
-	// memset( prefix , 0 , sizeof prefix );
-
 
 	auto solve = [&]()->void
 	{
-		 
-		int N , K ;
-		cin>>N>>K ;
-		vector<int>A(N); for( auto &x : A ) cin>>x ;
-		vector<int>B(K); iota(all(B),1);
+		int N , Q ;
+		cin>>N>>Q ;
+		vector<int>A(N); for( auto &x : A )cin>>x ;
 
-		for( int i = 0 ; i < N ; i++ )
-		{	dp[i][0] = 0 ;
-			prefix[i][0] = 0 ;
-			for( int j = 1 ; j <= K ; j++ )
-			{
-				dp[i][j] = -oo ;
-				prefix[i][j] = -oo ;
-			} 
-		}
+		seg_tree st(A);
 
-		dp[0][1] = A[0]*B[0] ;
-		prefix[0][1] = dp[0][1] ; 
-
-
-		for( int i = 1 ; i < N ; i++ )
-		for( int j = 1 ; j <= K ; j++ )
+		for( int q = 0 ; q < Q ; q++ )
 		{
-			dp[i][j] = max( prefix[i-1][j-1] , dp[i-1][j] ) + A[i]*B[j-1];
-			dp[i][j] = max( dp[i][j] , -oo );
-			prefix[i][j] = max( prefix[i-1][j] , dp[i][j] );
+			int t;
+			cin>>t;
+			if(t==1)
+			{
+				int a , b , x ;
+				cin>>a>>b>>x ;
+				a--;b--;
+				st.update(a,b,x);
+			}
+			else
+			{
+				int p ; cin>>p ;
+				p--;
+				cout<<st.get(p)<<endl;
+			}
 		}
-
-		int res = INT_MIN ;
-		for( int i = 0 ; i < N ; i++ )
-			res = max( res , dp[i][K] );
-		cout<<res<<endl;
 
 	};
 	
 
 		
     int test = 1 ;
-	cin>>test;
+	// cin>>test;
 	while(test--)
 	solve();
 	

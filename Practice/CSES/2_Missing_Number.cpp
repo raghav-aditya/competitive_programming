@@ -42,60 +42,30 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-int dp[100010][110];
-int prefix[100010][110];
-
 int32_t main() {
 	// your code goes here
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	cout.tie(0);
 	
-	// memset( dp , 0 , sizeof dp );
-	// memset( prefix , 0 , sizeof prefix );
-
 
 	auto solve = [&]()->void
 	{
-		 
-		int N , K ;
-		cin>>N>>K ;
-		vector<int>A(N); for( auto &x : A ) cin>>x ;
-		vector<int>B(K); iota(all(B),1);
-
-		for( int i = 0 ; i < N ; i++ )
-		{	dp[i][0] = 0 ;
-			prefix[i][0] = 0 ;
-			for( int j = 1 ; j <= K ; j++ )
-			{
-				dp[i][j] = -oo ;
-				prefix[i][j] = -oo ;
-			} 
-		}
-
-		dp[0][1] = A[0]*B[0] ;
-		prefix[0][1] = dp[0][1] ; 
-
-
+		int N ;
+		cin>>N ;
+		int res = 0 ;
 		for( int i = 1 ; i < N ; i++ )
-		for( int j = 1 ; j <= K ; j++ )
 		{
-			dp[i][j] = max( prefix[i-1][j-1] , dp[i-1][j] ) + A[i]*B[j-1];
-			dp[i][j] = max( dp[i][j] , -oo );
-			prefix[i][j] = max( prefix[i-1][j] , dp[i][j] );
+			int x ;cin>>x ; 
+			res ^= x^i ;
 		}
-
-		int res = INT_MIN ;
-		for( int i = 0 ; i < N ; i++ )
-			res = max( res , dp[i][K] );
-		cout<<res<<endl;
-
+		cout<<(res^N)<<endl;
 	};
 	
 
 		
     int test = 1 ;
-	cin>>test;
+	// cin>>test;
 	while(test--)
 	solve();
 	

@@ -42,8 +42,48 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-int dp[100010][110];
-int prefix[100010][110];
+class sparse_table
+{
+	int K ;
+	vector< vector<int> > T ;
+	int N ;
+
+	void build( const vector<int>&A )
+	{
+		for( int i = 0 ; i < N ; i++ )
+			T[i][0] = A[i] ;
+
+		for( int L = 1 ; L < K ; L++ )
+		for( int i = 0 ; i < N ; i++ )
+		{
+			T[i][L] = T[i][L-1] ;
+
+			int dis = 1<<(L-1);
+			if(i+dis>=N)
+				continue ;
+			T[i][L] = min( T[i][L-1] , T[i+dis][L-1] );
+		}
+	}
+
+public:
+	sparse_table( const vector<int>&A )
+	{
+		this->N = A.size();
+		this->K = log2(N) + 1 ;
+		vector< vector< int > > temp( N+1 , vector<int>(K+1,INT_MAX) );
+		this->T = temp ;
+
+		build( A );
+	}
+
+	int get( int a , int b )
+	{
+		int len = b-a+1 ;
+		int L = log2(len);
+		int dis = 1<<L ;
+		return min( T[a][L] , T[b-dis+1][L] );
+	}
+};
 
 int32_t main() {
 	// your code goes here
@@ -51,51 +91,28 @@ int32_t main() {
 	cin.tie(0);
 	cout.tie(0);
 	
-	// memset( dp , 0 , sizeof dp );
-	// memset( prefix , 0 , sizeof prefix );
-
 
 	auto solve = [&]()->void
 	{
-		 
-		int N , K ;
-		cin>>N>>K ;
-		vector<int>A(N); for( auto &x : A ) cin>>x ;
-		vector<int>B(K); iota(all(B),1);
+		int N , Q ;
+		cin>>N>>Q ;
+		vector<int>A(N); for( auto &x : A )cin>>x ;
 
-		for( int i = 0 ; i < N ; i++ )
-		{	dp[i][0] = 0 ;
-			prefix[i][0] = 0 ;
-			for( int j = 1 ; j <= K ; j++ )
-			{
-				dp[i][j] = -oo ;
-				prefix[i][j] = -oo ;
-			} 
-		}
+		sparse_table st(A);
 
-		dp[0][1] = A[0]*B[0] ;
-		prefix[0][1] = dp[0][1] ; 
-
-
-		for( int i = 1 ; i < N ; i++ )
-		for( int j = 1 ; j <= K ; j++ )
+		for( int q = 0 ; q < Q ; q++ )
 		{
-			dp[i][j] = max( prefix[i-1][j-1] , dp[i-1][j] ) + A[i]*B[j-1];
-			dp[i][j] = max( dp[i][j] , -oo );
-			prefix[i][j] = max( prefix[i-1][j] , dp[i][j] );
+			int a , b ;cin>>a>>b ;
+			a--;b--;
+			cout<<st.get(a,b)<<endl;
 		}
-
-		int res = INT_MIN ;
-		for( int i = 0 ; i < N ; i++ )
-			res = max( res , dp[i][K] );
-		cout<<res<<endl;
 
 	};
 	
 
 		
     int test = 1 ;
-	cin>>test;
+	// cin>>test;
 	while(test--)
 	solve();
 	

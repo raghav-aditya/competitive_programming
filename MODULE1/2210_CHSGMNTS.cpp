@@ -42,54 +42,56 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-int dp[100010][110];
-int prefix[100010][110];
-
 int32_t main() {
 	// your code goes here
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	cout.tie(0);
 	
-	// memset( dp , 0 , sizeof dp );
-	// memset( prefix , 0 , sizeof prefix );
-
 
 	auto solve = [&]()->void
 	{
-		 
-		int N , K ;
-		cin>>N>>K ;
-		vector<int>A(N); for( auto &x : A ) cin>>x ;
-		vector<int>B(K); iota(all(B),1);
-
+		int N ;
+		cin>>N ; vector< int > A(N); for( auto &x : A )cin>>x ;
+		
+		unordered_map< int , vector<int> > mp ;
 		for( int i = 0 ; i < N ; i++ )
-		{	dp[i][0] = 0 ;
-			prefix[i][0] = 0 ;
-			for( int j = 1 ; j <= K ; j++ )
-			{
-				dp[i][j] = -oo ;
-				prefix[i][j] = -oo ;
-			} 
-		}
+			mp[A[i]].push_back(i);
 
-		dp[0][1] = A[0]*B[0] ;
-		prefix[0][1] = dp[0][1] ; 
-
-
-		for( int i = 1 ; i < N ; i++ )
-		for( int j = 1 ; j <= K ; j++ )
+		int rank = 0 ;
+		for( auto &it : mp )
 		{
-			dp[i][j] = max( prefix[i-1][j-1] , dp[i-1][j] ) + A[i]*B[j-1];
-			dp[i][j] = max( dp[i][j] , -oo );
-			prefix[i][j] = max( prefix[i-1][j] , dp[i][j] );
+			for( int index : it.second )
+			A[index] = rank ;
+			rank++;
 		}
 
-		int res = INT_MIN ;
-		for( int i = 0 ; i < N ; i++ )
-			res = max( res , dp[i][K] );
-		cout<<res<<endl;
 
+		int res = 0 ;
+		int B[N];
+		for( int i = 0 ; i < N ; i++ )
+		{
+			memset( B , 0 , sizeof B );
+			for( int j = i ; j < N ; j++ )
+			{
+				B[A[j]] = 1 ;
+				int cnt = 0 ;
+				for( int k = j+1 ; k < N ; k++ )
+				{
+					if(B[A[k]])
+					{
+						if(cnt)
+							res += (cnt*(cnt+1))>>1 ;
+						cnt = 0 ;
+					}
+					else
+						cnt++;
+				}
+				if(cnt)
+				res += (cnt*(cnt+1))>>1 ;
+			}
+		}
+		cout<<res<<endl;
 	};
 	
 

@@ -42,54 +42,47 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-int dp[100010][110];
-int prefix[100010][110];
-
 int32_t main() {
 	// your code goes here
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	cout.tie(0);
 	
-	// memset( dp , 0 , sizeof dp );
-	// memset( prefix , 0 , sizeof prefix );
-
-
 	auto solve = [&]()->void
 	{
+		
+		int y , x ;
+		cin>>y>>x ;
+		int res = 0 ;
 		 
-		int N , K ;
-		cin>>N>>K ;
-		vector<int>A(N); for( auto &x : A ) cin>>x ;
-		vector<int>B(K); iota(all(B),1);
-
-		for( int i = 0 ; i < N ; i++ )
-		{	dp[i][0] = 0 ;
-			prefix[i][0] = 0 ;
-			for( int j = 1 ; j <= K ; j++ )
-			{
-				dp[i][j] = -oo ;
-				prefix[i][j] = -oo ;
-			} 
-		}
-
-		dp[0][1] = A[0]*B[0] ;
-		prefix[0][1] = dp[0][1] ; 
+		 if( x > y )
+		 {
 
 
-		for( int i = 1 ; i < N ; i++ )
-		for( int j = 1 ; j <= K ; j++ )
-		{
-			dp[i][j] = max( prefix[i-1][j-1] , dp[i-1][j] ) + A[i]*B[j-1];
-			dp[i][j] = max( dp[i][j] , -oo );
-			prefix[i][j] = max( prefix[i-1][j] , dp[i][j] );
-		}
+		 	if(x%2==1)
+		 	{
+		 		res = x*x - y + 1 ;
+		 	}
+		 	else
+		 	{
+		 		res = (x-1)*(x-1) + y ;
+		 	}
+		 }
+		 else
+		 {
+		 
 
-		int res = INT_MIN ;
-		for( int i = 0 ; i < N ; i++ )
-			res = max( res , dp[i][K] );
-		cout<<res<<endl;
+		 	if(y%2==1)
+		 	{
+		 		res = (y-1)*(y-1) + x ;
+		 	}
+		 	else
+		 	{
+		 		res = y*y - x + 1 ;
+		 	}
+		 }
 
+		 cout<<res<<endl;
 	};
 	
 

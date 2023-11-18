@@ -31,7 +31,7 @@ vector<int> factorial( int N = MAX )
     for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
     return f ;
 }
-
+#define oo (int)pow(2L,60)
 #define arr array<int,3> 
 #define ar array<int,2>
 
@@ -42,8 +42,36 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
+class seg_tree
+{
+    vector<int>T ;
+    int N ;
 
+public:
+    seg_tree( int size )
+    {
+        this->N = size ;
+        T.resize(2*N,0);
+    }
 
+    int get( int a , int b )
+    {
+        int res = 0 ;
+        for( a += N , b += N+1 ; a < b ; a >>= 1 , b >>= 1 )
+        {
+            if(a&1) res = max( res , T[a++] ) ;
+            if(b&1) res = max( res , T[--b] ) ;
+        }
+        return res ;
+    }
+
+    void update( int p , int x )
+    {
+        assert(p>=0&&p<N);
+        for( T[p+=N] = x ; p >>=1 ; )
+        T[p] = max( T[2*p] , T[2*p+1] );
+    }
+};
 
 int32_t main() {
     // your code goes here
@@ -52,57 +80,31 @@ int32_t main() {
     cout.tie(0);
     
 
+    auto solve = [&]()->void
+    {
+      int N ;
+      cin>>N ;
+      
+      vector<int>A(N);
+      for(auto &x: A )cin>>x ;
 
-int N , M ;
-vector< int > A , B ;
-vector< vector< int > > dp ;
+      seg_tree st(N);
 
+      for( int i = 0 ; i < N ; i++ )
+         st.update(
+                    A[i],
+                    1 + max( 0LL , st.get(0,A[i]-1) ) 
+            );
 
+      cout<<st.get(0,N-1)<<endl;
+    };
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-        for( int i = 0 ; i < N ; i++ )
-            dp[i][0] = 1 ;
-
-        int res = 0 ;
         
-        for( int i = 0 ; i < N ; i++ )
-        for( int j = 1 ; j < M ; j++ )
-        {
-            int val = A[i] + B[j];
-            for( int k = 0 ; k < i ; k++ )
-            {
-                if( A[k] + B[j-1] <= val )
-                dp[i][j] += dp[k][j-1];
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    int test = 1 ;
+    // cin>>test;
+    while(test--)
+    solve();
+    
     return 0;
 }
