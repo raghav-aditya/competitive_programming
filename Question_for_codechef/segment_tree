@@ -1,0 +1,41 @@
+Q-1
+
+version 1: simple 
+
+	1 L R -> find sum  = 1 * A[L] + 2 * A[L+1] ........ (R-L+1) * A[R] 
+	2 P X -> set A[P] = X 
+
+
+version 2: difficult version 1
+
+	1 L R M  -> find sum = M * A[L] + (M+1) * A[L+1] ............  (M+R-L+1) * A[R] 
+	2 P X    -> set A[P] = X 
+
+	where M > 0 && M <= 10^18 
+
+
+
+version 3: Hard if you have never thought over/seen version 1 
+
+	1 L R    -> find sum = 1^2 * A[L]  + 2^2 * A[L+1] ............ (R-L+1)^2 * A[R] 
+	2 P X 	 -> set A[P] = X 
+
+
+version 4: similar difficulty as version 1 , we can extend this for version 2 also 
+
+	1 L R 	-> find sum  = 1 * A[L] + 2 * A[L+1] ........ (R-L+1) * A[R] 
+	2 L R X -> increase  A[i] += X , for  L <= i <= R 
+
+
+
+
+
+
+
+
+Q-2 
+
+	we are given, x + (1/x) = k ;
+	find x^n + (1/x^n) = ?
+
+	time complexity O(n^2) 
