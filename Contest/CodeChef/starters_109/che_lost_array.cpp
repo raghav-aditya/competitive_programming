@@ -51,9 +51,91 @@ int32_t main() {
     cout.tie(0);
     
 
+
     auto solve = [&]()->void
     {
-        
+        int N , D ;
+        cin>>N>>D ;
+        vector<int>mx(N),mn(N);
+        for( auto &x : mx )cin>>x ;
+        for( auto &x : mn )cin>>x ;
+
+
+        for( int i = 1 ; i < N ; i++ )
+        {
+        	if( mn[i] > mn[i-1] || mx[i] < mx[i-1] )
+        	{
+        		cout<<"NO"<<endl;
+        		return ;
+        	}
+        }
+
+    	if( mx[0] != mn[0] )
+    	{
+    		cout<<"NO"<<endl;
+    		return ;
+    	}
+
+        vector<ar> future ;
+        vector<int>res;
+        res.push_back(mx[0]);
+
+        for( int i = 1 ; i < N ; i++ )
+        {
+
+        	vector<ar>temp;
+
+        	if( mx[i] > mx[i-1] )
+        		temp.push_back({ mx[i] , i });
+        	if( mn[i] < mn[i-1] )
+        		temp.push_back({ mn[i] , i });
+
+        	if(temp.size()>1)
+        	{
+        		cout<<"NO"<<endl;
+        		return ;
+        	}
+
+        	if(temp.size())
+        		future.push_back(temp.front());
+        }
+
+
+        int ls_in = 0 ;
+        int ls_val = mn[0];
+
+        for( int b = 0 ; b < (int)future.size() ; b++ )
+        {
+        	int curr_in = future[b][1];
+        	int curr_val = future[b][0];
+
+        	bool is_greater = (curr_val >= ls_val) ;
+
+        	for( ls_in++ ; l <= curr_in ; p++ )
+        	{
+        		if(is_greater)
+        			ls_val = min( {ls_val+D , mx[p] , curr_val} );
+        		else
+        			ls_val = max( {ls_val-D , mn[p] , curr_val} );
+
+        		res.push_back(ls_val);
+        	}
+
+        	if( ls_val != curr_val )
+        	{
+        		cout<<"NO"<<endl;
+        		return ;
+        	}
+
+        }
+
+    	while(res.size()<N)
+    		res.push_back(ls_val);
+
+    	cout<<"YES"<<endl;
+    	for( auto x : res )
+    		cout<<x<<" ";
+    	cout<<endl;
     };
     
 
