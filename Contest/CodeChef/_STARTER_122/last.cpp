@@ -44,90 +44,48 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-
     auto solve = [&]()->void
     {
        int N ;
-       cin>>N;
+       cin>>N ;
+
        vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+       for( auto &x : A)cin>>x ;
 
-       int mn = *min_element( A.begin() , A.end() );
+       int t[31];
+       int p[31];
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+       memset( t , 0 , sizeof t );
+       memset( p , 0 , sizeof p );
 
+       int mx = 0 ;
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
+       for( auto x : A )
        {
-           if( A[i] == 1 )
-           {
-             break;
-           }
-
-           p = A[i];
-       } 
-
-       auto ok = [&]( int st )->bool
-       {
-
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
+            for( int i = 0 ; i <= 30 ; i++ )
             {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
+                if(x&(1<<i))
+                {
+                    t[i]++;
                 }
+                else
+                {
+                    p[i]++;
+                }
+            
+                mx = max({t[i],p[i],mx});
             }
-                
-            return 1;
-       };
+       }       
 
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
+       cout<<mx<<endl;
 
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
     };
-    
-
         
     int test = 1 ;
     cin>>test;

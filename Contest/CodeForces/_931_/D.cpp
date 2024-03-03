@@ -44,8 +44,6 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -55,76 +53,50 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+       int a , b ;
+       cin>>a>>b ;
+       vector<int>A,B;
 
-       int mn = *min_element( A.begin() , A.end() );
-
-       for( auto &x : A )
-        x -= mn - 1 ;
-
-
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
+       auto on = [&]( int k , int i )->bool
        {
-           if( A[i] == 1 )
-           {
-             break;
-           }
-
-           p = A[i];
-       } 
-
-       auto ok = [&]( int st )->bool
-       {
-
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
+       	 return (k>>i)&1;
        };
 
-       if( p == -1 )
+       vector<int>res;
+       while( a != b )
        {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
+       	  res.push_back(a);
 
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
+       	  for( int i = 63 ; i >= 0 ; i-- )
+       	  {
 
-          }
+       	  	if( !on(a,i) && on(b,i) )
+       	  	{
+       	  		cout<<-1<<endl;
+       	  		return ;
+       	  	}
 
-          cout<<-1<<endl;
-          return ;
+       	  	int k = a ;
+       	  	if( on(a,i) && !on( b , i) )
+       	  	{
+       	  		k -= pow( 2 , i );
+
+       	  		if( k < a && (k^a) < a )
+       	  		{
+       	  			a = k ;
+       	  			break ;
+       	  		}
+       	  		
+       	  	}
+       	  }
        }
 
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
+       res.push_back(a);
+
+       cout<<res.size()-1<<endl;
+       for( auto x : res )
+       	cout<<x<<" ";
+       cout<<endl;
     };
     
 

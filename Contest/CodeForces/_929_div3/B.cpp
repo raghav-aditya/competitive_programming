@@ -44,8 +44,6 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -53,78 +51,44 @@ int32_t main() {
     cout.tie(0);
     
 
+
+
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+        int N ;
+        cin>>N ;
+        vector<int>A(N);
+        for( auto &x : A)cin>>x ;
 
-       int mn = *min_element( A.begin() , A.end() );
+       	int sum = 0 ;
+       	for( auto &x : A )
+       	{
+       		x%=3 ;
+       		sum += x ;
+       	}
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+       	sum %= 3 ;
 
+       	if( sum == 0 )
+       	{
+       		cout<<0<<endl;
+       		return ;
+       	}
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
+       	sort( A.rbegin() , A.rend() );
 
-           p = A[i];
-       } 
+       	while(A.size()&&A.back()==0)
+       	{
+       		A.pop_back();
+       	}
 
-       auto ok = [&]( int st )->bool
-       {
+       	sort(A.begin() , A.end());
 
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
-
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
-
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
+       	if( (sum+1) %3==0 || ((sum-A.front())%3 + 3) % 3 == 0 || ((sum-A.back())%3+3)%3 == 0 )
+       		cout<<1<<endl;
+       	else
+       		cout<<2<<endl;
+       	
     };
     
 

@@ -44,8 +44,6 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -55,76 +53,33 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+        int N ;
+        cin>>N ;
+        vector<int>A(N);
+        for( auto &x : A )cin>>x ;
 
-       int mn = *min_element( A.begin() , A.end() );
+        sort( A.begin() , A.end() );
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+    	int res = 0 ;
 
+    	for( int i = 1 ; i < N-1 ; i++ )
+    	for( int j = 1 ; j < N-2 ; j++ )
+    	{
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
+    		if( i == j )continue ;
 
-           p = A[i];
-       } 
+    		int a = A[0];
+    		int b = A[i];
+    		int c = A[j];
+    		int d = A[N-1];
 
-       auto ok = [&]( int st )->bool
-       {
+    		res = max({
+    			res ,
+    			abs(a-b) + abs(b-c) + abs(d-c) + abs(a-d)
+    		});
 
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
-
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
-
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
+    	}
+    	cout<<res<<endl;
     };
     
 

@@ -44,8 +44,6 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -55,76 +53,83 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+     	
+     	int N ;
+     	cin>>N ;
+     	vector<int>A(N);
+     	for( auto &x : A )cin>>x ;
 
-       int mn = *min_element( A.begin() , A.end() );
+     	int Q ;
+     	cin>>Q ;
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+     	vector<int>P(N+1,0LL);
+     	for( int i = 0 ; i < N ; i++ )
+     		P[i+1] = A[i] + P[i];
+
+     	auto range = [&]( int a , int b )-> int 
+     	{
+     		return P[b+1] - P[a];
+     	};
 
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
 
-           p = A[i];
-       } 
+     	auto task = [&]( int L , int U )-> int 
+     	{
 
-       auto ok = [&]( int st )->bool
-       {
+     		int l = L ;
+     		int h = N-1 ;
 
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
+     		int mx = INT_MIN ;
+     		int res = L-1;
 
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
 
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
+     		auto f = [&]( int m)-> int 
+     		{
+     			int sum = range( L-1 , m );
+     			return sum*U - ((sum*(sum-1))/2);
+     		};
 
-          }
+     		while( l < h )
+     		{
+     			int m = (l+h)>>1 ;
 
-          cout<<-1<<endl;
-          return ;
-       }
+     			int y2 = f(m);
+     			int y1 = f(m-1);
 
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
+     			if( y1 == y2 )
+     				l = h = m ;
+
+
+     			if( y2 > y1 )
+     				l = m+1;
+     			else
+     				h = m-1;
+     		}
+
+     		for( int m = l+1 ; m >= l-1 ; m-- )
+     		{
+     			if(m >= L-1 && m < N )
+     			{
+     				if( f(m) >= mx )
+     				{
+     					mx = f(m);
+     					res = m ;
+     				}
+     			}
+     		}
+
+     		return res+1;
+     	};
+
+     	for( int i = 0 ; i < Q ; i++ )
+     	{
+     		int l , u ;
+     		cin>>l>>u ;
+
+     		cout<<task( l , u )<<" ";
+     	}
+
+     	cout<<endl;
     };
     
 
@@ -136,3 +141,6 @@ int32_t main() {
     
     return 0;
 }
+
+
+// 

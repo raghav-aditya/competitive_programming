@@ -44,7 +44,44 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
+class seg_tree
+{
+    vector<int>T ;
+    int N ;
+    int m ;
 
+public: seg_tree( vector<int>&A , int mm )
+    {
+        this->N = A.size();
+        T.resize(2*N,0);
+        this->m = mm ;
+
+        for( int i = 0 ; i < N ; i++ )
+        {
+            T[i+N] = A[i] ;
+        }
+
+        for( int i = N-1 ; i > 0 ; i-- )
+        {
+            T[i] = (T[2*i] * T[2*i+1]) % m ;
+        }
+
+    }
+
+    int get( int a , int b )
+    {
+        int res = 1 ;
+        for( a += N , b += N+1 ; a < b ; a >>= 1 , b >>= 1 )
+        {
+            if(a&1) res *= T[a++];
+            if(b&1) res *= T[--b] ;
+
+            res %= m ;
+        }
+        return res ;
+    }
+
+};
 
 int32_t main() {
     // your code goes here
@@ -55,76 +92,37 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+        
+        int N , M ;
+        cin>>N>>M ;
 
-       int mn = *min_element( A.begin() , A.end() );
+        vector<int>A(N);
+        for( auto &x : A )cin>>x ;
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+        string Q ;
+        cin>>Q ;
 
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
+        seg_tree st(A,M);
 
-           p = A[i];
-       } 
+        int L = 0 ; 
+        int R = N-1 ;
 
-       auto ok = [&]( int st )->bool
-       {
-
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
+        for( auto x : Q )
+        {
+            cout<<st.get(L,R)<<" ";
+            if( x == 'L' )
             {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
+                L++;
             }
-                
-            return 1;
-       };
+            else
+            {
+                R--;
+            }
+        }
 
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
+        cout<<endl;
 
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
     };
     
 

@@ -1,0 +1,20 @@
+
+List < Integer >  A = new ArrayList<>(); // vector -> stack 
+List < Integer >  A = new LinkedList<>(); // LinkedList 
+
+Queue< Integer > Q = new ArrayDeque<>(); // Queue
+Deque< Integer > D = new ArrayDeque<>(); // Deque 
+
+
+Set < Integer > st = new TreeSet<>() ; // ordered set 
+Set < Integer > st = new HashSet<>() ; // unordered_set 
+
+
+Map< Integer , Integer > mp = new TreeMap<>() ; // ordered_map 
+Map< Integer , Integer > mp = new HashMap<>() ; // unordered_map 
+
+
+Iterator<Integer> it_desc = ((TreeSet<Integer>) st).descendingIterator();
+Integer it = st.iterator();
+
+Integer x = it.next();

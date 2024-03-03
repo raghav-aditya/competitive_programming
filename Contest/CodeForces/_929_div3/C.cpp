@@ -44,8 +44,6 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -55,76 +53,50 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+     	int a , b , l ;
+     	cin>>a>>b>>l ;
 
-       int mn = *min_element( A.begin() , A.end() );
+     	int al = l ;
+     	int bl = l ;
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+     	int p = 0; 
+     	int q = 0 ;
 
+     	while( al%a == 0)
+     	{
+     		al /= a ;
+     		p++;
+     	}
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
+     	while( bl%b == 0)
+     	{
+     		bl /= b ;
+     		q++;
+     	}
 
-           p = A[i];
-       } 
+     	set<int>st;
 
-       auto ok = [&]( int st )->bool
-       {
+     	for( int i = 0 ; i <= p ; i++ )
+     	for( int j = 0 ; j <= q ; j++ )
+     	{
 
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
+     		int t = 1 ;
+     		int k = i ;
+     		while(k--)
+     		{
+     			t *= a; 
+     		}
+     		k = j ;
+     		while(k--)
+     		{
+     			t *= b ;
+     		}
 
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
-
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
+     		if(l%t==0)
+     			st.insert(l/t);
+     		
+     	}
+     	cout<<st.size()<<endl;
     };
     
 

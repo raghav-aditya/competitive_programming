@@ -1,4 +1,20 @@
 /*
+You have a country with n states, each with some given population, 
+let’s denote that with an integer array population[].
+ Everyone in the country is infected with a virus, and the country has k doctors available to treat everyone.
+
+What’s the ‘most fair’ distribution of doctors for each state, 
+so that the ratio of (doctors[i]/population[i]) for the ith state, the minimum value of this ratio is as high as possible.
+
+n ~ 1e5
+k ~ 1e9, k >= n
+population[i] ~ 1e9
+
+
+*/  
+
+
+/*
  Author: Aditya Raghav [ zerojude ]
  INDIA 
 */
@@ -44,71 +60,56 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-int timer = 0 ;
-vi tin , tout ;
-vvi g ;
-vi e_tour ;
-
-
-void dfs( int root , int p )
-{
-	tin[root] = ++timer ;
-	e_tour.push_back(root);
-
-
-	for( auto v : g[root] )
-	{
-		if( v != p )
-		dfs( v , root );
-	}
-
-	tout[root] = timer ;
-}
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-
     auto solve = [&]()->void
     {
-    	int N ;
-    	cin>>N ;
-    	tin.assign(N,0);
-    	tout = tin ;
-    	g.assign(N , vector<int>{});
-        timer = -1 ;
-
-        for( int i = 1 ; i < N ; i++ )
-        {
-        	int a ,b ;
-        	cin>>a>>b ;
-        	g[a].push_back(b);
-        	g[b].push_back(a);
-        }
-
-
-        dfs( 0 , -1 );
-
-        for( auto x : e_tour )
-        	cout<<x<<" ";
-        cout<<endl;
-        for( auto x : tin )
-        	cout<<x<<" ";
-        cout<<endl;
-        for( auto x : tout )
-        	cout<<x<<" ";
-        cout<<endl;
-
-    };
-    
-
         
-    // int test = 1 ;
-    // cin>>test;
-    // while(test--)
+       long double l = 0 ;
+       long double h = pow(10LL,16);
+
+       int N ;
+       cin>>N ;
+       int k ;
+       cin>>k ;
+       vector<int>P(N,0);
+       for( auto &x : P )cin>>x ;
+
+       auto ok = [&]( long double m )->bool
+        {
+            
+            int count = 0 ; // number of doctors we need 
+            for( auto x : P )
+            {
+                long double doc = x * m ;
+                count += ceil(doc);
+            }
+
+            if(count<= k )
+                return 1 ;
+            else
+                return 0 ;
+        };
+    
+       while( abs(h-l) > pow((long double)10,-8) )
+       {
+           long double s = l + h ; 
+           s /= (long double)2.000000 ;
+
+           long double m = s ;
+
+           if( ok(m) )
+             l = m ;
+           else
+             h = m ;
+       }
+       std::cout << std::fixed << std::setprecision(6) << l << std::endl;
+    };
+
     solve();
     
     return 0;

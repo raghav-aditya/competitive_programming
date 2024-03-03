@@ -45,6 +45,40 @@ vector<int> factorial( int N = MAX )
 */
 
 
+int go( vector< vector<int> > &A )
+{
+    int N = A.size();
+    vector<int>t(N,0);
+    t[N-1] = A[N-1][2];
+
+    for( auto &x : A )
+        swap( x[0] , x[1] );
+
+    for( int i = N-2 ; i >= 0 ; i-- )
+    {
+        
+        int b = A[i][1] ;
+        int c = A[i][2] ;
+
+        t[i] = c ;
+
+        auto j = lower_bound( all(A) , arr{ b+1 , -1 , -1 } ) - A.begin() ;
+
+        t[i] = max( t[i] , t[i+1] );
+
+        if( j < N )
+        {
+            t[i] = max({
+                t[i],
+                c + t[j] 
+            });
+        }
+    }
+
+    return t[0]; 
+}
+
+
 
 int32_t main() {
     // your code goes here
@@ -55,76 +89,33 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+        int N , M ;
+        cin>>N>>M ;
+        vector< ar > A(M);
 
-       int mn = *min_element( A.begin() , A.end() );
+        for( auto &x : A )
+            cin>>x[0]>>x[1];
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+        map< ar , int > mp;
 
+        for( auto x : A )
+        {
+            mp[x]++;
+        }
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
+        vector<vector<int>> B;
 
-           p = A[i];
-       } 
+        for( auto x : mp )
+        {
+            ar a = x.first ;
+            int b = x.second ;
+            B.push_back({ a[1] , a[0] , b });
+        }
 
-       auto ok = [&]( int st )->bool
-       {
+        sort( B.begin() , B.end() );
 
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
+        cout<<go(B)<<endl;
 
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
-
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
     };
     
 

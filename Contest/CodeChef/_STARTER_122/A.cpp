@@ -44,8 +44,6 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -55,76 +53,33 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+        int N ;
+        cin>>N ;
+        vector<string>A(N);
+        for( auto &x : A )
+            cin>>x ;
 
-       int mn = *min_element( A.begin() , A.end() );
+        set<int>st;
+        for( int j = 0 ; j < N ; j++ )
+        {
+            int a = 0 ;
+            for( int i = 0 ; i < N ; i++ )
+                a += A[i][j] - '0';
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+            if(a)
+                st.insert(a);
+        }
+        if(st.size()==1)
+        {
+            cout<<"SQUARE"<<endl;
+        }
+        else
+        {
+            cout<<"TRIANGLE"<<endl;
+        }
 
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
 
-           p = A[i];
-       } 
-
-       auto ok = [&]( int st )->bool
-       {
-
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
-
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
-
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
     };
     
 

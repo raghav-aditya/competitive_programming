@@ -53,78 +53,38 @@ int32_t main() {
     cout.tie(0);
     
 
+
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
+        
+        int N ;
+        cin>>N ;
+        string A[2];
+        cin>>A[0]>>A[1];
+       
 
-       int mn = *min_element( A.begin() , A.end() );
+        string res(N+1,'a');
+        int cnt = 0 ;
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+        for( int i = 0 ; i < N ; i++ )
+        {
 
+        	string t = A[0].substr(0,i+1) + A[1].substr(i);
+        	
+        	if( res > t )
+        	{
+        		cnt = 0 ;
+        		res = t ;
+        	}
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
+        	if( res == t ){
+        		cnt++;
+        	}
+        }
 
-           p = A[i];
-       } 
+        cout<<res<<endl;
+        cout<<cnt<<endl;
 
-       auto ok = [&]( int st )->bool
-       {
-
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
-
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
-
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
     };
     
 

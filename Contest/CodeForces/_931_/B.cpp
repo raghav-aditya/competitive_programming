@@ -44,8 +44,6 @@ vector<int> factorial( int N = MAX )
    what chance do I have to beat him? 
 */
 
-
-
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -53,78 +51,53 @@ int32_t main() {
     cout.tie(0);
     
 
+	vector<int> A = { 1 , 3 , 6 , 10 , 15 };
+    
+
+	int S = 3*6*10*15 ;
+	int N = A.size();
+ 
+ 	vector< vector<int> > t(N+1, vector<int>(S+1,0));
+
+	for( int i = 0 ; i <= N ; i++ )
+	for( int j = 0 ; j <= S ; j++ )
+		t[i][j] = INT_MAX ;
+
+	for( int i = 0 ; i <= N ; i++ )t[i][0] = 0 ;
+	
+
+	for( int i = 1 ; i <= N ; i++ )
+	for( int j = 1 ; j <= S ; j++ )
+	{
+		if( j >= A[i-1] )
+		{
+			t[i][j] = min( t[i-1][j] , 1 + t[i][j-A[i-1]] );
+		}
+		else
+			t[i][j] = t[i-1][j] ;
+	}
+
+
     auto solve = [&]()->void
     {
-       int N ;
-       cin>>N;
-       vector<int>A(N);
-       for( auto &x : A )cin>>x ;
 
-       int mn = *min_element( A.begin() , A.end() );
+    	int T ;
+    	cin>>T ;
 
-       for( auto &x : A )
-        x -= mn - 1 ;
+    	int res = INT_MAX ;
+
+    	for( int k = S-100; k <= S ; k++ )
+    	{
+    		int extra = t[N][k]*(T/k) ;
+    		int nT = T%k ;
+
+    		res = min( res , extra + t[N][nT] );
+    	}
+
+    	cout<<res<<endl;
 
 
-       int p=-1;
-       int i ;
-       for( i = 0 ; i < A.size() ; i++ )
-       {
-           if( A[i] == 1 )
-           {
-             break;
-           }
 
-           p = A[i];
-       } 
-
-       auto ok = [&]( int st )->bool
-       {
-
-            if( st < 0 ){
-                return 0 ;
-            }
-                
-            for( int j = 0 ; j  < N ; j++ )
-            {
-                if( __builtin_popcount(st++) != A[i] ){
-                    return 0 ;
-                }
-            }
-                
-            return 1;
-       };
-
-       if( p == -1 )
-       {
-          if( ok(0) )
-          {
-            cout<<mn-1<<endl;
-            return ;
-          }
-
-          for( int j = 0 ; j < 63 ; j++ )
-          {
-             if( ok( pow(2,i) ) ){
-                cout<<mn-1+pow(2,i)<<endl;
-                return ;
-             }
-
-          }
-
-          cout<<-1<<endl;
-          return ;
-       }
-
-      int st = pow( 2 , p) - i ;
-      if(ok(st))
-      {
-        cout<<st+mn-1<<endl;
-      }
-      else
-      {
-        cout<<-1<<endl;
-      }
     };
     
 
