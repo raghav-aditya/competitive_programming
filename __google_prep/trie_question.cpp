@@ -7,7 +7,7 @@ class T
 {
 public:
     string val ; 
-    map< string , T* > childs ;
+    unordered_map< string , T* > childs ;
     bool isFile = false ;
     int fileCount = 0 ;
 
@@ -20,7 +20,6 @@ public:
                 isFile = true ;
         }
     }
-
 };
 
 
@@ -96,7 +95,7 @@ public:
         root = new T("");
     }
 
-    void add( string A )
+    void add( string A )    
     {
         for( auto &x : A ){
             if( x == '/' )x = ' ';

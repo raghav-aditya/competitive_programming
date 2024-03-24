@@ -1,0 +1,54 @@
+Factory
+Singleton 
+Observer
+Builder Pattern
+Strategy Pattern
+Proxy pattern
+Chain of responsibility
+
+
+
+
+
+
+
+
+Factory:->
+
+in this dp, a factory class is used to creat objects of of specific type according to need, and all those returned class extends from the same class.
+
+
+
+
+
+
+
+
+Singletone:->
+
+This Dp, ensures that only one instance of the class will be created, by hiding the constructor of the class, and implementing the getInstance function that returns the class object.
+
+
+
+
+
+
+
+Observer DP-> [ publisher and subscriber ]
+
+two types of classes are there, observers( subscribers, which belong to the same parent class ), and we have publisher class, which has the list of subscribers, when the information is changed, we push the notification to all the subscribers and get them notified.
+
+Example: add to cart for Iphone, Macbook, when the sale is live users will be notified.
+
+
+
+
+
+
+
+
+
+Builder pattern:-> 
+
+
+

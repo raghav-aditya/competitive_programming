@@ -41,54 +41,47 @@ int32_t main() {
     cout.tie(0);
     
 
-    auto solve = [&]()->void
-    {
-        int N , k , x ;
-        cin>>N>>k>>x ;
-        vector<int>A(N);
-        int res = INT_MIN ;
-        for( auto &i : A )cin>>i ;
-        sort( A.begin() , A.end() );
+    int N ;
+    cin>>N ;
+    vector<int>A(N);
+    for( auto &x : A )
+    	cin>>x ;
 
-        vector<int>P(N+1,0);
-        for( int i = 0 ; i < N ; i++ )
-            P[i+1] = A[i] + P[i] ;
+    auto ok = [&]( int k )->bool{
+    	set< int > st ;
 
-        auto get = [&]( int a, int b )-> int {
-            return P[b+1] - P[a] ;
-        };
+    	int cnt = 0 ;
+    	for( auto x : A )
+    	{
+    		if( x < k )
+    		{
+    			cnt++;
+    		}
+    		else
+    		{
+    			if(cnt)
+    			st.insert(cnt);
+    			cnt = 0 ;
+    		}
+    	}
 
-        auto go = [&]()->int{
-            if( A.size() <= x )
-            {
-                return -get( 0 , A.size()-1 );
-            }            
+    	if(cnt)
+    		st.insert(cnt);
 
-            return get( 0 , A.size()-x-1 ) - get( A.size()-x , A.size()-1 );
-
-        };
-
-        res = max( res , go() );
-
-        while( A.size() && k-- )
-        {
-            A.pop_back();
-            res = max( res , go() );
-        }
-        cout<<res<<endl;
+    	cout<<*st.begin()<<" ";
+    	return st.size() == 1 ; 
     };
-    
 
-        
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
+    int l = *min_element( A.begin() , A.end() );
+    int h = *max_element( A.begin() , A.end() );
+    for( int k = l+1 ; k <= h ; k++ )
+    {
+    	cout<<k<<" -> ";
+    	if( ok(k) )
+    		cout<<"YES"<<endl;
+    	else
+    		cout<<"NO"<<endl;
+    }
     
     return 0;
 }
-
-
-
-
-

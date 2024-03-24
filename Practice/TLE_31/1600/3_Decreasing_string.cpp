@@ -41,44 +41,43 @@ int32_t main() {
     cout.tie(0);
     
 
+    auto get = [&]( string &A , int k )-> string 
+    {
+       	string st ;
+       	int left = A.size()-1;
+       	for( auto x : A ){
+       		while( st.size() && st.size() + left >= k && x < st.back() ){
+       			st.pop_back();
+       		}
+
+       		st.push_back(x);
+       		left--;
+       	}
+       	return st.substr(0,k);
+    };	
+
     auto solve = [&]()->void
     {
-        int N , k , x ;
-        cin>>N>>k>>x ;
-        vector<int>A(N);
-        int res = INT_MIN ;
-        for( auto &i : A )cin>>i ;
-        sort( A.begin() , A.end() );
+    	string A ;
+    	cin>>A ;
+    	int N = A.size();
+    	int k ;
+    	cin>>k ;
 
-        vector<int>P(N+1,0);
-        for( int i = 0 ; i < N ; i++ )
-            P[i+1] = A[i] + P[i] ;
-
-        auto get = [&]( int a, int b )-> int {
-            return P[b+1] - P[a] ;
-        };
-
-        auto go = [&]()->int{
-            if( A.size() <= x )
-            {
-                return -get( 0 , A.size()-1 );
-            }            
-
-            return get( 0 , A.size()-x-1 ) - get( A.size()-x , A.size()-1 );
-
-        };
-
-        res = max( res , go() );
-
-        while( A.size() && k-- )
-        {
-            A.pop_back();
-            res = max( res , go() );
-        }
-        cout<<res<<endl;
+    	int curr = N ; 
+    	int t = 0 ;
+    	for( t = 0 ; t < N ; t++ )
+    	{
+    		if( k - curr <= 0 )
+    		{
+    			break ; 
+    		}
+    		k -= curr ;
+    		curr--;
+    	}
+    	auto res = get( A , N-t );
+    	cout<<res[k-1];
     };
-    
-
         
     int test = 1 ;
     cin>>test;
@@ -87,8 +86,3 @@ int32_t main() {
     
     return 0;
 }
-
-
-
-
-

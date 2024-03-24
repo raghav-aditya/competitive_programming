@@ -34,6 +34,29 @@ int inverse( int a )
    what chance do I have to beat him? 
 */
 
+int cnt = 0 ;
+
+int dfs( vector<int>g[] , int u , int p )
+{
+    int res = 1 ;
+    for( auto v : g[u] )
+    {
+        if( v != p )
+        {
+            int sz = dfs( g , v , u );
+
+            res += sz ;
+
+            if( sz%2 == 0)
+            {
+                cnt++;
+                res -= sz ;
+            }
+        }
+    }
+    return res ;
+}
+
 int32_t main() {
     // your code goes here
     ios::sync_with_stdio(0);
@@ -41,54 +64,36 @@ int32_t main() {
     cout.tie(0);
     
 
-    auto solve = [&]()->void
+    int N ;
+    cin>>N ;
+    vector<int>g[N];
+    for( int i = 0 ; i < N- 1 ; i++ )
     {
-        int N , k , x ;
-        cin>>N>>k>>x ;
-        vector<int>A(N);
-        int res = INT_MIN ;
-        for( auto &i : A )cin>>i ;
-        sort( A.begin() , A.end() );
+        int a , b ;
+        cin>>a>>b ;
+        a--;
+        b--;
 
-        vector<int>P(N+1,0);
-        for( int i = 0 ; i < N ; i++ )
-            P[i+1] = A[i] + P[i] ;
+        g[a].push_back(b);
+        g[b].push_back(a);
+    }
 
-        auto get = [&]( int a, int b )-> int {
-            return P[b+1] - P[a] ;
-        };
+    if( N&1 )
+    {
+        cout<<-1<<endl;
+        return 0 ;
+    }
 
-        auto go = [&]()->int{
-            if( A.size() <= x )
-            {
-                return -get( 0 , A.size()-1 );
-            }            
 
-            return get( 0 , A.size()-x-1 ) - get( A.size()-x , A.size()-1 );
+    int res = dfs( g , 0 , -1 );
 
-        };
+    if( res%2 )
+    {
+        cout<<-1<<endl;
+        return 0;
+    }
 
-        res = max( res , go() );
+    cout<<cnt<<endl;
 
-        while( A.size() && k-- )
-        {
-            A.pop_back();
-            res = max( res , go() );
-        }
-        cout<<res<<endl;
-    };
-    
-
-        
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
-    
     return 0;
 }
-
-
-
-
-

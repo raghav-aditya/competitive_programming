@@ -43,39 +43,7 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-        int N , k , x ;
-        cin>>N>>k>>x ;
-        vector<int>A(N);
-        int res = INT_MIN ;
-        for( auto &i : A )cin>>i ;
-        sort( A.begin() , A.end() );
-
-        vector<int>P(N+1,0);
-        for( int i = 0 ; i < N ; i++ )
-            P[i+1] = A[i] + P[i] ;
-
-        auto get = [&]( int a, int b )-> int {
-            return P[b+1] - P[a] ;
-        };
-
-        auto go = [&]()->int{
-            if( A.size() <= x )
-            {
-                return -get( 0 , A.size()-1 );
-            }            
-
-            return get( 0 , A.size()-x-1 ) - get( A.size()-x , A.size()-1 );
-
-        };
-
-        res = max( res , go() );
-
-        while( A.size() && k-- )
-        {
-            A.pop_back();
-            res = max( res , go() );
-        }
-        cout<<res<<endl;
+        
     };
     
 
@@ -87,8 +55,3 @@ int32_t main() {
     
     return 0;
 }
-
-
-
-
-
