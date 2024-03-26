@@ -43,39 +43,49 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-        int N , k , x ;
-        cin>>N>>k>>x ;
-        vector<int>A(N);
-        int res = INT_MIN ;
-        for( auto &i : A )cin>>i ;
-        sort( A.begin() , A.end() );
+        int N ;
+        cin>>N ;
+        vector< int >A(N);
+        for( auto &x : A )cin>>x ;
 
-        vector<int>P(N+1,0);
-        for( int i = 0 ; i < N ; i++ )
-            P[i+1] = A[i] + P[i] ;
+        auto B = A ;
+        for( auto x : B )
+            A.push_back(x);
 
-        auto get = [&]( int a, int b )-> int {
-            return P[b+1] - P[a] ;
-        };
+        int M = A.size();
+        int t[M][M];
+        memset( t , 0 , sizeof t );
 
-        auto go = [&]()->int{
-            if( A.size() <= x )
-            {
-                return -get( 0 , A.size()-1 );
-            }            
+        vector< int > P(M+1, 0);
 
-            return get( 0 , A.size()-x-1 ) - get( A.size()-x , A.size()-1 );
+        for( int i = 0 ; i < M ; i++ )
+            P[i+1] = P[i] + A[i];
 
-        };
+        auto get = [&]( int a , int b )->int{
+                return P[b+1]-P[a];
+        };  
 
-        res = max( res , go() );
-
-        while( A.size() && k-- )
+        for( int L = 2 ; L <= N ; L++ )
+        for( int i = 0 ; i+L-1<M; i++ )
         {
-            A.pop_back();
-            res = max( res , go() );
+            int j = i+L-1;
+            int cost = get( i , j );
+            t[i][j] = pow(10LL,16) ;
+
+            for( int k = i ; k < j ; k++ )
+            {
+                t[i][j] = min( t[i][j] , t[i][k] + t[k+1][j] + cost );
+            }
         }
+
+        int res = pow(10LL,16) ;
+        for( int i = 0 ; i+N-1< M ; i++ )
+        {
+            res = min( res , t[i][i+N-1] );
+        }
+
         cout<<res<<endl;
+
     };
     
 
@@ -87,8 +97,3 @@ int32_t main() {
     
     return 0;
 }
-
-
-
-
-

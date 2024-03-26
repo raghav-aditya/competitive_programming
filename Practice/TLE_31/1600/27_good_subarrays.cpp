@@ -43,7 +43,30 @@ int32_t main() {
 
     auto solve = [&]()->void
     {
-        
+        int N ;
+        cin>>N ;
+        string A ;
+        cin>>A ;
+        vector<int>P(N+1,0);
+
+        for( int i = 0 ; i < N ; i++ )
+        	P[i+1] = P[i] + (A[i]-'0');
+
+        for( int i = 0 ; i <= N ; i++ )
+        	P[i] -= i;
+
+        int res = 0 ;
+        unordered_map< int , int > mp;
+
+        // for( auto x : P )
+        // 	cout<<x<<" ";
+
+        // cout<<endl;
+
+        for( int i = 0 ; i <= N ; i++ )
+        	res += mp[P[i]]++;
+
+        cout<<res<<endl;
     };
     
 
