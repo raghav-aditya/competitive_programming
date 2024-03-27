@@ -62,44 +62,7 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
-        int N , k ;
-        cin>>N>>k ;
-        string A ;
-        cin>>A ;
 
-        vector<int>L(N);
-        vector<int>R(N);
-
-        int l = INT_MIN ;
-        for( int i = 0 ; i < N ; i++ )
-        {
-            if( A[i] == '1' )
-                l = i ;
-            L[i] = l ;
-        }
-
-        l = INT_MAX ;
-
-        for( int i = N-1 ; i >= 0 ; i-- )
-        {
-            if( A[i] == '1' )
-                l = i ;
-            R[i] = l ;
-        }
-
-        string res ;
-
-        for( int i = 0 ; i < N ; i++ )
-        {
-            int f = min( i-L[i] , R[i]-i );
-            int d = k-f ;
-            if( d&1 )
-                res += '0';
-            else
-                res += '1';
-        }
-
-        cout<<res<<endl;
         
     };
     

@@ -62,50 +62,79 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
-        int N , k ;
-        cin>>N>>k ;
-        string A ;
-        cin>>A ;
+    	int N , M , Q ;
+    	cin>>N>>M>>Q ;
+    	vector<int>g[N+10];
 
-        vector<int>L(N);
-        vector<int>R(N);
+    	for( int i = 0 ; i < M ; i++ )
+    	{
+    		int a , b ; 
+    		cin>>a>>b ;
 
-        int l = INT_MIN ;
-        for( int i = 0 ; i < N ; i++ )
-        {
-            if( A[i] == '1' )
-                l = i ;
-            L[i] = l ;
-        }
+    		g[a].push_back(b);
+    		g[b].push_back(a);
+    	}
+    	vector< int > vis(N+10,0);
+    	queue< int > q ; 
 
-        l = INT_MAX ;
 
-        for( int i = N-1 ; i >= 0 ; i-- )
-        {
-            if( A[i] == '1' )
-                l = i ;
-            R[i] = l ;
-        }
+    	auto time_bfs = [&]( int T )->void{
 
-        string res ;
+    		while( q.size() && T-- )
+    		{
+    			int sz = q.size();
+    			while(sz--)
+    			{
+    				auto beg = q.front() ; q.pop();
 
-        for( int i = 0 ; i < N ; i++ )
-        {
-            int f = min( i-L[i] , R[i]-i );
-            int d = k-f ;
-            if( d&1 )
-                res += '0';
+    				for( auto v : g[beg] ){
+    					if( vis[v] == 0 )
+    					{
+                            vis[v] = 1 ;
+    						q.push(v);
+    					}
+    				}
+    			}
+    		}
+
+    	};	
+
+
+    	for( int i = 0 ; i < Q ; i++ )
+    	{
+            int a , b ;
+            cin>>a>>b ;
+
+
+            if( a == 1 )
+            {
+               if( vis[b] == 0 )
+               {
+                    vis[b] = 1;
+                    q.push(b);
+               }
+            }
+            else if( a == 2 )
+            {
+                time_bfs(b);
+            }
             else
-                res += '1';
-        }
-
-        cout<<res<<endl;
-        
+            {
+                if(vis[b])
+                {
+                    cout<<"YES"<<endl;
+                }
+                else
+                {
+                    cout<<"NO"<<endl;
+                }
+            }
+    	}
     };
     
 
     int test = 1 ;
-    cin>>test;
+    // cin>>test;
     while(test--)
     solve();
     

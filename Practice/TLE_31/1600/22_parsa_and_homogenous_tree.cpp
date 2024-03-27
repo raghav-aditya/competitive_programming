@@ -55,6 +55,29 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+void dfs( vector<int>g[] , int u , int p , vector<ar>&dp , vector<ar>&A )
+{
+    dp[u][0] = 0 ;
+    dp[u][1] = 0 ;
+
+    int a = A[u][0];
+    int b = A[u][1];
+
+    for( auto v : g[u] )
+    {
+        if( v == p )continue ;
+
+        int c = A[v][0];
+        int d = A[v][1];
+
+        dfs( g , v , u , dp , A );
+
+        dp[u][0] += max( dp[v][0] + abs( a - c )  ,  dp[v][1] + abs( a-d ) );
+        dp[u][1] += max( dp[v][0] + abs( b - c )  ,  dp[v][1] + abs( b-d ) );
+    }    
+}
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -62,45 +85,25 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
-        int N , k ;
-        cin>>N>>k ;
-        string A ;
-        cin>>A ;
+    	int N ;
+    	cin>>N ;
 
-        vector<int>L(N);
-        vector<int>R(N);
+    	vector<int>g[N];
 
-        int l = INT_MIN ;
-        for( int i = 0 ; i < N ; i++ )
+    	vector<ar> A(N);
+        for( auto &x : A )cin>>x[0]>>x[1];
+
+        for( int i = 0 ; i < N-1 ; i++ )
         {
-            if( A[i] == '1' )
-                l = i ;
-            L[i] = l ;
+            int a , b ;
+            cin>>a>>b ; a--; b--;
+            g[a].push_back(b);
+            g[b].push_back(a);
         }
 
-        l = INT_MAX ;
-
-        for( int i = N-1 ; i >= 0 ; i-- )
-        {
-            if( A[i] == '1' )
-                l = i ;
-            R[i] = l ;
-        }
-
-        string res ;
-
-        for( int i = 0 ; i < N ; i++ )
-        {
-            int f = min( i-L[i] , R[i]-i );
-            int d = k-f ;
-            if( d&1 )
-                res += '0';
-            else
-                res += '1';
-        }
-
-        cout<<res<<endl;
-        
+        vector< ar > dp( N );
+        dfs( g , 0 , -1 , dp , A );
+        cout<<max( dp[0][0] , dp[0][1] )<<endl;    	
     };
     
 
