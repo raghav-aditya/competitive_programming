@@ -55,15 +55,63 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+int task( int N )
+{
+    int res = 0 ;
+
+    for( int i = 2 ; i*i <= N ; i++ )
+    {
+        int a = 1 ;
+        while( N%i == 0 )
+        {
+            a *= i ;
+            N /= i ;
+        }
+
+        res = max( res , a );
+    }
+
+    res = max( res , N );
+
+    return res ;
+}
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void
-    {
 
-        
+    int k = 3*pow(10,5)+10;
+    vector<int>A(k);
+    for( int i = 1 ; i < k ; i++ ){
+        A[i] = task( i );
+    }
+
+    vector<int>P(k+1,0);
+    for( int i = 0 ; i < k ; i++ )
+        P[i+1] = P[i] + A[i];
+
+    auto get = [&]( int a , int b )-> int {
+        return P[b+1] - P[a] ;
+    };
+
+    auto solve = [&]()->void
+    {   
+        int L , R ;
+
+        cin>>L>>R ;
+
+        if( L == 1 )
+        {
+            cout<<get( 1 , R )<<endl;
+        }   
+        else
+        {
+            cout<<"not done yet"<<endl;
+        }
+            
     };
     
 

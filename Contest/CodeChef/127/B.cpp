@@ -63,7 +63,28 @@ int32_t main() {
     auto solve = [&]()->void
     {
 
-        
+         int N , L ;
+         cin>>N>>L ;
+
+         int cnt = 0 ; 
+         int k = (L)/2 ;
+
+         for( int i = 1 ; i < k && cnt < N ; i++ ){
+            cout<<i<<" ";
+            cnt++;
+         }
+
+         if( cnt == N ){
+            cout<<endl;
+            return ;
+         }
+         for( int i = 2*L ; cnt < N ; i+=L )
+         {
+            cout<<i<<" ";
+            cnt++;
+         }
+
+         cout<<endl;
     };
     
 

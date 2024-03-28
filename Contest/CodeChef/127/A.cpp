@@ -62,7 +62,24 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
+        int N , k , x ;
+        cin>>N>>k>>x ;
 
+        if( k > 35 )
+        {
+            cout<<"NO"<<endl;
+        }
+        else
+        {
+            if( x >= pow( 2LL , k-1 ) )
+            {
+                cout<<"YES"<<endl;
+            }
+            else
+            {
+                cout<<"NO"<<endl;
+            }
+        }
         
     };
     

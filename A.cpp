@@ -55,59 +55,136 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    string task( string A )
+    {
+        for( auto &x : A )
+        {
+            if( x == '-' )
+                x = ' ';
+        }
+
+        stringstream ss(A);
+
+        string x ;
+        string res ;
+
+        while( ss>>x ){
+
+            reverse( x.begin() , x.end() );
+            res += x ;
+        }
+
+        res.pop_back();
+        reverse(res.begin() , res.end());
+        return res;
+    }
+
+
+
+
+
+    vector< vector<string> > f( vector< vector< string > > &A )
+    {
+
+        vector< vector<string >  > B ;
+
+        for( auto x : A )
+        {
+
+            string a = x[0];
+            string b = x[1];
+            string c = x[2];
+            string d = x[3];
+            string e ;
+
+            if( c == "ERROR" || c == "CRITICAL" ){
+
+                e = task(a); // 01 01 2023 -> 
+
+                B.push_back({
+                    e , b , c , d , a 
+                });
+            }
+        }
+        sort( B.begin() , B.end());
+        vector< vector< string > > res ;
+
+        for( auto &x : B )
+        {
+
+            string a = x[0];
+            string b = x[1];
+            string c = x[2];
+            string d = x[3];
+            string e = x[4];
+
+            cout<<e<<" "<<b<<" "<<c<<" "<<d<<endl;
+            res.push_back({ e , b , c , d });
+        }
+
+        return res ;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
-    auto solve = [&]()->void
+
+    vector< vector< string > > A =
     {
-        int N , k ;
-        cin>>N>>k ;
-        string A ;
-        cin>>A ;
-
-        vector<int>L(N);
-        vector<int>R(N);
-
-        int l = INT_MIN ;
-        for( int i = 0 ; i < N ; i++ )
-        {
-            if( A[i] == '1' )
-                l = i ;
-            L[i] = l ;
-        }
-
-        l = INT_MAX ;
-
-        for( int i = N-1 ; i >= 0 ; i-- )
-        {
-            if( A[i] == '1' )
-                l = i ;
-            R[i] = l ;
-        }
-
-        string res ;
-
-        for( int i = 0 ; i < N ; i++ )
-        {
-            int f = min( i-L[i] , R[i]-i );
-            int d = k-f ;
-            if( d&1 )
-                res += '0';
-            else
-                res += '1';
-        }
-
-        cout<<res<<endl;
-        
+        { "26-10-2020" , "04:21" , "ERROR" , "failed" },
+        { "26-10-2020" , "15:03" , "ERROR" , "failed" },
+        { "26-10-2020" , "08:59" , "ERROR" , "failed" }
     };
-    
 
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
-    
+
+// 26-10-2020 04:21 ERROR failed
+// 26-10-2020 15:03 ERROR failed
+// 26-10-2020 08:59 ERROR failed
+
+    // 01-01-2023
+    // 10 10 3202 -> 2023 01 01 
+
+    /// 2023 - 01 - 13 
+    /// 2023 - 01 - 14
+
+    f( A );
     return 0;
 }
