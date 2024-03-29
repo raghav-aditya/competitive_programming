@@ -17,12 +17,12 @@ const int mod = pow(10,9)+7 ;
 const int MAX = pow(10,5)+1 ;
 const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
 const int dy[8] = { 0 , 0 , 1 , -1 , 1 , -1 , 1 , -1 } ;
-int mod_pow( int a , int b , int md = mod )
+int mod_pow( int a , int b )
 {
     if( a == 0 || a == 1 ) return a ;
     if( b == 0 )return 1 ;
-    int ha = mod_pow( a , b/2 ); ha *= ha; ha %= md ; if( b&1 ) ha *= a ;
-    return ha%md ;
+    int ha = mod_pow( a , b/2 ); ha *= ha; ha %= mod ; if( b&1 ) ha *= a ;
+    return ha%mod ;
 }
 int inverse( int a )
 {
@@ -48,7 +48,6 @@ int nCr( int N , int R )
     res = (res%mod+mod)%mod; return res ;
 }
 
-
 /********** GO DOWN ***********/
 
 /* 
@@ -56,15 +55,73 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+set< int > st ;
+
+void go( string A )
+{
+
+	if( (A.size() > 6) || ( A.size() && stoi(A) > pow(10,6)) || ( A.size() && A.front() != A.back() ) )
+		return ;
+
+	int a = 0 ;
+	if( A.size() )
+	a = stoi(A);
+
+	if( a == 0 || (A.size() && A.front() != '0') )
+		st.insert(a);
+
+	for( auto base = '0' ; base <= '9' ; base++ )
+	{
+		string B ;
+		B += base ;
+		B += A ;
+		B += base ;
+		go( B );
+	}
+}
+
+void task()
+{
+	string res ;
+	for( auto base = '0' ; base <= '9' ; base++ )
+	{
+		res = "";
+		res += base ;
+		go( res );
+	}
+	res = "";
+ 	go( res );
+}
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+    task();
+    cout<<st.size()<<endl;
     auto solve = [&]()->void
     {
+    	
+    	int N ;
+    	cin>>N ;
+    	vector<int>A(N);
 
+    	for( auto &x : A )cin>>x ;
 
+    	unordered_map< int , int > mp ;
+    	int res = 0 ;
+    	for( auto x : A )
+    	{
+    		for( auto y : st )
+    		{
+    			int look = y^x ;
+
+    			res += mp[look];
+    		}
+    		mp[x]++;
+    	}
+    	cout<<(N+res)<<endl;
+    	
     };
     
 

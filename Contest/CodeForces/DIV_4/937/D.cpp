@@ -48,7 +48,6 @@ int nCr( int N , int R )
     res = (res%mod+mod)%mod; return res ;
 }
 
-
 /********** GO DOWN ***********/
 
 /* 
@@ -56,15 +55,56 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+bool ok( int N , set<int>&st ){
+
+	if( st.count(N ) )return 1 ;
+	int res = 0 ;
+
+	for( auto x : st ){
+		if( N%x == 0 && x != 1 )
+		res |= ok( N/x , st );
+	}
+
+	if(res)
+		st.insert(N);
+	return res;
+}
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void
+    vector<int> bin ;
+
+    for( int b = 1 ;  b <= on(5) ; b++ )
     {
+    	string A ;
+    	for( int i = 7 ; i >= 0 ; i-- ){
+    		if( b&on(i) )
+    			A += '1';
+    		else
+    			A += '0';
+    	}
+
+    	int a = stoi(A);
+    	bin.push_back(a);
+    }
+
+    set<int>pp(all(bin));
+
+    auto solve = [&]()->void
+    {	
 
 
+    	int N;
+    	cin>>N ;
+
+    	if(ok(N , pp))
+    		cout<<"YES"<<endl;
+    	else
+    		cout<<"NO"<<endl;
     };
     
 

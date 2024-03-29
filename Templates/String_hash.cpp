@@ -101,8 +101,8 @@ public:
         }
         else
         {
-            swap( a, b ); 
-            a = N-1-a ;  
+            swap( a, b ); // [ 0 , N-1 ] -> [ N-1 , 0 ]
+            a = N-1-a ;   // [0]
             b = N-1-b ;   
             int res = ((B[b+1] - B[a])%mod +mod)%mod ;
             res = ((res*ti[a])%mod + mod )%mod ;
@@ -110,13 +110,40 @@ public:
         }
     }
 
+    bool task( int i , int j )
+    {
+        int a = 0 ;
+        int b = i-1;
+        int c = j+1;
+        int d = N-1;
+
+        int L1 = (b-a+1);
+        int L2 = (d-c+1); 
+        
+        int f1 = get( a , b );
+        int f2 = get( c , d );
+
+        int r1 = (f1 + (f2*t[L1])%mod)%mod ;
+        r1 = (r1 + mod)%mod;
+
+        int b2 = get( a , b , 1 );
+        int b1 = get( c , d , 1 );
+
+        int r2 = (b1 + (b2*t[L2])%mod)%mod ;
+        r2 = (r2 + mod)%mod;
+
+        return r1 == r2 ;
+    }
+
+    bool is_substring_pallindrom( int i , int j ){
+        return get( i , j ) == get( i , j , 1 );
+    } 
+
     bool isPallindrome()
     {
         return get( 0 , N-1 ) == get( 0 , N-1 , 1 );
     }
 };
-
-
 
 /********** GO DOWN ***********/
 
@@ -125,22 +152,12 @@ public:
    what chance do I have to beat him? 
 */
 
-int32_t main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    
-    auto solve = [&]()->void
-    {
 
+int32_t main()
+{
 
-    };
-    
+	
 
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
-    
-    return 0;
+	return 0 ;
+
 }

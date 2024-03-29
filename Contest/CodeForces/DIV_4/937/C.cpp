@@ -7,7 +7,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long long
+// #define int long long
 #define all(x) begin(x) , end(x) 
 #define on(i) (1LL << (i))
 #define mask(i) (on(i)-1LL)
@@ -48,13 +48,39 @@ int nCr( int N , int R )
     res = (res%mod+mod)%mod; return res ;
 }
 
-
 /********** GO DOWN ***********/
 
 /* 
    If the genius trains just as hard.... 
    what chance do I have to beat him? 
 */
+
+
+
+void f( int twenty_four_hrs ){
+int hrs,min;
+hrs=twenty_four_hrs/100;
+min=twenty_four_hrs%100;
+if(hrs==0&&hrs!=12){
+    hrs=12; 
+    printf("%.2d:%.2d AM\n",hrs,min);
+ }
+else if(hrs==12&&hrs!=0){
+    hrs=12; 
+    printf("%.2d:%.2d PM\n",hrs,min);
+ }
+else if(hrs<12&&hrs!=0){
+    hrs=hrs;
+    min=min; 
+    printf("%.2d:%.2d AM\n",hrs,min);
+ }
+else if(hrs>12&&hrs!=0)
+ { 
+    hrs=hrs-12; 
+    min=min; 
+    printf("%.2d:%.2d PM\n",hrs,min);
+ }
+}
 
 int32_t main() {
     ios::sync_with_stdio(0);
@@ -63,7 +89,24 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
+    	string A ;
+    	cin>>A ;
 
+
+    	string a , b ;
+    	for( auto &x : A )
+    		if( x == ':' )x = ' ';
+
+    	stringstream ss(A);
+
+    	ss>>a ;
+    	ss>>b ;
+
+    	a += b ;
+
+    	int num = stoi(a);
+
+    	f(num);
 
     };
     

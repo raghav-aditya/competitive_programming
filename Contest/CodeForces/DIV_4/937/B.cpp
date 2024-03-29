@@ -48,7 +48,6 @@ int nCr( int N , int R )
     res = (res%mod+mod)%mod; return res ;
 }
 
-
 /********** GO DOWN ***********/
 
 /* 
@@ -60,9 +59,38 @@ int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
+
+
     
     auto solve = [&]()->void
     {
+
+    	int N ;
+    	cin>>N ;
+    	vector< string > A( 2*N , string(2*N,'.' ));
+
+
+    	for( int i = 0 ; i < 2*N ; i++ )
+    	for( int j = 0 ; j < 2*N ; j++ )
+    	{
+    		int a = i/2 ;
+    		int b = j/2 ;
+
+    		if(a&1)
+    		{
+    			if(b&1)
+    				A[i][j] = '#';
+    		}
+    		else
+    		{
+    			if(!(b&1))
+    				A[i][j] = '#';
+    		}
+    	}
+
+    	for( auto x : A )
+    		cout<<x<<endl;
+
 
 
     };

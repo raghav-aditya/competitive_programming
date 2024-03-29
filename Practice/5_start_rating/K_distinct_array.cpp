@@ -17,12 +17,12 @@ const int mod = pow(10,9)+7 ;
 const int MAX = pow(10,5)+1 ;
 const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
 const int dy[8] = { 0 , 0 , 1 , -1 , 1 , -1 , 1 , -1 } ;
-int mod_pow( int a , int b , int md = mod )
+int mod_pow( int a , int b )
 {
     if( a == 0 || a == 1 ) return a ;
     if( b == 0 )return 1 ;
-    int ha = mod_pow( a , b/2 ); ha *= ha; ha %= md ; if( b&1 ) ha *= a ;
-    return ha%md ;
+    int ha = mod_pow( a , b/2 ); ha *= ha; ha %= mod ; if( b&1 ) ha *= a ;
+    return ha%mod ;
 }
 int inverse( int a )
 {
@@ -48,7 +48,6 @@ int nCr( int N , int R )
     res = (res%mod+mod)%mod; return res ;
 }
 
-
 /********** GO DOWN ***********/
 
 /* 
@@ -63,8 +62,29 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
+    	int N , k ;
+    	cin>>N>>k ;
+    	int t = (N*(N+1))>>1 ;
+    	k = t - k ;
 
+    	int L = N-1 ;
 
+    	vector<int>A(N);
+    	iota( A.begin() , A.end() , 1 );
+
+    	while( k > 0 )
+    	{
+    		int p = min( L , k );
+    		int in = N-p ;
+
+    		A[in] = 1 ;
+    		k -= p ;
+    		L = p-1 ;
+    	}
+
+    	for( auto x : A )
+    		cout<<x<<" ";
+    	cout<<endl;
     };
     
 
@@ -74,4 +94,5 @@ int32_t main() {
     solve();
     
     return 0;
-}
+  
+ }
