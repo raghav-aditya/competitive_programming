@@ -63,7 +63,24 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
+    	int N , k ;
+    	cin>>N>>k ;
 
+    	vector<int>A(N,1);
+
+    	if(k==1)
+    		iota( all(A) , 1 );
+
+    	if( k == 1 || k == N )
+    	{
+    		for( auto x : A )
+    			cout<<x<<" ";
+    		cout<<endl;
+    	}
+    	else
+    	{
+    		cout<<-1<<endl;
+    	}
 
     };
     

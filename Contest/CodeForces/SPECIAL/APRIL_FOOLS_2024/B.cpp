@@ -13,7 +13,7 @@ using namespace std;
 #define mask(i) (on(i)-1LL)
 #define vi vector<int>
 #define vvi vector<vi>
-const int mod = pow(10,9)+7 ;
+const int mod = 20240401 ;
 const int MAX = pow(10,5)+1 ;
 const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
 const int dy[8] = { 0 , 0 , 1 , -1 , 1 , -1 , 1 , -1 } ;
@@ -60,18 +60,10 @@ int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
-    auto solve = [&]()->void
-    {
+  	
+  	
+    cout<<"?";
 
 
-    };
-    
-
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
-    
-    return 0;
-}
+return 0;
+}   

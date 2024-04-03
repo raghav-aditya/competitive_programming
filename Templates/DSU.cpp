@@ -1,9 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std ;
 
-#define int long long
-#define all(x) begin(x) , end(x) 
-#define ar array<int,2>
+#include <bits/stdc++.h>
+using namespace  std ;
 
 class DSU
 {
@@ -17,7 +14,7 @@ public:
 	{
 		this->N = sz ;
 		par.resize(N,0);
-		iota(all(par),0);
+		iota( par.begin() , par.end() ,0);
 		size.resize(N,1);
 	}
 
@@ -35,11 +32,27 @@ public:
 
 	void join( int a , int b )
 	{
-		if( find(a) == find(b) )
+		if( is_same( a, b) )
 			return ;
+		
 		int L = get(a) ;
 		int R = get(b) ;
-		par[a] = find(b);
+
+		if( L > R )
+		{
+			swap( L , R );
+			swap( a , b );
+		}
+
+		par[find(a)] = find(b);
 		size[find(a)] = L + R ;
 	}
-};
+
+    bool is_same( int a , int b )
+    {
+        if( find(find(a)) == find(find(b)) )
+        return 1 ;
+
+        return 0 ;
+    }
+};	

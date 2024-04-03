@@ -56,6 +56,36 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+class MEX
+{
+	set<int>s1 , s2 ;
+	int N ;
+public:
+	MEX( int N_ )
+	{
+		this->N = N_ ;
+		for( int i = 0 ; i <= N ; i++ )
+			s2.insert(i);
+	}
+
+	void insert( int x )
+	{
+		s1.insert(x);
+		s2.erase(x);
+	}
+
+	void erase( int x )
+	{
+		s1.erase(x);
+		s2.insert(x);
+	}
+
+	int mex()
+	{
+		return *s2.begin();
+	}
+};
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -65,6 +95,34 @@ int32_t main() {
     {
 
 
+    	int N ;
+    	cin>>N ;
+    	vector<int>A(N);
+    	for( auto &x : A )cin>>x ;
+
+    	vector<int>res;
+    	MEX tool( N );
+
+
+    	for( int i = 0 ; i < N ; i++ )
+    	{
+    		int p = tool.mex() - A[i];
+    		
+    		if( A[i] < 0 )
+    		{
+    			res.push_back(p);
+    		}
+    		else{
+    			res.push_back(tool.mex());
+    		}
+
+    		tool.insert( res.back() );
+    	}
+
+
+    	for( auto x : res )
+    		cout<<x<<" ";
+    	cout<<endl;
     };
     
 

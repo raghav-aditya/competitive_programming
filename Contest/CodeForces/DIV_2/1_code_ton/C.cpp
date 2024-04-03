@@ -56,6 +56,25 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+int go( vector<int>&A )
+{
+	int N = A.size();
+	vector<int>B ;
+	for( int i = 0 ; i < N ; i++ )
+	{
+		int j = (i+1)%N ;
+		int v = abs(A[i]-A[j]);
+		v %= 2 ;
+		B.push_back(v);
+	}
+
+	int mn = 1 ;
+	if( N == 4 )
+		mn = 2 ;
+
+	return 1 ;
+}
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
@@ -63,8 +82,15 @@ int32_t main() {
     
     auto solve = [&]()->void
     {
-
-
+    	int N , x , y ;
+    	cin>>N>>x>>y ;
+    	vector<int>A(x);
+    	for( auto &x_ : A )cin>>x_ ;
+    	sort( A.begin() , A.end() );
+    	if( A.back() != N )
+    		A.push_back(N);
+    	// cout<<go(A)<<endl;
+    	go(A);
     };
     
 

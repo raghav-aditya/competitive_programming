@@ -56,22 +56,77 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+vector< vector<int> > dp ;
+vector<int>A ;
+vector<int>res;
+
+void dfs( vector<int>g[] , int u , int p )
+{
+    dp[u].push_back(A[u]);
+    int mx = 1 ;
+    int id = -1 ;
+
+    for( auto v : g[u] )
+    {
+        if( v == p )continue;
+
+        dfs( g , v , u );
+        if( dp[v].size() > mx )
+        {
+            mx = dp[v].size();
+            id = v ;
+        }
+    }
+
+    if( id != -1 )
+        swap( dp[id] , dp[u] );
+
+    for( auto v : g[u] )
+    {
+        if( v == p )continue;
+
+        for( auto x : dp[v] )
+            dp[u].push_back(x);
+    }
+    sort( dp[u].begin() , dp[u].end() );
+
+    res[u] = dp[u].end() - upper_bound( all(dp[u]) , A[u] );
+}
+
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void
-    {
+    auto solve = [&]()->void{
+        int N;
+        cin>>N ;
+        vector<int>g[N];
+        A.resize(N);
+        res.resize(N);
+        for( auto &x : A )cin>>x ;
 
+        for( int i = 1 ; i < N ; i++ )
+        {
+            int p ; cin>>p ;
+            p--;
+            g[p].push_back(i);            
+        }
 
+        dp.resize(N);
+
+        dfs( g , 0 , -1 );
+
+        for( auto x : res )
+            cout<<x<<endl;
     };
     
 
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
-    
-    return 0;
-}
+int test = 1 ;
+// cin>>test;
+while(test--)
+solve();
+return 0;
+}   

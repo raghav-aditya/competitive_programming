@@ -56,22 +56,108 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+class T
+{
+	map< int , int >mp;
+	stack<int>st;
+	multiset<int>my_set ;
+
+public:
+	T(){
+	}
+
+	void insert( int x ){
+			
+		st.push(x);
+
+		if(mp[x]>0)
+			my_set.erase(my_set.find(mp[x]));
+
+		mp[x]++;
+		my_set.insert(mp[x]);	
+	}
+
+	void erase()
+	{
+		if(st.size()==0)
+			return ;
+		int x = st.top();
+		st.pop();
+
+		my_set.erase(my_set.find(mp[x]));
+
+		mp[x]--;
+
+		if(mp[x]>0)
+		my_set.insert(mp[x]);	
+	}
+
+	bool ok( int a )
+	{
+		if(st.size()==0)
+			return 0 ;
+		int N = st.size();
+		int k = mp[a];
+		
+		return 2*k > N ;		
+	}
+};
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void
-    {
+    auto solve = [&]()->void{
+        
+    	int N , Q ;
 
+    	cin>>N>>Q ;
+    	T A[N][N];
 
+    	for( int i = 0 ; i < Q ; i++ )
+    	{
+    		int t ;
+    		cin>>t ;
+
+    		if( t == 0 )
+    		{
+    			char c ;
+    			cin>>c;
+    			int c_ = c-'a';
+    			int  a , b ;
+    			cin>>a>>b ;
+
+    			A[a][b].insert(c_);
+    			
+
+    		}
+    		else if( t == 1 )
+    		{
+    			int a , b ;
+    			cin>>a>>b ;
+
+    			A[a][b].erase();
+    		}
+    		else
+    		{
+    			char c ;
+    			cin>>c;
+    			int c_ = c-'a';
+    			int a , b ;
+    			cin>>a>>b ;
+
+    			if( A[a][b].ok(c_) ){
+    				cout<<"yes"<<endl;
+    			}
+    			else{
+    				cout<<"no"<<endl;
+    			}
+    		}
+    	}
     };
     
 
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
-    
-    return 0;
-}
+solve();
+return 0;
+}   

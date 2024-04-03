@@ -61,17 +61,15 @@ int32_t main() {
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void
-    {
-
+    auto solve = [&]()->void{
+        
 
     };
     
 
-    int test = 1 ;
-    cin>>test;
-    while(test--)
-    solve();
-    
-    return 0;
-}
+int test = 1 ;
+cin>>test;
+while(test--)
+solve();
+return 0;
+}   

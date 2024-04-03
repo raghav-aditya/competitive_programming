@@ -168,7 +168,7 @@ int query( int a , int b ){
 
     res = max( res , st.get( pos[a] , pos[b] ));
 
-    cout<<res<<" ";
+    cout<<res<<endl;
 
     return res;
 }
