@@ -7,6 +7,24 @@ using namespace std ;
 // This problem is about finding the optimal way to design the app.
 
 
+/*
+Constraints:
+
+Overall we have 10M users in the app. In the Bay Area (30 miles), we had about 500K users.
+
+Each person has 5K interest_ids. The total number of unique interests are very large, so usually people match on 3-5 interests. 
+Most people have no interests in common.
+
+This is more of a real-life problem, than a programming contest puzzle. So the test-case will reflect practically what happens in our software, 
+and not hand-generated corner cases.
+
+Tip: 0.1 delta in lat or lng, implies a 30 mile delta.
+
+Scoring: Make it fast and keep the logic simple.
+
+You can code in any language.
+*/
+
 #define id_and_intrest pair< int ,vector<int> > 
 
 class TheApp {

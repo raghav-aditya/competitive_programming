@@ -2,12 +2,14 @@
  Author: Aditya Raghav [ zerojude ]
  INDIA 
 */
-
-#include <iostream>
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
+using namespace __gnu_pbds; 
 
 #define int long long
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 #define all(x) begin(x) , end(x) 
 #define on(i) (1LL << (i))
 #define mask(i) (on(i)-1LL)
@@ -62,19 +64,27 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        int N ;
-        cin>>N;
+        
+        int N , M , k ;
+        cin>>N>>M>>k ;
+
         vector<int>A(N);
-        for( auto &x :A )cin>>x ;
-        sort( all(A));
 
+        for( auto &x : A )cin>>x ;
+        sort( all(A) );
     	int res = 0 ;
-    	for( int i = 0 ; i < N ; i++ )
-    	{
-    		res += abs( i - A[i] );
-    	}
-
-    	cout<<res<<endl;
+        for( int i = 0 ; i < N ; i++ )
+        {
+        	if( k < M ){
+        		int a = k*(i*M +A[i]) ;
+        		res += a ;
+        		break;
+        	} 
+        	int a = M * (i*M +A[i]) ;
+        	res += a ;
+        	k -= M ;
+        }
+        cout<<res<<endl;
 
     };
     

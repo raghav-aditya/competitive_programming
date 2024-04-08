@@ -2,12 +2,14 @@
  Author: Aditya Raghav [ zerojude ]
  INDIA 
 */
-
-#include <iostream>
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
+using namespace __gnu_pbds; 
 
 #define int long long
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 #define all(x) begin(x) , end(x) 
 #define on(i) (1LL << (i))
 #define mask(i) (on(i)-1LL)
@@ -56,25 +58,82 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+// class seg_tree
+// {
+// 	vector<int>T ;
+// 	int N ;
+
+// public:
+// 	seg_tree( vector<int>&A )
+// 	{
+// 		this->N = A.size();
+// 		T.resize(2*N,0);
+
+// 		for( int i = 0 ; i < N ; i++ )
+// 			T[i+N] = A[i];
+
+// 		for( int i = N-1 ; i > 0 ;  i-- )
+// 			T[i] = max( T[2*i] , T[2*i+1] );
+// 	}
+
+// 	int get( int a , int b )
+// 	{
+// 		int res = 0 ;
+// 		for( a += N , b += N+1 ; a < b ; a >>= 1 , b >>= 1 )
+// 		{
+// 			if(a&1) res = max( res , T[a++] );
+// 			if(b&1) res = max( res , T[--b] );
+// 		}
+// 		return res;
+// 	}
+// };
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
     auto solve = [&]()->void{
-        int N ;
-        cin>>N;
+        int N , k ;
+        cin>>N>>k ;
+        k--;
         vector<int>A(N);
-        for( auto &x :A )cin>>x ;
-        sort( all(A));
+        int mx = 0 ;
 
-    	int res = 0 ;
-    	for( int i = 0 ; i < N ; i++ )
+	
+        for( auto &x : A )cin>>x ;
+
+        auto B = A ;
+
+    	for( int i = 0 ; i < N-1 ; i++ )
     	{
-    		res += abs( i - A[i] );
+    		int w = max( B[i] , B[i+1] );
+    		if( w == B[k] )mx++;
+    		B[i+1] = w ;
     	}
 
-    	cout<<res<<endl;
+    	for( int i = 0 ; i < k ; i++ )
+    	{
+    		if( A[i] > A[k] )
+    		{
+    			swap( A[i] , A[k] );
+    			k = i ;
+    			break;
+    		}
+    	}
+
+    	int res = 0 ;
+    	int v = A[k];
+
+    	for( int i = 0 ; i < N-1 ; i++ )
+    	{
+    		int w = max( A[i] , A[i+1] );
+    		if( w == v )res++;
+    		A[i+1] = w ;
+    	}
+
+    	cout<<max( mx , res)<<endl;
 
     };
     

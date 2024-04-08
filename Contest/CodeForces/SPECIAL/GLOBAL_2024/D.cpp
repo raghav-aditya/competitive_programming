@@ -2,12 +2,14 @@
  Author: Aditya Raghav [ zerojude ]
  INDIA 
 */
-
-#include <iostream>
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
+using namespace __gnu_pbds; 
 
 #define int long long
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 #define all(x) begin(x) , end(x) 
 #define on(i) (1LL << (i))
 #define mask(i) (on(i)-1LL)
@@ -56,26 +58,105 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+class DSU
+{
+    vector< int > par ;
+    vector< int > size ;
+    int N ;
+
+public:
+
+    DSU( int sz )
+    {
+        this->N = sz ;
+        par.resize(N,0);
+        iota( par.begin() , par.end() ,0);
+        size.resize(N,1);
+    }
+
+    int find( int x )
+    {
+        if( par[x] == x )
+            return x ;
+        return par[x] = find( par[x] );
+    }
+
+    int get( int x )
+    {
+        return size[find(x)] ;
+    }
+
+    void join( int a , int b )
+    {
+        if( is_same( a, b) )
+            return ;
+        
+        int L = get(a) ;
+        int R = get(b) ;
+
+        if( L > R )
+        {
+            swap( L , R );
+            swap( a , b );
+        }
+
+        par[find(a)] = find(b);
+        size[find(a)] = L + R ;
+    }
+
+    bool is_same( int a , int b )
+    {
+        if( find(find(a)) == find(find(b)) )
+        return 1 ;
+
+        return 0 ;
+    }
+};
+
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
     auto solve = [&]()->void{
-        int N ;
-        cin>>N;
-        vector<int>A(N);
-        for( auto &x :A )cin>>x ;
-        sort( all(A));
+        
+    	int N , k ;
+    	cin>>N>>k ;
 
-    	int res = 0 ;
-    	for( int i = 0 ; i < N ; i++ )
+    	if( N == k )
     	{
-    		res += abs( i - A[i] );
+    		cout<<"YES"<<endl;
+    		cout<<1<<endl;
+    		cout<<1<<endl;
+    		return ;
     	}
 
-    	cout<<res<<endl;
+    	if( k == 1 )
+    	{
+    		cout<<"YES"<<endl;
+    		cout<<1<<endl;
+    		cout<<N<<endl;
+    		return ;
+    	}
 
+		int a = (N-1)>>1 ;
+		k--;
+
+
+		if( a < k )
+		{
+			cout<<"NO"<<endl;
+			return ;
+		}
+		else{
+			cout<<"YES"<<endl;
+			int diff = k ;
+			cout<<2<<endl;
+			cout<<N-diff<<" "<<1<<endl;
+			return ;
+		}
     };
     
 

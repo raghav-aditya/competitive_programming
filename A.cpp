@@ -57,121 +57,95 @@ int nCr( int N , int R )
 */
 
 
-class seg_tree{
-    vector<int>T ;
+class binary_lifting{
+    vector< vector<ar> > g ;
+    vector< vector<ar> > t ;
     int N ;
+    int k ;
+    vector< int > in , out ;
+    int timer = -1 ;
 
-public:
-    seg_tree(){
-
-    }
-    seg_tree( const vector<int>A )
+    void dfs( int u , int p , int w )
     {
-        this->N = A.size();
-        T.resize(2*N,0);
+        in[u] = ++timer ;
 
-        for( int i = 0 ; i < N ; i++ )
-        T[i+N] = A[i];
+        t[u][0] = { p , w };
 
-        for( int i = N-1 ; i > 0 ; i-- )
-            T[i] = max( T[2*i] , T[2*i+1] );
-    }
+        for( int L = 1 ; L < k ; L++ )
+        {
+            auto a = t[u][L-1];
+            auto b = t[a[0]][L-1];
 
-    int get( int a , int b)
-    {
-        int res = INT_MIN ;
-        for( a += N , b += N+1 ; a < b ; a >>= 1 , b >>= 1 ){
-            if(a&1) res = max( res , T[a++] );
-            if(b&1) res = max( T[--b] , res );
+            t[u][L][0] = (b[0]);
+            t[u][L][1] = (max(a[1],b[1]));
         }
+
+        for( auto v : g[u] )
+        {
+            int child = v[0];
+            int weight = v[1];
+
+            if( child == p )continue;
+
+            dfs( child , u , weight );
+        }
+        out[u] = timer ;
+    }
+
+    bool is_ancestor( int a , int b){
+        return in[a] <= in[b] && out[b] <= out[a];
+    }
+
+    int lca( int a, int b ){
+
+        if( is_ancestor( a , b ) )
+            return a ;
+        if( is_ancestor( b , a ) )
+            return b;
+
+        for( int L = k-1 ; L >= 0 ; L-- ){
+            if( is_ancestor( t[b][L][0] , a ) ) continue ;
+            b = t[b][L][0];
+        }
+        return t[b][0][0];
+    }
+
+    int task( int l , int a ){
+        int res = 0 ;
+        if( l == a )
+            return res;
+        for( int L = k-1 ; L >= 0 ; L-- ){
+            if( is_ancestor( t[a][L][0] , l ) ) continue ;
+            res = max( res , t[a][L][1]);
+            a = t[a][L][0];            
+        }
+        res = max( res , t[a][0][1] );  
         return res;
     }
 
-    void update( int p , int x )
+public:
+
+    binary_lifting( vector< vector<ar> > &g_ )
     {
-        p += N ;
-        T[p] = x ;
-        for( ; p>>= 1 ; )
-            T[p] = max( T[2*p] , T[2*p+1] );
+        this->g = g_ ;
+        this->N = g.size();
+        this->k = log2(N)+1;
+        vector< vector< ar > >t_( N , vector<ar>(k,{0,0}) ) ;
+        this->t = t_ ;
+        in.assign(N,0);
+        out.assign(N,0);
+        timer = -1 ;
+        t_.clear();
+        dfs( 0 , 0 , 0 );
+    }
+
+    int path_query( int a , int b ){
+        int l = lca( a , b );
+        return max( task( l , a ) , task( l , b ) );
     }
 };
 
 
-vector<int>heavy,head,par,depth,sz;
-vector<int>tin,tout;
-vector<int>E ;
-vector<int>pos ;
-int t = 0 ;
-seg_tree st ;
-
-void dfs( vector<int>g[] , int u , int p )
-{
-    sz[u] = 1 ;
-    int mx = 0 ;
-    for( const auto &v : g[u] )
-    {
-        if( v == p )continue;
-        dfs( g , v , u );
-
-        sz[u] += sz[v];
-        depth[v] = depth[u] + 1 ;
-        par[v] = u ;
-
-        if( sz[v] > mx )
-        {
-            mx = sz[v] ;
-            heavy[u] = v ;
-        }
-    }
-}
-
-void hld( vector<int>g[] , int u , int p , int h )
-{
-    tin[u] = ++t ;
-    E.push_back(u);
-    head[u] = h ;
-
-
-    if( heavy[u] != -1 )
-        hld( g , heavy[u] , u , head[u] );
-
-    for( auto v : g[u] )
-    {
-        if( v == p || v == heavy[u] )continue ;
-        hld( g , v , u , v);
-    }
-    tout[u] = t ;
-}
-
-void print( vector<int>&k )
-{
-    for( auto x : k )
-        cout<<x<<" ";
-    cout<<endl;
-}
-
-
-int query( int a , int b ){
-
-    int res = INT_MIN ;
-    for( ; head[a] != head[b] ; b = par[head[b]] ){
-
-        if( depth[head[a]] > depth[head[b]] )
-            swap(a , b);
-        res = max( res , st.get( pos[head[b]] , pos[b] ) );
-    }
-
-    if( pos[a] > pos[b] )
-        swap( a , b );
-
-    // cout<<pos[a]<<" "<<pos[b]<<endl;
-
-    res = max( res , st.get( pos[a] , pos[b] ));
-
-    cout<<res<<" ";
-
-    return res;
-}
 
 int32_t main() {
     ios::sync_with_stdio(0);
@@ -180,74 +154,24 @@ int32_t main() {
     
     auto solve = [&]()->void{
         
-        int N , Q ;
-        cin>>N>>Q ;
-                            
-        vector<int>A(N);
-        for( auto &x : A )cin>>x ;     
+        
+    
+        int N ;
+        cin>>N;
+        vector< arr > A(N);
 
-        heavy.resize(N,-1);
-        head.resize(N,0);
-        par.resize(N,0);
-        sz.resize(N,0);
-        depth.resize(N,0);
-        tin.resize(N,0);
-        tout.resize(N,0);
-        pos.resize(N,0);
-        E.clear();
-
-        vector<int>g[N];
         for( int i = 0 ; i < N-1 ; i++ )
         {
-            int a , b ;
-            cin>>a>>b ;
-            a--;b--;
-            // cout<<a<<" "<<b<<endl;
-            g[a].push_back(b);
-            g[b].push_back(a);
+            cin>>A[i][1]>>A[i][2];
+            A[i][0] = 1 ;
         }
-        t = -1 ;
-        dfs( g , 0 , -1 );
-        hld( g , 0 , -1 , 0 );
-
-        for( int i = 0 ; i < N ; i++ )
-            pos[E[i]] = i ;
-
-        // print(E);
-        for( auto &x : E )
-            x = A[x] ;
-        // print(E);
-
-        seg_tree st_(E);
-        st = st_ ;
-
-        for( int i = 0 ; i < Q ; i++ )
-        {
-            int type ;
-            cin>>type;
-            if( type == 1 ){
-                int p , x ;
-                cin>>p>>x ;
-                // cout<<p<<" "<<x<<endl;
-                p--;
-                int k = pos[p];
-                st.update(k,x);
-            }
-            else
-            {
-                int a , b ;
-                cin>>a>>b ;
-                a--;b--;
-                query( a , b );
-
-                // return ;
-            }
-        }
-
+        
+       
     };
     
 
 int test = 1 ;
+// cin>>test;
 while(test--)
 solve();
 return 0;
