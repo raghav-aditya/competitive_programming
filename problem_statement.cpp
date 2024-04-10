@@ -58,40 +58,189 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+class T 
+{
+public:
+    T* left = nullptr ;
+    T* right = nullptr ;
+    int st , en ;
+    int lazy = 0 ;
+    int data = 0 ;
+
+    T( int st_ , int en_ ){
+        this->st = st_ ;
+        this->en = en_ ;
+    }
+
+    void insert( int x ){
+        data |= on(x);
+    }
+
+};
+
+class seg_tree
+{
+    T* home_root = nullptr ;
+    vector<int>A ;
+    int N ;
+
+    void pull( T* node )
+    {
+        if( node == nullptr )
+            return ;
+
+        int res = 0 ;
+
+        if( node->left )
+        {
+            res |= node->left->data ;
+        }
+
+        if( node->right )
+        {
+            res |= node->right->data ;
+        }
+
+        node->data = res ;
+    }
+
+
+    void push( T* node )
+    {
+        if( !node || node->lazy == 0 )
+            return;
+
+        int L = node->lazy ;
+        node->lazy = 0 ;
+        node->data = on(L) ;
+
+        if( node->left )
+            node->left->lazy = L ;
+        if( node->right )
+            node->right->lazy = L ;
+    }
+
+    T* build( int st , int en )
+    {
+        if( st >  en )
+            return nullptr ;
+
+        int m = (st+en)>>1 ;
+
+        T* node = new T(st,en);
+
+        if( st == en )
+        {
+            node->insert(A[st]);
+        }
+        else
+        {
+            node->left = build( st , m );
+            node->right = build( m+1, en );
+            pull( node );
+        }   
+        return node ;     
+    }
+
+    void update( T* node , int l , int r , int x )
+    {
+        push(node);
+        if( node == nullptr )
+            return ;
+        if( r < (node->st) || (node->en) < l )
+            return ;
+
+        if( l <= (node->st) && (node->en) <= r )
+        {
+            node->lazy = x ;
+            push(node);
+        }
+        else
+        {
+            update( node->left , l , r , x );
+            update( node->right , l , r , x );
+            pull(node);
+        }
+    }
+
+    int get( T* node , int l , int r )
+    {
+        push(node);
+        int res = 0;
+        if( node == nullptr )
+            return res ;
+        if( r < (node->st) || (node->en) < l )
+            return res ;
+
+        if( l <= (node->st) && (node->en) <= r ){
+            res = node->data ;
+            return res;
+        }
+        else{
+            auto L = get( node->left , l , r );
+            auto R = get( node->right , l , r );
+            return (L|R) ;
+        }
+    }
+
+public:
+    seg_tree( vector<int>&A_ )
+    {
+        this->A = A_ ;
+        N = A.size();
+        home_root = build( 0 , N-1 );
+    }
+
+    void update( int l , int r , int x )
+    {
+        update( home_root , l , r , x );
+    }
+
+    int get( int l , int r )
+    {
+        int k  = get( home_root , l , r );
+
+        int res = 0;
+        for( int i = 0 ; i <= 60 ; i++ ){
+            if(on(i)&k){
+                res++;   
+            }
+        }
+        return res;
+    }
+
+    void print()
+    {
+        for( int i = 0 ; i < N ; i++ )
+        {
+            get(i,i);
+        }
+
+        cout<<endl;
+        cout<<endl;
+        cout<<endl;
+    }
+};
+
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
     auto solve = [&]()->void{
-        int N , k ;
-        cin>>N>>k ;
-        vector<int>A(N);
-        for( auto &x : A)cin>>x ;
-
-        unordered_map< int , int > mp;
-        ar ans ;
-
-        int i = 0 ;
-        int res = 0 ;
-        for( int j = 0 ; j < N ; j++ )
-        {
-            mp[A[j]]++;
-
-            while( mp.size() > k )
-            {
-                if( --mp[A[i]] == 0 )
-                    mp.erase(A[i]);
-                i++;
-            }
-            if( res < j-i+1 )
-            {
-                ans = { i+1 , j+1 };
-            }
-            res = max( res , j-i+1 );
-        }
-
-        cout<<ans[0]<<" "<<ans[1]<<endl;
+                
+        vector<int>A = { 1 , 1 , 1 };
+        seg_tree st(A);
+        int N = A.size();
+       
+        st.update(0,N-1,10);
+        st.get(0,N-1);
+        // st.print();
+        st.update(N-1,N-1,5);
+        // st.print();
+        st.get(0,N-1);
+       
     };
     
 

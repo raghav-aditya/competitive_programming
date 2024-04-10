@@ -64,7 +64,47 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        
+
+
+    		int N , k ;
+    		cin>>N>>k ;
+    		vector<int>A(N);
+    		for( auto &x : A)cin>>x ;
+
+
+    		vector<int>P(N+1,0);
+
+    		for( int i = 0 ; i < N ; i++ )
+    			P[i+1] = A[i] + P[i];
+
+    		auto get = [&]( int a , int b)-> int {
+    			return P[b+1] - P[a] ;
+    		};
+
+    		if( get(0,N-1) <= k )
+    		{
+    			cout<<N<<endl;
+    			return ;
+    		}
+
+    		int a = (k+1)/2 ;
+    		int b = k-a ;
+
+    		int i = 0 ;
+    		int j = N-1 ;
+
+    		while( get(0,i) <= a && i <= j )
+    		{
+    			i++;
+    		}
+
+    		while( get(j,N-1) <= b && i <= j )
+    		{
+    			j--;
+    		}
+
+    		int L = j-i+1;
+    		cout<<N-L<<endl;
 
     };
     

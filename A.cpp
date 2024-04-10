@@ -2,12 +2,14 @@
  Author: Aditya Raghav [ zerojude ]
  INDIA 
 */
-
-#include <iostream>
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
+using namespace __gnu_pbds; 
 
 #define int long long
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 #define all(x) begin(x) , end(x) 
 #define on(i) (1LL << (i))
 #define mask(i) (on(i)-1LL)
@@ -56,96 +58,56 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+int N , k ;    
+int res = 0 ;
+vector< unordered_map< int , int > > dp ;
 
-class binary_lifting{
-    vector< vector<ar> > g ;
-    vector< vector<ar> > t ;
-    int N ;
-    int k ;
-    vector< int > in , out ;
-    int timer = -1 ;
+void dfs( vector<int>g[] , int u , int p , int d )
+{
+    dp[u][d]++;
+    int mx = 0 ;
+    int id = -1 ;
 
-    void dfs( int u , int p , int w )
+    for( auto v : g[u] )
     {
-        in[u] = ++timer ;
+        if( v == p )continue ;
 
-        t[u][0] = { p , w };
-
-        for( int L = 1 ; L < k ; L++ )
+        dfs( g , v , u , d+1 );
+        if( dp[v].size() > mx )
         {
-            auto a = t[u][L-1];
-            auto b = t[a[0]][L-1];
-
-            t[u][L][0] = (b[0]);
-            t[u][L][1] = (max(a[1],b[1]));
+            mx = dp[v].size();
+            id = v ;
         }
-
-        for( auto v : g[u] )
-        {
-            int child = v[0];
-            int weight = v[1];
-
-            if( child == p )continue;
-
-            dfs( child , u , weight );
-        }
-        out[u] = timer ;
     }
 
-    bool is_ancestor( int a , int b){
-        return in[a] <= in[b] && out[b] <= out[a];
-    }
+    if( id != -1 )
+        swap( dp[u] , dp[id] );
 
-    int lca( int a, int b ){
+    // a + b = k 
+    // (d+a) + (d+b) = 2*d + k 
+    // d2 = 2*d + k - (d1);
 
-        if( is_ancestor( a , b ) )
-            return a ;
-        if( is_ancestor( b , a ) )
-            return b;
-
-        for( int L = k-1 ; L >= 0 ; L-- ){
-            if( is_ancestor( t[b][L][0] , a ) ) continue ;
-            b = t[b][L][0];
-        }
-        return t[b][0][0];
-    }
-
-    int task( int l , int a ){
-        int res = 0 ;
-        if( l == a )
-            return res;
-        for( int L = k-1 ; L >= 0 ; L-- ){
-            if( is_ancestor( t[a][L][0] , l ) ) continue ;
-            res = max( res , t[a][L][1]);
-            a = t[a][L][0];            
-        }
-        res = max( res , t[a][0][1] );  
-        return res;
-    }
-
-public:
-
-    binary_lifting( vector< vector<ar> > &g_ )
+    for( auto v : g[u] )
     {
-        this->g = g_ ;
-        this->N = g.size();
-        this->k = log2(N)+1;
-        vector< vector< ar > >t_( N , vector<ar>(k,{0,0}) ) ;
-        this->t = t_ ;
-        in.assign(N,0);
-        out.assign(N,0);
-        timer = -1 ;
-        t_.clear();
-        dfs( 0 , 0 , 0 );
+        if( v == p )continue ;
+
+        for( auto x : dp[v] )
+        {
+            int a = x.first ;
+            int b = x.second ;
+
+            int look = 2*d + k - a ;
+            res += dp[u][look]*b ;
+        }
+
+        for( auto x : dp[v] )
+        {
+            int a = x.first;
+            int b = x.second ;
+            dp[u][a] += b ;
+        }
     }
-
-    int path_query( int a , int b ){
-        int l = lca( a , b );
-        return max( task( l , a ) , task( l , b ) );
-    }
-};
-
-
+}
 
 int32_t main() {
     ios::sync_with_stdio(0);
@@ -153,20 +115,23 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        
-        
-    
-        int N ;
-        cin>>N;
-        vector< arr > A(N);
 
+        cin>>N>>k ;
+
+        vector< int > g[N];
+        dp.resize(N);
         for( int i = 0 ; i < N-1 ; i++ )
         {
-            cin>>A[i][1]>>A[i][2];
-            A[i][0] = 1 ;
+            int a , b ;
+            cin>>a>>b ;
+            a--;b--;
+
+            g[a].push_back(b);
+            g[b].push_back(a);
         }
-        
-       
+        res = 0 ;
+        dfs( g , 0,-1,0);
+        cout<<res<<endl;
     };
     
 

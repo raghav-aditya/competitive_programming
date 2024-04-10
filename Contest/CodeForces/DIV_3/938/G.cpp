@@ -64,8 +64,52 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        
+	
+		int M , N ;
+		cin>>M>>N ;
 
+		unordered_set<int>count;
+
+		vector<vector<int>>A(M,vector<int>(N,0));
+		for( auto &x : A )
+		for( auto &i : x )cin>>i , count.insert(i);
+
+		if(count.size()==1)
+		{
+			cout<<A.back().back()<<endl;
+			return; 
+		}
+
+		set<int> t[M][N];
+
+		A[0][0] = __gcd( A[0][0] , A.back().back() );
+
+		t[0][0].insert(A[0][0]);
+		int l = A[0][0];
+		for( int i = 1 ; i < M ; i++ ){
+
+			l = __gcd( l , A[i][0] );
+			t[i][0].insert(l);
+		}
+
+		l = A[0][0];
+		for( int j = 1 ; j < N ; j++ ){
+			l = __gcd( l , A[0][j] );
+			t[0][j].insert(l);
+		}
+
+		for( int i = 1 ; i < M ; i++ )
+		for( int j = 1 ; j < N ; j++ )
+		{
+			int v = A[i][j];
+
+			for( auto x : t[i-1][j] )
+				t[i][j].insert( __gcd( x , v));
+			for( auto x : t[i][j-1] )
+				t[i][j].insert( __gcd( x , v ));
+		}
+
+		cout<<(*t[M-1][N-1].rbegin())<<endl;
     };
     
 

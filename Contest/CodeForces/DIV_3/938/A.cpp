@@ -64,7 +64,21 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        
+        int n , a , b; 
+        cin>>n>>a>>b;
+        int res = n*a ;
+
+        if(n&1)
+        {
+        	res = min( res , b*((n-1)/2) + a );
+        }
+        else
+        {
+        	res = min( res , b*(n/2) ) ;
+        }
+
+        cout<<res<<endl;
+
 
     };
     

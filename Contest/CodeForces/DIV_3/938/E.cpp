@@ -64,8 +64,47 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        
+    
+        int N ;
+        cin>>N ;
+        string A;
+        cin>>A;
+            
+        auto ok = [&]( int L )-> bool{
 
+            queue< int > q ;
+            for( int i = 0 ; i < N ; i++ )
+            {
+                int v = A[i]-'0';
+
+                while( q.size() && q.front() <= i-L )q.pop();
+
+                int s = q.size();
+                s %= 2 ;
+                if( s ^ v )
+                    continue;
+                else
+                {
+                    if(i+L-1<N)
+                        q.push(i);
+                    else
+                    {
+                        return 0 ;
+                    }
+                }
+            }
+            return 1 ;
+        };
+
+        for( int k = N ; k >= 1 ; k-- )
+        {
+            if(ok(k)){
+                cout<<k<<endl;
+                return ;
+            }
+        }
+
+        cout<<-1<<endl;
     };
     
 

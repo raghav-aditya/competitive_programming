@@ -62,9 +62,32 @@ int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
+
+    vector< vector< vector<int> > >t(201,vector<vector<int>>(201,vector<int>(201,0)));
+
+    for( int i = 0 ; i <= 200 ; i++ )
+    for( int j = 0 ; j <= 200 ; j++ )
+    for( int k = 0 ; k <= 200 ; k++ )
+    {   
+        int x = 0 ;
+        if(i&1)x ^= 1;
+        if(j&1)x ^= 2 ;
+        if(k&1)x ^= 3 ;
+        x = (x==0);
+        if(i>0)
+            t[i][j][k] = max( x + t[i-1][j][k] , t[i][j][k] );
+        if(j>0)
+            t[i][j][k] = max( x + t[i][j-1][k] , t[i][j][k] );
+        if(k>0)
+            t[i][j][k] = max( x + t[i][j][k-1] , t[i][j][k] );
+    }
     
     auto solve = [&]()->void{
         
+        int a , b , c , d ;
+        cin>>a>>b>>c>>d ;
+
+        cout<<(d/2) + t[a][b][c]<<endl;
 
     };
     

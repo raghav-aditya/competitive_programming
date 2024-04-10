@@ -64,7 +64,59 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        
+        int N , c , d ;
+        cin>>N>>c>>d ;
+        vector<vector<int>>A(N,vector<int>(N,0));
+
+        for( auto &x : A )
+        	for( auto &i : x )cin>>i ;
+
+        int mn = INT_MAX ;
+
+    	multiset<int>a,b;
+
+
+    	for( int i = 0 ; i < N ; i++ )
+    	for( int j = 0 ; j < N ; j++ )
+    		mn = min( mn , A[i][j] );
+
+    	auto B = A ;
+
+    	B[0][0] = mn ;
+
+    	for( int i = 1 ; i < N ; i++ )
+    		B[i][0] = B[i-1][0] + c ;
+    	for( int j = 1 ; j < N ; j++ )
+    		B[0][j] = B[0][j-1] + d ;
+
+    	for( int i = 1 ; i < N ; i++ )
+    	for( int j = 1 ; j < N ; j++ )
+    	{
+
+    		if( B[i-1][j] + c != B[i][j-1] + d )
+    		{
+    			cout<<"NO"<<endl;
+    			return ;
+    		}
+
+    		B[i][j] = B[i-1][j] + c ;
+    	}
+
+    	for( int i = 0 ; i < N ; i++ )
+    	for( int j = 0 ; j < N ; j++ )
+    	{
+    		a.insert(A[i][j]);
+    		b.insert(B[i][j]);
+    	}
+
+    	if( a == b )
+    	{
+    		cout<<"YES"<<endl;
+    	}
+    	else
+    	{
+    		cout<<"NO"<<endl;
+    	}
 
     };
     

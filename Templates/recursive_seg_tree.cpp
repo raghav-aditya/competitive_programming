@@ -53,6 +53,7 @@ private:
 
     void update(T* node, int l , int r , int del) 
     {
+        push(node);
         if (node == nullptr || l > node->en || r < node->st) {
             return;
         }
@@ -64,7 +65,6 @@ private:
         }
         else 
         {
-            push(node);
             update(node->left, l, r, del);
             update(node->right, l, r, del);
             pull(node);

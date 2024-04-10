@@ -64,8 +64,58 @@ int32_t main() {
     cout.tie(0);
     
     auto solve = [&]()->void{
-        
+	
+		int N , M , k ;
+		cin>>N>>M>>k ;
 
+		vector<int>A(N),B(M);
+		for( auto &x : A )cin>>x ;
+		for( auto &x : B )cin>>x ;
+
+		map< int , int > b, a;
+
+		for( auto x : B )
+			b[x]++;
+
+		int res = 0 ;
+		int cnt = 0 ;
+		for( int i = 0 ; i < M-1 ; i++ )
+		{
+			if(b[A[i]]){
+				a[A[i]]++;
+				if(a[A[i]]<=b[A[i]])
+					cnt++;
+			}
+		}
+
+		for( int i = M-1 ; i < N ; i++ )
+		{
+			if(b[A[i]])
+			{
+				a[A[i]]++;
+				if(a[A[i]]<=b[A[i]])
+					cnt++;
+			}
+
+
+			if(cnt>=k){
+				// cout<<i<<" ";
+				res++;
+			}
+
+			int l = A[i-M+1];
+			if( a.find(l) != a.end() )
+			{
+				a[l]--;
+				if(a[l]<b[l])
+					cnt--;
+
+				if(a[l]==0)
+					a.erase(l);
+			}
+		}
+		// cout<<endl;
+		cout<<res<<endl;
     };
     
 
