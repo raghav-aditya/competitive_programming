@@ -58,63 +58,40 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-
-string printInBase(int value, int base ) 
-{
-    vector<int>A(100,0);
-    int i = 0;
-    while (value != 0) {
-        A[i++] = value % base;
-        value /= base;
-    }
-    string res ;
-    while (i--){
-        res += to_string(A[i]);
-    }
-    return res ;
-}
-
-// void converter(int originalNumber, int b1, int b2)
-// {
-//     printInBase(originalNumber, b1);
-//     printInBase(originalNumber, b2);
-// }
-
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
+    
     auto solve = [&]()->void{
-            
-            int k ;
-            cin>>k ;
+        
+        int N ;
+        cin>>N;
+        vector<int>A(N);
+        for( auto &x : A )cin>>x ;
 
-            auto A = printInBase(k,9);
-            int N = A.size();
 
-            // cout<<A<<endl;
-            reverse(all(A));
-            A += "00";
+        set<int>st_(all(A));
 
-            int s = 0 ;
-            for( int i = 0 ; i <= N ; i++ )
-            {
-                int v = (A[i]-'0') + s ;
+    	if( st_.size() == 1 )
+    	{
+    		cout<<-1<<endl;
+    		return;
+    	}
 
-                if( v >= 4 )
-                    v++;
-                   
-                s = v/10 ;
-                v = v%10 ;
-
-                A[i] = (v) + '0';
-            }
-
-            while(A.back() =='0')
-                A.pop_back();
-            reverse( all(A) );  
-            cout<<A<<endl;
+       	int res = N ;
+       	int cnt = 0 ;
+       	for( auto x : A )
+       	{
+       		if( x == A[0] )cnt++;
+       		else
+       		{
+       			res = min( res , cnt );
+       			cnt = 0 ;
+       		}
+       	}
+       	res = min( res , cnt );
+       	cout<<res<<endl;
     };
     
 

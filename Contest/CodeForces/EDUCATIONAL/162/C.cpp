@@ -59,62 +59,71 @@ int nCr( int N , int R )
 */
 
 
-string printInBase(int value, int base ) 
-{
-    vector<int>A(100,0);
-    int i = 0;
-    while (value != 0) {
-        A[i++] = value % base;
-        value /= base;
-    }
-    string res ;
-    while (i--){
-        res += to_string(A[i]);
-    }
-    return res ;
-}
-
-// void converter(int originalNumber, int b1, int b2)
-// {
-//     printInBase(originalNumber, b1);
-//     printInBase(originalNumber, b2);
-// }
-
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
+    
     auto solve = [&]()->void{
-            
-            int k ;
-            cin>>k ;
+        string A , B ;
+        cin>>A>>B ;
 
-            auto A = printInBase(k,9);
-            int N = A.size();
+        bool f = 0 ;
+        int N = A.size();
+        int id = 0 ;
+        for( int i = 0 ; i < N ; i++ )
+        {	
+        	int a = A[i]-'0';
+        	int b = B[i]-'0';
 
-            // cout<<A<<endl;
-            reverse(all(A));
-            A += "00";
+        	if( a == b )
+        		continue ;
 
-            int s = 0 ;
-            for( int i = 0 ; i <= N ; i++ )
-            {
-                int v = (A[i]-'0') + s ;
+        	if( a > b )
+        	{
+        		f = 1 ;
+        		id = i ;
+        		break;
+        	}
+        	else
+        	{
+        		f = 0 ;
+        		id = i; 
+        		break;
+        	}
+        }
 
-                if( v >= 4 )
-                    v++;
-                   
-                s = v/10 ;
-                v = v%10 ;
+        for( int i = id+1 ; i < N ; i++ )
+        {
+        	int a = A[i]-'0';
+        	int b = B[i]-'0';
 
-                A[i] = (v) + '0';
-            }
-
-            while(A.back() =='0')
-                A.pop_back();
-            reverse( all(A) );  
-            cout<<A<<endl;
+        	if(f)	// A should smaller now 
+        	{
+        		if( a < b )
+        		{
+        			continue;
+        		}
+        		else
+        		{
+        			swap( A[i] , B[i] );
+        		}
+        	}
+        	else  // B should be smaller now 
+        	{
+        		if( a < b )
+        		{
+        			swap( A[i] , B[i] );
+        		}
+        		else
+        		{
+        			continue;
+        		}
+        	}
+        }
+ 	
+        cout<<A<<endl;
+        cout<<B<<endl;
     };
     
 

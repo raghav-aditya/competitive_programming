@@ -58,63 +58,67 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-
-string printInBase(int value, int base ) 
-{
-    vector<int>A(100,0);
-    int i = 0;
-    while (value != 0) {
-        A[i++] = value % base;
-        value /= base;
-    }
-    string res ;
-    while (i--){
-        res += to_string(A[i]);
-    }
-    return res ;
-}
-
-// void converter(int originalNumber, int b1, int b2)
-// {
-//     printInBase(originalNumber, b1);
-//     printInBase(originalNumber, b2);
-// }
-
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-
+    
     auto solve = [&]()->void{
-            
-            int k ;
-            cin>>k ;
+		int N , S ;
+		cin>>N>>S ;
+		int k = ceil(log2(S));
 
-            auto A = printInBase(k,9);
-            int N = A.size();
+		vector<int>e,o;
+		if( S&1 )
+		{
+			cout<<-1<<endl;
+			return ;
+		}   
+		else
+		{
+			for( int i = 0 ; i < 30 && i < k ; i++ )
+			{
+				if(S&on(i))
+				{
+					o.push_back(on(i));
+				}
+				else
+				{
+					e.push_back(on(i));
+				}
+			}
+		} 
 
-            // cout<<A<<endl;
-            reverse(all(A));
-            A += "00";
+		for( auto x : e )
+			cout<<x<<" ";
+		cout<<endl;
+		for( auto x : o )
+			cout<<x<<" ";
 
-            int s = 0 ;
-            for( int i = 0 ; i <= N ; i++ )
-            {
-                int v = (A[i]-'0') + s ;
+		vector<int>res;
 
-                if( v >= 4 )
-                    v++;
-                   
-                s = v/10 ;
-                v = v%10 ;
+		if( N < o.size() )
+		{
+			cout<<-1<<endl;
+			return ;
+		}
 
-                A[i] = (v) + '0';
-            }
+		for( auto x : o )
+			res.push_back(x);
 
-            while(A.back() =='0')
-                A.pop_back();
-            reverse( all(A) );  
-            cout<<A<<endl;
+		for( auto x : e )
+		{
+			if( res.size() >= N )
+				break;
+
+			res.push_back(x);
+			res.push_back(x);
+		}
+
+		cout<<endl;
+		cout<<endl;
+		cout<<endl;
+
     };
     
 
