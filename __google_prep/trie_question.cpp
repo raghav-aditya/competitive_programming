@@ -28,7 +28,7 @@ class trie
     T* root = nullptr ;
 
     void print( vector<string>&A )
-    {
+    {   
         for( auto x : A )
         {
             if( x != "" )

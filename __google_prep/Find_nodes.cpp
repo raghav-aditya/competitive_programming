@@ -72,7 +72,7 @@ void dfs( string &A , vector<int>&who , T* root )
 	int id = root->id ;
 	if(root->childs.size()==0)
 	{
-		for( auto x : root->data ){
+		for( auto x : root->data ){ // it is going for every character bro 
 			A += x ;
 			who.push_back(id);
 		}
@@ -133,7 +133,7 @@ vector<int> f( T* root , string P )
 int32_t main()
 {
 
-	// 
+	// problem statement: https://leetcode.com/discuss/interview-question/4752537/Google-or-Phone-Screen-or-L4-or-Find-Nodes
 
 	return 0 ;
 }

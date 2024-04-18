@@ -58,30 +58,61 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
+
+int func(vector<int>& A) {
+    vector<int> dp(A.size(), 0);
+    stack< ar > st ;
+    st.push({ INT_MAX , 0});
+
+    for (int i = 1; i < (int)A.size(); ++i) {
+        while (st.top()[0] <= A[i]) {
+            st.pop();
+        }
+        dp[i] = dp[st.top()[1]] + A[i] * abs(i-st.top()[1]);
+        st.push({A[i], i});
+    }
+    return dp.back();
+}
+
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void{
-        int N ;
-        cin>>N ;
-        vector<int>A(N),B(N);
+        vector<int>A = { 3,7,10,12,8,10 };
+        int N = A.size();
 
-        for( auto &x : A )cin>>x ;
-        for( auto &x : B )cin>>x ;
+        vector<int>t(N,0);
+        t[0] = 0 ;
 
-        int mx = *max_element(all(B));
-        int t[N+1][mx+1];
+        for( int i = 0 ; i < N ; i++ )
+        for( int j = 0 ; j < i ; j++ )
+        {
+            t[i] = max( t[i] , t[j] + abs(i-j)*A[i] );
+        }
 
-        for( int i)
+        cout<<t[N-1]<<endl;
 
-    };
+        int res = 0 ;
+        int mx = 0 ;
+
+        vector<int>dp(N,0);
+
+
+        for( int i = N-1 ; i > 0 ; i-- )
+        {
+            mx = max( mx , A[i] );
+
+            dp[i] = mx ;
+            res += mx ;
+        }
+
+        for( auto x : dp )
+            cout<<x<<" ";
+        cout<<endl;
+
+        cout<<res<<endl;
+
     
-
-int test = 1 ;
-// cin>>test;
-while(test--)
-solve();
 return 0;
 }   
