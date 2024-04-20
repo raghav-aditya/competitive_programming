@@ -1,16 +1,19 @@
-allFiles = [
-"/a/b/x.txt",
-"/a/b/p.txt",
-"/a/c",
-"/a/d/y.txt",
-"/a/d/z.txt"
-]
-subsetFiles = [
-"/a/d/y.txt",
-"/a/d/z.txt",
-"/a/b/p.txt"
-]
-output=[
-"/a/d",
-"/a/b/p.txt"
-]
+6
+/home/foo/bar/file1.txt
+/home/foo/bar/file2.txt
+/home/foo/mobi/wiki/file3.txt
+/home/foo/mobi/file4.txt
+/home/foo/file5.txt
+/home/foo/mobi/file6.txt
+
+
+
+
+
+
+
+/home/foo/file5.txt
+/home/foo/mobi/file6.txt
+/home/foo/mobi/file4.txt
+/home/foo/mobi/wiki
+/home/foo/bar

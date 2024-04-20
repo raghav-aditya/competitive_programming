@@ -58,23 +58,26 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-
-struct T 
+class T 
 {
+
+public:
     string data ;
+    bool is_file = 0 ;
+    bool is_seen = 0 ;
+    int count = 0 ;
+
     unordered_map< string , T* > child ;
-    bool isFile = false ;
-    bool seen = false ;
-    int seen_count = 0 ; // all seen files in my subfolder
-    int file_count = 0 ; // all files in my subfolder
 
-    T( string data_ ){
+    T( string data_ )
+    {
         this->data = data_ ;
-
         for( auto x : data_ )
+        {
             if( x == '.' )
-                isFile = true ;
-    }
+                is_file = 1 ;
+        }
+    }    
 };
 
 
@@ -82,121 +85,97 @@ class TRIE
 {
     T* root = new T("#");
 
-    void print( vector<string>A ){
-        for( auto x : A ){
-            if( x != "#" )
+    vector< string > split( string A )
+    {
+        for( auto &x : A )
+        {
+            if( x == '/' )
+                x = ' ';
+        }
+
+        stringstream ss(A);
+        string x ;
+
+        vector< string > res ;
+        while( ss>>x )
+            res.push_back(x);
+
+        return res;
+    }
+
+    void print( vector<string>&A )
+    {
+        for( auto x : A )
+        {
+            if( x == "#" )
+                continue;
+
             cout<<"/"<<x;
         }
         cout<<endl;
     }
 
-    vector< string > split( string A )
-    {
-        for( auto &x : A )
-        {
-            if( x == '/' )x = ' ';
-        }
-
-        string x ;
-        stringstream ss(A);
-
-        vector<string>res ;
-
-        while( ss>>x )
-            res.push_back(x);
-
-        return res ;
-    }
-
     void dfs( T* node , vector<string>&res )
     {
-       res.push_back(node->data);
+        res.push_back(node->data);
 
-       string lst_file = "";
-       int cnt = 0 ;
-
-       for( auto beg : node->child )
-       {
-            string val = beg.first ;
-            T* ch = beg.second ;
-
-            if( ch->seen )
+        if( node->count == 0 ){
+            print(res);
+        }
+        else
+        {
+            for( auto beg : node->child )
             {
-                if( ch->isFile ){
-                    lst_file = val ;
-                    cnt++;
-                }
-                else
-                    dfs( ch , res );
+                T* cp = beg.second ;
+                dfs( cp , res );                
             }
-       }
-
-       if( cnt == 1 )
-       {
-            res.push_back(lst_file);
-            print(res);
-            res.pop_back();
-       }
-       else if( cnt > 1 )
-       {
-            print(res);
-       }
-
-       res.pop_back();
+        }            
+        res.pop_back();
     }
-
 
 public:
 
+    TRIE(){
+        root->is_seen = true ;
+        root->count += 10000 ;
+    }
 
-    TRIE(){};
-
-    void insert( string A){
-
+    void insert( string A )
+    {
+        T* node = root ;
         auto B = split(A);
 
-        T* node = root ;
-
-        for( int i = 0 ; i < B.size() ; i++ )
+        for( auto x : B )
         {
-            string x = B[i];
             if( node->child[x] == nullptr )
             {
-                T * temp = new T(x);
+                T* temp = new T(x);
                 node->child[x] = temp ;
-                node->file_count += temp->isFile ;
             }
-            node = node->child[x] ;
-        }
-    }
-
-
-    void visit ( string A ){
-
-        auto B = split(A) ;
-
-        T* node = root ;
-        node->seen = true ;
-
-        for( int i = 0 ; i < B.size() ; i++ )
-        {
-            string x = B[i];
-            
-            if( node->child[x]->isFile )
-                node->seen_count++;
-
             node = node->child[x];
-            node->seen = true ;
-
+            node->count++;
         }
     }
 
+    void visit( string A )
+    {
+        T* node = root ;
+        auto B = split(A);
 
-    void task(){
+        node->is_seen = true ;
+        for( auto x : B )
+        {
+            node = node->child[x] ;
+            node->is_seen = true ;
+            node->count--;
+        }
+    }
 
-       T* node = root ;
-       vector<string>res;
-       dfs( node , res );
+    void task()
+    {
+        vector<string>res;
+        T* node = root ;
+        dfs( node , res );
     }
 };
 
@@ -204,56 +183,35 @@ int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-        
-    vector<string>all_directory = {
-"/a/b/x.txt",
-"/a/b/p.txt",
-"/a/c",
-"/a/d/y.txt",
-"/a/d/z.txt"
-    };
     
 
-    vector< string > visited_directory = {
-"/a/d/y.txt",
-"/a/d/z.txt",
-"/a/b/p.txt"
-    };
+vector< string > all_files = {
+    "a/b/c/d.txt",
+    "a/b/c/e.txt",
+    "a/b/b.txt",
+    "a/b/e.txt",
+    "b/c/d.txt"
+};
+    
+vector< string > seen_files = {
+
+    "a/b/c/d.txt",
+    "a/b/c/e.txt",
+    "a/b/b.txt",
+    "b/c/d.txt"
+
+};
 
 
-    TRIE trie;
+TRIE trie ;
 
-    for( auto x : all_directory )
-        trie.insert(x);
+for( auto x : all_files )
+    trie.insert(x);
 
-    for( auto x : visited_directory )
-        trie.visit(x);
+for( auto x : seen_files )
+    trie.visit(x);
 
-    trie.task();
+trie.task();
 
 return 0;
 }   
-
-
-
-/*
-
-allFiles = [
-"/a/b/x.txt",
-"/a/b/p.txt",
-"/a/c",
-"/a/d/y.txt",
-"/a/d/z.txt"
-]
-subsetFiles = [
-"/a/d/y.txt",
-"/a/d/z.txt",
-"/a/b/p.txt"
-]
-output=[
-"/a/d",
-"/a/b/p.txt"
-]
-
-
-*/

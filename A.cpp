@@ -1,232 +1,154 @@
-/*
- Author: Aditya Raghav [ zerojude ]
- INDIA 
-*/
+
+#include <iostream>
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp> 
-#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
-using namespace __gnu_pbds; 
 
-#define int long long
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-#define all(x) begin(x) , end(x) 
-#define on(i) (1LL << (i))
-#define mask(i) (on(i)-1LL)
-#define vi vector<int>
-#define vvi vector<vi>
-const int mod = pow(10,9)+7 ;
-const int MAX = pow(10,5)+1 ;
-const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
-const int dy[8] = { 0 , 0 , 1 , -1 , 1 , -1 , 1 , -1 } ;
-int mod_pow( int a , int b , int md = mod )
+class T
 {
-    if( a == 0 || a == 1 ) return a ;
-    if( b == 0 )return 1 ;
-    int ha = mod_pow( a , b/2 ); ha *= ha; ha %= md ; if( b&1 ) ha *= a ;
-    return ha%md ;
-}
-int inverse( int a )
-{
-    return mod_pow(a,mod-2);
-}
-vector<int>factorial_ ; 
-vector<int> factorial( int N = MAX )
-{
-    vector<int>f(N,1);
-    for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
-    return f ;
-}
-void init_factorial(){ if(factorial_.size()==0)factorial_ = factorial(); }
-#define oo (int)pow(2L,60)
-#define arr array<int,3> 
-#define ar array<int,2>
-
-int nCr( int N , int R )
-{
-    if(factorial_.size()==0) factorial_ = factorial();
-    int res = factorial_[N]; res *= inverse( factorial_[R] );  
-    res = (res%mod+mod)%mod; res *= inverse( factorial_[N-R] ); 
-    res = (res%mod+mod)%mod; return res ;
-}
-
-
-/********** GO DOWN ***********/
-
-/* 
-   If the genius trains just as hard.... 
-   what chance do I have to beat him? 
-*/
-
-
-struct T 
-{
-    string data ;
-    unordered_map< string , T* > child ;
+public:
+    string val ; 
+    unordered_map< string , T* > childs ;
     bool isFile = false ;
-    bool seen = false ;
-    int seen_count = 0 ; // all seen files in my subfolder
-    int file_count = 0 ; // all files in my subfolder
+    int fileCount = 0 ;
 
-    T( string data_ ){
-        this->data = data_ ;
+    T( string str )
+    {
+        this->val = str ;
 
-        for( auto x : data_ )
+        for( auto &x : str ){
             if( x == '.' )
                 isFile = true ;
+        }
     }
 };
 
 
-class TRIE
+class trie
 {
-    T* root = new T("");
+    T* root = nullptr ;
 
-    void print( vector<string>A ){
+    void print( vector<string>&A )
+    {   
         for( auto x : A )
-            cout<<"/"<<x;
+        {
+            if( x != "" )
+                cout<<"/"<<x;
+        }
         cout<<endl;
     }
 
-    vector< string > split( string A )
+    void build( T* node , vector<string>&A , int i )
     {
-        for( auto &x : A )
+        int N = A.size();
+        if( i == N )
+            return ;
+
+        string val = A[i];
+
+        if( node->childs[val] == nullptr )
         {
-            if( x == '/' )x = ' ';
+            T* x = new T( val );
+            node->childs[val] = x ;
+            node->fileCount += x->isFile ;
         }
 
-        string x ;
-        stringstream ss(A);
-
-        vector<string>res ;
-
-        while( ss>>x )
-            res.push_back(x);
-
-        return res ;
+        build( node->childs[val] , A , i+1 );
     }
 
-    void dfs( T* node , vector<string>&res )
+    void query( T* node , vector<string>&res )
     {
-       res.push_back(node->data);
+        if( node == nullptr )
+            return ;
 
-       string lst_file = "";
-       int cnt = 0 ;
+        string val = node->val ;
+        res.push_back(val);
 
-       for( auto beg : node->child )
-       {
-            string val = beg.first ;
-            T* ch = beg.second ;
+        string fileName ; // storing filename of last fileType child
 
-            if( ch->seen )
-            {
-                if( ch->isFile ){
-                    lst_file = val ;
-                    cnt++;
-                }
-                else
-                    dfs( ch , res );
-            }
-       }
+        for( auto x : node->childs )
+        {
+            T* child = x.second ;
+            if(child->isFile)
+                fileName = x.first ;
+            else
+                query( child , res );
+        }
 
-       if( cnt == 1 )
-       {
-            res.push_back(lst_file);
+        if(node->fileCount == 1 )
+        {
+            res.push_back(fileName);
             print(res);
             res.pop_back();
-       }
-       else if( cnt > 1 )
-       {
+        }
+        else if( node->fileCount > 1 )
             print(res);
-       }
 
-       res.pop_back();
+        res.pop_back();
     }
-
 
 public:
 
+    trie(){
+        root = new T("");
+    }
 
-    TRIE(){};
-
-    void insert( string A){
-
-        auto B = split(A);
-
-        T* node = root ;
-
-        for( int i = 0 ; i < B.size() ; i++ )
-        {
-            string x = B[i];
-            if( node->child[x] == nullptr )
-            {
-                T * temp = new T(x);
-                node->child[x] = temp ;
-                node->file_count += temp->isFile ;
-            }
-            node = node->child[x] ;
+    void add( string A )    
+    {
+        for( auto &x : A ){
+            if( x == '/' )x = ' ';
         }
+
+        stringstream ss(A);
+        vector< string > B ;
+        string x ;
+
+        while( ss>>x )
+        {
+            B.push_back(x);
+        }
+        build( root , B , 0 );
     }
 
 
-    void visit ( string A ){
-
-        auto B = split(A) ;
-
-        T* node = root ;
-
-        for( int i = 0 ; i < B.size() ; i++ )
-        {
-            string x = B[i];
-            node->seen = true ;
-            
-            if( node->child[x]->isFile )
-                node->seen_count++;
-
-            node = node->child[x];
-        }
-        node->seen = true ;
-    }
-
-
-    void task(){
-
-       T* node = root ;
-       vector<string>res;
-       dfs( node , res );
+    void task()
+    {
+        vector< string > res ;
+        query( root , res );
     }
 };
 
 int32_t main() {
+    // your code goes here
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-        
-    vector<string>all_directory = {
-"/a/b/x.txt",
-"/a/b/p.txt",
-"/a/c",
-"/a/d/y.txt",
-"/a/d/z.txt"
-    };
     
+    int N ;
+    cin>>N ;
+    vector< string > A(N);
 
-    vector< string > visited_directory = {
-"/a/d/y.txt",
-"/a/d/z.txt",
-"/a/b/p.txt"
-    };
+    for( auto &x : A )cin>>x ;
+
+    trie tool;
+    
+    for( auto x : A )
+        tool.add(x);
+
+    tool.task();
+   
+    return 0;
+}
 
 
-    TRIE trie;
+/*
+input:
 
-    for( auto x : all_directory )
-        trie.insert(x);
+6
+/home/foo/bar/file1.txt
+/home/foo/bar/file2.txt
+/home/foo/mobi/wiki/file3.txt
+/home/foo/mobi/file4.txt
+/home/foo/file5.txt
+/home/foo/mobi/file6.txt
 
-    for( auto x : visited_directory )
-        trie.visit(x);
-
-    trie.task();
-
-return 0;
-}   
+*/
