@@ -1,0 +1,16 @@
+allFiles = [
+"/a/b/x.txt",
+"/a/b/p.txt",
+"/a/c",
+"/a/d/y.txt",
+"/a/d/z.txt"
+]
+subsetFiles = [
+"/a/d/y.txt",
+"/a/d/z.txt",
+"/a/b/p.txt"
+]
+output=[
+"/a/d",
+"/a/b/p.txt"
+]

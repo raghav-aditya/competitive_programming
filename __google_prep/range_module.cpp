@@ -54,7 +54,6 @@ public:
 	{
 		auto it = mp.upper_bound( l );
 
-
 		// [ prev_st , pre_en ] + [ l , r ] + [ next_st  , next_en ] 
 
 		if( it != mp.begin() && prev(it)->second >= l )

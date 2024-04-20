@@ -2,6 +2,10 @@ On Site Round 4 (Googliness)
 Will suggest to go through this https://www.youtube.com/@jeffhsipepi
 
 GOOGELYNESS: https://leetcode.com/discuss/interview-question/4859465/Google-or-Software-Engineer-or-Bengaluru-or-L3-or-SELECTED
+https://leetcode.com/discuss/interview-experience/5021795/Google-L3-Bangalore-(Offer)
+
+https://leetcode.com/discuss/interview-experience/4999647/Google-or-L4-or-Bangalore-or-Jan-2024-Offer
+
 
  22 L Fixed + 4 L JB + Stocks (Didn't want to downgrade to L3 level, hence didn't accept the offer)
  base is around 22-24
@@ -23,6 +27,18 @@ important: https://leetcode.com/discuss/interview-question/4859465/Google-or-Sof
 https://leetcode.com/discuss/interview-question/4849502/Google-or-Question
 https://leetcode.com/discuss/interview-question/4831503/Google-or-Questions
 
+
+
+
+
+
+Google [Recruiter reached out based on past engagement; this was my 3rd interview loop with Google]
+
+Phone Screen [DSA]: Implement rate limiter (HashMap, LC Easy to Medium)
+Round 1 [DSA]: Implement a novel data structure for insert, search, delete operations with certain criteria. (Queue, LC Medium)
+Round 2 [DSA]: Discrete mathematics (Arithmetic Progression) + Array [LC Medium to Hard]
+Round 3 [DSA]: Simple Disjoint Set based problem [LC Medium, Hard if you don't know Disjoint Set optimisations]
+Round 4 [Googleyness]: Questions on scenarios prevalent in US or other countries but not so common in India (Hard)
 
 
 
@@ -597,37 +613,53 @@ Q4-
 find a path that has the minimum cost
 
 
-Q-4
-public class Node {
-    int min;
-    int max;
-}
+    vector< vector< int > >A(3, vector<int>(3,0));
 
-public class find(int[][] grid){
-    Node node = recur(grid, 0)
-  return node.max - node.min;
-}
+    for( auto &x : A )
+    for( auto &i : x )
+        cin>>i ;
 
-public Node recur(int[][] grid, int col) {
-        if (col == grid[0].length) {
-            return new Node(INT_MAX, INT_MIN)
-        }
-        int pathMin = Integer.MAX_VALUE
-        int pathMax = Integer.MIN_VALUE;
-        int minCost = Integer.MAX_VALUE;
-        Node next = recur(grid, col + 1);
-        for(int i=0;i<grid.length;i++) {
-            min = Math.min(next.min, grid[i][col]);
-            max = Math.max(next.max, grid[i][col]);
-            int cost = max - min;
-            if (cost < minCost) {
-                pathMin = min;
-                pathMax = max;
-                minCost = cost;
-            }
-        }
-        return new Node(min, max);
-}
+    int M = A.size();
+    int N = A[0].size();
+
+    auto dp_max = A ;
+    auto dp_min = A ;
+
+    for( int i = 1 ; i < M ; i++ )
+    {
+        dp_max[i][0] = max( dp_max[i][0] , dp_max[i-1][0] ) ;
+        dp_min[i][0] = min( dp_min[i][0] , dp_min[i-1][0] );
+    }
+
+    for( int j = 1 ; j < N ; j++ )
+    {
+        dp_max[0][j] = max( dp_max[0][j] , dp_max[0][j-1] );
+        dp_min[0][j] = min( dp_max[0][j] , dp_min[0][j-1] );
+    }
+
+
+
+    for( int i = 1 ; i < M ; i++ )
+    for( int j = 1 ; j < N ; j++ )
+    {
+        int mx = dp_max[i][j];
+        int mn = dp_min[i][j];
+
+        mx = max(
+                mx , 
+                min( dp_max[i][j-1] , dp_max[i-1][j] )
+            );
+
+        mn = min(
+                mn , 
+                max( dp_min[i][j-1] , dp_min[i-1][j] )
+            );
+
+        dp_max[i][j] = mx ;
+        dp_min[i][j] = mn ;
+    }
+
+    cout<<dp_max[M-1][N-1] - dp_min[M-1][N-1]<<endl;
 --
 
 
@@ -832,47 +864,66 @@ Output would be a list with the students re-arranged. An acceptable output for t
 
 
 Q-7
-class Solution {
-    public String reorganizeString(String s) {
-        var charCounts = new int[26];
-        for (char c : s.toCharArray()) {
-            charCounts[c - 'a']++;
-        }
-
-        // Max heap ordered by character counts
-        var pq = new PriorityQueue<int[]>((a, b) -> Integer.compare(b[1], a[1]));
-        for (int i = 0; i < 26; i++) {
-            if (charCounts[i] > 0) {
-                pq.offer(new int[]{i + 'a', charCounts[i]});
-            }
-        }
-
-        var sb = new StringBuilder();
-        while (!pq.isEmpty()) {
-            var first = pq.poll();
-            if (sb.length() == 0 || first[0] != sb.charAt(sb.length() - 1)) {
-                sb.append((char) first[0]);
-                if (--first[1] > 0) {
-                    pq.offer(first);
-                }
-            } else {
-                if (pq.isEmpty()) {
-                    return "";
-                }
-
-                var second = pq.poll();
-                sb.append((char) second[0]);
-                if (--second[1] > 0) {
-                    pq.offer(second);
-                }
-
-                pq.offer(first);
-            }
-        }
-
-        return sb.toString();
+int32_t main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
+    vector<int>A = { 2 , 2 , 2 , 2 , 1 , 1 } ;
+    
+    unordered_map< int , int > mp ;
+    for( auto x : A )
+    {
+        mp[x]++;
     }
-}
+    priority_queue< ar > pq ; // freq , id 
+
+    vector< int > res ;
+
+    for( auto x : mp )
+    {
+        int a = x.first ;
+        int b = x.second ;
+        pq.push({ b , a });
+    }
+
+    // { 4 , 2 } { 2 , 1 }
+
+    while(pq.size() > 1 )
+    {
+       auto beg = pq.top(); pq.pop(); // this is most frequent 
+       // we will use it to interleave numbers 
+
+       while( pq.size() && beg[0] > 0 )
+       {
+          auto next = pq.top(); pq.pop();
+
+          res.push_back(beg[1]);
+          res.push_back(next[1]);
+
+          beg[0]--; // used it 
+          next[0]--; // used it 
+
+          if( next[0] > 0 )
+            pq.push({ next });
+       }
+
+       if( beg[0] > 0 )
+        pq.push(beg);
+    }
+        
+    auto cnt = pq.top()[0];
+    int id = pq.top()[1];
+
+    while(cnt--)
+        res.push_back(id);
+
+    for( auto x : res )
+        cout<<x<<" ";
+    cout<<endl;
+
+return 0;
+}   
 
 //TC : O(N⋅logk) and SC : O(K)
 
@@ -1714,9 +1765,45 @@ int getMaxScore(vector<int>& stones){
 }
 
 
+int32_t main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
+        vector<int>A = { 3,7,10,12,8,10 };
+        int N = A.size();
+        vector<int>L(N,0);
+        stack<int>st ;
+
+        for( int i = 0 ; i < N ; i++ )
+        {
+            while( st.size() && A[i] >= A[st.top()] )st.pop();
+
+            if( st.size() == 0 )
+                L[i] = 0 ;
+            else
+                L[i] = st.top();
+
+            st.push(i);
+        }
+
+        vector<int>dp(N,0);
+
+        for( int i = 1 ; i < N ; i++ )
+        {
+            int k = L[i];
+            int cost = A[i] * abs( i - k );
+
+            dp[i] = dp[k] + cost ;
+        }
+
+        cout<<dp.back()<<endl;
+    
+return 0;
+}   
 
 
-
+-----------------------------------------------------------------------------
 
 Q17-
 
@@ -1756,3 +1843,77 @@ https://leetcode.com/problems/find-all-people-with-secret/description/
 
 
 https://leetcode.com/discuss/interview-question/3898065/Google-Phone-Screen-or-Aug-2023
+
+
+
+
+
+
+I have been contacted by the recruiter through linkedin and the process took 2 months. Listing more below:
+
+Coding Round 1: DP problem (Maximum path sum in matrix)
+
+Coding Round 2: Topology Sort of recipes (https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/description/)
+
+Coding Round 3: Binary Search, find bad commit (https://leetcode.com/discuss/interview-question/1831538/Google-or-Phone-Interview-or-SDE-1-or-Find-bad-commit)
+
+
+
+Behavioural Round: STAR based questions (like):
+Have you ever had a conflict with your team-member. How did you handle the situation.
+Have you ever handled a difficult situation/task. Tell me more about it.
+System Design Round: Design aggregation ratings and comments system at YouTube scale.
+System Design Round: How to design Google Chrome Update System.
+
+Did well in the coding rounds and behavioural. But did not do well in HLD and got rejected. Hope this experience would be of some help to someone.
+
+
+
+
+
+Coding Question:
+
+You are working on a project and you noticed that there has been a performance decrease between two releases. You have a function:
+
+boolean worseCommit(int commit1, int commit2)
+that runs performance tests and returns true if commit2 is worse than commit1 and false otherwise.
+
+Find all of the bad commits that have decreased the performance between releases. Assume no improvement in performance.
+
+Commit Id: 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+Performance: 10, 10, 10, 8, 8, 8, 5, 5, 5
+
+Output 4, 7
+
+this problem is same as : first bad version 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Education : Tier-2, CS
+YOE : 1.5
+Experience : SWE, Product Company; Current TC : 25L
+Company: Google, India
+Title/Level: SWE-2, L3
+Location: Bangalore
+Salary: 23,84,000
+Sign-on Bonus : 3,60,000
+Stock : 55K USD, front loaded, ~17,38,445 for first year
+Bonus: 3,28,500
+Benefits: Standard Google Perks
+
+Total TC : Year-1 : ~48L
+
+Didn't have competing offers, would be accepting this.

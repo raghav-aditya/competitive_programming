@@ -24,9 +24,10 @@ vector<int>vis , match ;
 
 int find_match( vector<vector<int>>&A , int i )
 {
-    if(vis[i])
+
+    if( vis[i] )
         return 0 ;
-    vis[i] = 1 ;
+    vis[i] = 1;
 
     for( int j = 0 ; j < (int)A[i].size(); j++ )
     {
@@ -48,7 +49,7 @@ int solve(vector<vector<int>>& A ) {
     int M = A.size(); // boys 
     int N = A.back().size();  // girls 
 
-    match.assign(N,-1);
+    match.assign(M,-1);
     int res = 0 ;
 
     for( int i = 0 ; i < M ; i++ )

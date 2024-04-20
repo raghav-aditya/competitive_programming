@@ -63,9 +63,6 @@ class trie
         string val = node->val ;
         res.push_back(val);
 
-        if( node->isFile )
-            return ;
-
         string fileName ; // storing filename of last fileType child
 
         for( auto x : node->childs )

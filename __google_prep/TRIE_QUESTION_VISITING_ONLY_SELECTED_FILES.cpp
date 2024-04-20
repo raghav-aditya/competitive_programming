@@ -80,11 +80,13 @@ struct T
 
 class TRIE
 {
-    T* root = new T("");
+    T* root = new T("#");
 
     void print( vector<string>A ){
-        for( auto x : A )
+        for( auto x : A ){
+            if( x != "#" )
             cout<<"/"<<x;
+        }
         cout<<endl;
     }
 
@@ -174,18 +176,19 @@ public:
         auto B = split(A) ;
 
         T* node = root ;
+        node->seen = true ;
 
         for( int i = 0 ; i < B.size() ; i++ )
         {
             string x = B[i];
-            node->seen = true ;
             
             if( node->child[x]->isFile )
                 node->seen_count++;
 
             node = node->child[x];
+            node->seen = true ;
+
         }
-        node->seen = true ;
     }
 
 
@@ -230,3 +233,27 @@ int32_t main() {
 
 return 0;
 }   
+
+
+
+/*
+
+allFiles = [
+"/a/b/x.txt",
+"/a/b/p.txt",
+"/a/c",
+"/a/d/y.txt",
+"/a/d/z.txt"
+]
+subsetFiles = [
+"/a/d/y.txt",
+"/a/d/z.txt",
+"/a/b/p.txt"
+]
+output=[
+"/a/d",
+"/a/b/p.txt"
+]
+
+
+*/
