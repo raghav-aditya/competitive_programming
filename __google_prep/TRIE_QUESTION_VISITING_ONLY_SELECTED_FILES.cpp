@@ -215,3 +215,38 @@ trie.task();
 
 return 0;
 }   
+
+
+
+/*
+
+
+vector< string > all_files = {
+    "a/b/c/d.txt",
+    "a/b/c/e.txt",
+    "a/b/b.txt",
+    "a/b/e.txt",
+    "b/c/d.txt"
+};
+    
+vector< string > seen_files = {
+
+    "a/b/c/d.txt",
+    "a/b/c/e.txt",
+    "a/b/b.txt",
+    "b/c/d.txt"
+
+};
+
+
+TRIE trie ;
+
+for( auto x : all_files )
+    trie.insert(x);
+
+for( auto x : seen_files )
+    trie.visit(x);
+
+trie.task();
+
+*/

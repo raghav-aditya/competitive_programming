@@ -1,154 +1,116 @@
-
-#include <iostream>
+/*
+ Author: Aditya Raghav [ zerojude ]
+ INDIA 
+*/
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
+using namespace __gnu_pbds; 
 
-class T
+#define int long long
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
+#define all(x) begin(x) , end(x) 
+#define on(i) (1LL << (i))
+#define mask(i) (on(i)-1LL)
+#define vi vector<int>
+#define vvi vector<vi>
+const int mod = pow(10,9)+7 ;
+const int MAX = pow(10,5)+1 ;
+const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
+const int dy[8] = { 0 , 0 , 1 , -1 , 1 , -1 , 1 , -1 } ;
+int mod_pow( int a , int b , int md = mod )
 {
-public:
-    string val ; 
-    unordered_map< string , T* > childs ;
-    bool isFile = false ;
-    int fileCount = 0 ;
-
-    T( string str )
-    {
-        this->val = str ;
-
-        for( auto &x : str ){
-            if( x == '.' )
-                isFile = true ;
-        }
-    }
-};
-
-
-class trie
+    if( a == 0 || a == 1 ) return a ;
+    if( b == 0 )return 1 ;
+    int ha = mod_pow( a , b/2 ); ha *= ha; ha %= md ; if( b&1 ) ha *= a ;
+    return ha%md ;
+}
+int inverse( int a )
 {
-    T* root = nullptr ;
+    return mod_pow(a,mod-2);
+}
+vector<int>factorial_ ; 
+vector<int> factorial( int N = MAX )
+{
+    vector<int>f(N,1);
+    for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
+    return f ;
+}
+void init_factorial(){ if(factorial_.size()==0)factorial_ = factorial(); }
+#define oo (int)pow(2L,60)
+#define arr array<int,3> 
+#define ar array<int,2>
 
-    void print( vector<string>&A )
-    {   
+int nCr( int N , int R )
+{
+    if(factorial_.size()==0) factorial_ = factorial();
+    int res = factorial_[N]; res *= inverse( factorial_[R] );  
+    res = (res%mod+mod)%mod; res *= inverse( factorial_[N-R] ); 
+    res = (res%mod+mod)%mod; return res ;
+}
+
+
+/********** GO DOWN ***********/
+
+/* 
+   If the genius trains just as hard.... 
+   what chance do I have to beat him? 
+*/
+
+int f( vector<int>&A , int k )
+{
+
+   int N = A.size();
+   int l = 0 ;
+   int h = N ;
+
+   auto ok = [&]( int m )-> bool
+   {
+        int cnt = m; 
+        int s = 1 ;
+        if( s >= k )
+            return 1 ;
+
         for( auto x : A )
         {
-            if( x != "" )
-                cout<<"/"<<x;
-        }
-        cout<<endl;
-    }
-
-    void build( T* node , vector<string>&A , int i )
-    {
-        int N = A.size();
-        if( i == N )
-            return ;
-
-        string val = A[i];
-
-        if( node->childs[val] == nullptr )
-        {
-            T* x = new T( val );
-            node->childs[val] = x ;
-            node->fileCount += x->isFile ;
+            if( s >= x && cnt > 0 )
+            {
+                s += x ;
+                cnt--;
+            }
         }
 
-        build( node->childs[val] , A , i+1 );
-    }
-
-    void query( T* node , vector<string>&res )
-    {
-        if( node == nullptr )
-            return ;
-
-        string val = node->val ;
-        res.push_back(val);
-
-        string fileName ; // storing filename of last fileType child
-
-        for( auto x : node->childs )
-        {
-            T* child = x.second ;
-            if(child->isFile)
-                fileName = x.first ;
-            else
-                query( child , res );
-        }
-
-        if(node->fileCount == 1 )
-        {
-            res.push_back(fileName);
-            print(res);
-            res.pop_back();
-        }
-        else if( node->fileCount > 1 )
-            print(res);
-
-        res.pop_back();
-    }
-
-public:
-
-    trie(){
-        root = new T("");
-    }
-
-    void add( string A )    
-    {
-        for( auto &x : A ){
-            if( x == '/' )x = ' ';
-        }
-
-        stringstream ss(A);
-        vector< string > B ;
-        string x ;
-
-        while( ss>>x )
-        {
-            B.push_back(x);
-        }
-        build( root , B , 0 );
-    }
+        return s >= k ;
+   };   
 
 
-    void task()
-    {
-        vector< string > res ;
-        query( root , res );
-    }
-};
+   while( l < h )
+   {
+        int m = (l+h)>>1 ;
+        if( ok(m) )
+            h = m-1 ;
+        else
+            l = m+1;
+   }
+
+   for( int m = l-1 ; m <= l+1 ; m++ )
+   {
+         if( m>= 0 && m <= N && ok(m))
+            return m ;
+   }
+
+   return -1 ; // not possible 
+}
 
 int32_t main() {
-    // your code goes here
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    int N ;
-    cin>>N ;
-    vector< string > A(N);
+    vector<int> A = { 1 , 2 ,  2 , 4 , 1 };
 
-    for( auto &x : A )cin>>x ;
+    cout<<f(A,5)<<endl;
 
-    trie tool;
-    
-    for( auto x : A )
-        tool.add(x);
-
-    tool.task();
-   
-    return 0;
-}
-
-
-/*
-input:
-
-6
-/home/foo/bar/file1.txt
-/home/foo/bar/file2.txt
-/home/foo/mobi/wiki/file3.txt
-/home/foo/mobi/file4.txt
-/home/foo/file5.txt
-/home/foo/mobi/file6.txt
-
-*/
+return 0;
+}   

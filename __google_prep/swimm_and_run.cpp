@@ -51,18 +51,13 @@ int32_t main() {
     cout.tie(0);
     
 
-    auto solve = [&]()->void
-    {
-    	int N , 
-        
-    };
-    
 
-        
-    // int test = 1 ;
-    // cin>>test;
-    // while(test--)
-    solve();
     
     return 0;
 }
+
+
+/*
+W = {"and", "not", "but", "jane", "jordan", "bob"}
+L = {"qxuw", "xuo", "qeiopxu", "tyr", "uer", "tet"}
+*/

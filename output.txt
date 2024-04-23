@@ -1,4 +1,0 @@
-/home/foo/mobi/wiki/file3.txt
-/home/foo/mobi
-/home/foo/bar
-/home/foo/file5.txt

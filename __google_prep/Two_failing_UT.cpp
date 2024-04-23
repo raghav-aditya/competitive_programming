@@ -133,5 +133,8 @@ int32_t main() {
 
     cout<<res[0]<<" "<<res[1]<<endl;
 
+
+    // i can binary search right UT and after that just with with other N UT to find the otherone
+
 return 0;
 }   

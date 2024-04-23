@@ -62,79 +62,83 @@ int nCr( int N , int R )
 int32_t main() {
 
 
-    vector< vector< int > >A(3, vector<int>(3,0));
+    // vector< vector< int > >A(3, vector<int>(3,0));
 
-    for( auto &x : A )
-    for( auto &i : x )
-        cin>>i ;
+    // for( auto &x : A )
+    // for( auto &i : x )
+    //     cin>>i ;
 
-    int M = A.size();
-    int N = A[0].size();
+    // int M = A.size();
+    // int N = A[0].size();
 
-    auto dp_max = A ;
-    auto dp_min = A ;
+    // auto dp_max = A ;
+    // auto dp_min = A ;
 
-    for( int i = 0 ; i < M ; i++ )
-    for( int j = 0 ; j < N ; j++ )
-    {
-        dp_max[i][j] = A[i][j];
-        dp_min[i][j] = A[i][j];
-    }
+    // for( int i = 0 ; i < M ; i++ )
+    // for( int j = 0 ; j < N ; j++ )
+    // {
+    //     dp_max[i][j] = A[i][j];
+    //     dp_min[i][j] = A[i][j];
+    // }
 
-    for( int i = 1 ; i < M ; i++ )
-    {
-        dp_max[i][0] = max( dp_max[i][0] , dp_max[i-1][0] ) ;
-        dp_min[i][0] = min( dp_min[i][0] , dp_min[i-1][0] );
-    }
+    // for( int i = 1 ; i < M ; i++ )
+    // {
+    //     dp_max[i][0] = max( dp_max[i][0] , dp_max[i-1][0] ) ;
+    //     dp_min[i][0] = min( dp_min[i][0] , dp_min[i-1][0] );
+    // }
 
-    for( int j = 1 ; j < N ; j++ )
-    {
-        dp_max[0][j] = max( dp_max[0][j] , dp_max[0][j-1] );
-        dp_min[0][j] = min( dp_max[0][j] , dp_min[0][j-1] );
-    }
-
-
-
-    for( int i = 1 ; i < M ; i++ )
-    for( int j = 1 ; j < N ; j++ )
-    {
-        int mx = dp_max[i][j];
-        int mn = dp_min[i][j];
-
-        mx = max(
-                mx , 
-                min( dp_max[i][j-1] , dp_max[i-1][j] )
-            );
-
-        mn = min(
-                mn , 
-                max( dp_min[i][j-1] , dp_min[i-1][j] )
-            );
-
-        dp_max[i][j] = mx ;
-        dp_min[i][j] = mn ;
-    }
+    // for( int j = 1 ; j < N ; j++ )
+    // {
+    //     dp_max[0][j] = max( dp_max[0][j] , dp_max[0][j-1] );
+    //     dp_min[0][j] = min( dp_max[0][j] , dp_min[0][j-1] );
+    // }
 
 
-    for( int i = 0 ; i < M ; i++ )
-    {
-        for( int j = 0 ; j < N ; j++ )
-            cout<<dp_max[i][j]<<" ";
-        cout<<endl;
-    }
 
-    cout<<endl;
-    cout<<endl;
-    cout<<endl;
+    // for( int i = 1 ; i < M ; i++ )
+    // for( int j = 1 ; j < N ; j++ )
+    // {
+    //     int mx = dp_max[i][j];
+    //     int mn = dp_min[i][j];
 
-    for( int i = 0 ; i < M ; i++ )
-    {
-        for( int j = 0 ; j < N ; j++ )
-            cout<<dp_min[i][j]<<" ";
-        cout<<endl;
-    }
+    //     mx = max(
+    //             mx , 
+    //             min( dp_max[i][j-1] , dp_max[i-1][j] )
+    //         );
 
-    cout<<dp_max[M-1][N-1] - dp_min[M-1][N-1]<<endl;
+    //     mn = min(
+    //             mn , 
+    //             max( dp_min[i][j-1] , dp_min[i-1][j] )
+    //         );
+
+    //     dp_max[i][j] = mx ;
+    //     dp_min[i][j] = mn ;
+    // }
+
+
+    // for( int i = 0 ; i < M ; i++ )
+    // {
+    //     for( int j = 0 ; j < N ; j++ )
+    //         cout<<dp_max[i][j]<<" ";
+    //     cout<<endl;
+    // }
+
+    // cout<<endl;
+    // cout<<endl;
+    // cout<<endl;
+
+    // for( int i = 0 ; i < M ; i++ )
+    // {
+    //     for( int j = 0 ; j < N ; j++ )
+    //         cout<<dp_min[i][j]<<" ";
+    //     cout<<endl;
+    // }
+
+    // cout<<dp_max[M-1][N-1] - dp_min[M-1][N-1]<<endl;
+
+
+    // 4D dp for solving all paths version
+    // sorting and two pionter for jumping on columns only version
 
     return 0;
 }

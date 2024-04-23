@@ -49,7 +49,7 @@ int solve(vector<vector<int>>& A ) {
     int M = A.size(); // boys 
     int N = A.back().size();  // girls 
 
-    match.assign(M,-1);
+    match.assign(N,-1);
     int res = 0 ;
 
     for( int i = 0 ; i < M ; i++ )
