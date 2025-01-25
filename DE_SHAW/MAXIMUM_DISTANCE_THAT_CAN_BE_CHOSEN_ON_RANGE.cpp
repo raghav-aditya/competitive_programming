@@ -58,54 +58,65 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-#define ar array<int,2>
+
+int f( vector<int>&A , int d )
+{
+	vector< ar > B ;
+	for( auto x : A )
+	{
+		B.push_back({ x , x+d} );
+	}
+
+	sort( all(B) );
+
+	int l = 1 ;
+	int h = 1000;
+
+	auto ok = [&]( int m )->bool
+	{
+		int P = -1 ;
+		for( auto x : B )
+		{
+			int a = x[0];
+			int b = x[1];
+
+			if( P > b )
+				return 0 ;
+			P = max( P , a );
+			P += m ;
+		}
+
+		return 1 ;
+	};
+
+	while( l < h )
+	{
+		int m = (l+h)>>1 ;
+		if(ok(m))
+			l = m+1;
+		else
+			h = m-1;
+	}
+
+	for( int m = l+1 ; m >= l-1 ; m-- )
+	{
+		if( m >= 1 && m <= 1000 && ok(m) )
+			return m;
+	}
+
+	cout<<"incorrect bounds"<<endl;
+	return -1  ;
+}
 
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
-    auto solve = [&]()->void{
-            
-           vector<int> x = { 0 , 3 , 0 };
-           vector<int> y = { 0 , 5 , 2 };
 
-           vector< ar > A, B ;
+    vector<int> A = { 3 , 2 , 3 };
+    int d = 2 ;
 
-           for( int i = 0 ; i < 3 ; i++ )
-            {
-                A.push_back({ x[i] , y[i]});
-                B.push_back({ y[i] , x[i]});
-            }
+    cout<<f( A , d )<<endl;
 
-            sort( A.begin() , A.end() );
-            sort( B.begin() , B.end() );
-
-            int b = 0 ;
-            int h = 0 ; 
-
-            if( A[0][0] == A[1][0] )
-            {
-                 b = abs( A[1][1] - A[0][1] );
-                 h = abs( A[0][0] - A[2][0] );
-            }
-
-            else if( B[0][0] == B[1][0] )
-            {
-                b = abs( B[1][1] - B[0][1] );
-                h = abs( B[0][0] - B[2][0] );
-            }
-
-
-            double a = h*b*0.5 ;
-            cout<<a<<endl;
-
-    };
-    
-
-int test = 1 ;
-// cin>>test;
-while(test--)
-solve();
 return 0;
 }   

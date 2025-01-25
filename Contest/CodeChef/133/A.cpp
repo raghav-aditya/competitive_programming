@@ -58,53 +58,31 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-#define ar array<int,2>
-
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
     auto solve = [&]()->void{
-            
-           vector<int> x = { 0 , 3 , 0 };
-           vector<int> y = { 0 , 5 , 2 };
+        int N ;
+        cin>>N;
+        vector<int>A(N);
+        for( auto &x : A )
+        	cin>>x ;
 
-           vector< ar > A, B ;
+       	sort( all(A) );
 
-           for( int i = 0 ; i < 3 ; i++ )
-            {
-                A.push_back({ x[i] , y[i]});
-                B.push_back({ y[i] , x[i]});
-            }
+       	int res = accumulate(all(A),0);
 
-            sort( A.begin() , A.end() );
-            sort( B.begin() , B.end() );
+       	for( int i = 0 ; i < N/2 ; i++ )
+       		res -= 2*A[i];
 
-            int b = 0 ;
-            int h = 0 ; 
-
-            if( A[0][0] == A[1][0] )
-            {
-                 b = abs( A[1][1] - A[0][1] );
-                 h = abs( A[0][0] - A[2][0] );
-            }
-
-            else if( B[0][0] == B[1][0] )
-            {
-                b = abs( B[1][1] - B[0][1] );
-                h = abs( B[0][0] - B[2][0] );
-            }
-
-
-            double a = h*b*0.5 ;
-            cout<<a<<endl;
-
+       	cout<<res<<endl;
     };
     
 
 int test = 1 ;
-// cin>>test;
+cin>>test;
 while(test--)
 solve();
 return 0;

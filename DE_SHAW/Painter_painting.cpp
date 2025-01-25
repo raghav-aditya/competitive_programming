@@ -58,54 +58,23 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-#define ar array<int,2>
+int paintWalls(vector<int>& cost, vector<int>& time) {
+    int n = cost.size();
+    vector<int> dp(n + 1, 1e9);
+    dp[0] = 0;
+    for (int i = 0; i < n; ++i)
+        for (int j = n; j > 0; --j)
+            dp[j] = min(dp[j], dp[max(j - time[i] - 1, 0)] + cost[i]);
+    return dp[n];
+}
 
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void{
-            
-           vector<int> x = { 0 , 3 , 0 };
-           vector<int> y = { 0 , 5 , 2 };
-
-           vector< ar > A, B ;
-
-           for( int i = 0 ; i < 3 ; i++ )
-            {
-                A.push_back({ x[i] , y[i]});
-                B.push_back({ y[i] , x[i]});
-            }
-
-            sort( A.begin() , A.end() );
-            sort( B.begin() , B.end() );
-
-            int b = 0 ;
-            int h = 0 ; 
-
-            if( A[0][0] == A[1][0] )
-            {
-                 b = abs( A[1][1] - A[0][1] );
-                 h = abs( A[0][0] - A[2][0] );
-            }
-
-            else if( B[0][0] == B[1][0] )
-            {
-                b = abs( B[1][1] - B[0][1] );
-                h = abs( B[0][0] - B[2][0] );
-            }
-
-
-            double a = h*b*0.5 ;
-            cout<<a<<endl;
-
-    };
-    
-
-int test = 1 ;
-// cin>>test;
-while(test--)
-solve();
+ 
 return 0;
 }   
+
+// 2742. Painting the Walls

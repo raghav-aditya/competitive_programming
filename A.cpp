@@ -58,59 +58,91 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-int f( vector<int>&A , int k )
-{
 
-   int N = A.size();
-   int l = 0 ;
-   int h = N ;
+class Hash {
 
-   auto ok = [&]( int m )-> bool
-   {
-        int cnt = m; 
-        int s = 1 ;
-        if( s >= k )
-            return 1 ;
+    string A ;
+    vector<int> F ; // forward prefix sum of hash
+    vector<int> B ; // backward prefix sum 
+    vector<int> t ; // power of base 
+    vector<int> ti ;
+    int base ;
+    int N ;
 
-        for( auto x : A )
+public:
+
+    Hash( const int base_ , const string &A_ ){
+        this->base = base_ ;
+        this->A = A_ ;
+        this->N = A.size();
+
+        F.resize(N+2,0);
+        B.resize(N+2,0);
+        t.resize(N+2,1);
+        ti.resize(N+2,0);
+
+        ti[0] = inverse(1);
+        int inv_base = inverse(base);
+
+        for( int i = 1 ; i <= N ; i++ )
+            ti[i] = ((ti[i-1] * inv_base)%mod + mod) %mod ;
+
+        for( int i = 1 ; i <= N ; i++ )
+            t[i] = ( (t[i-1]*base)%mod + mod )%mod ;
+
+        for( int i = 0 ; i < N ; i++ )
         {
-            if( s >= x && cnt > 0 )
-            {
-                s += x ;
-                cnt--;
-            }
+            int x = A[i];
+            int y = A[N-i-1];
+
+            F[i+1] = ((F[i] + (x*t[i+1])%mod)%mod + mod)%mod  ;
+            B[i+1] = ((B[i] + (y*t[i+1])%mod)%mod + mod)%mod ;
         }
 
-        return s >= k ;
-   };   
+    }
 
-
-   while( l < h )
-   {
-        int m = (l+h)>>1 ;
-        if( ok(m) )
-            h = m-1 ;
+    int get( int a , int b , bool is_reverse = false )
+    {
+        if(!is_reverse)
+        {
+            int res = ((F[b+1] - F[a])%mod +mod)%mod ;
+            res = ((res*ti[a])%mod + mod )%mod ;
+            return res;
+        }
         else
-            l = m+1;
-   }
+        {
+            swap( a, b ); 
+            a = N-1-a ;  
+            b = N-1-b ;   
+            int res = ((B[b+1] - B[a])%mod +mod)%mod ;
+            res = ((res*ti[a])%mod + mod )%mod ;
+            return res;
+        }
+    }
 
-   for( int m = l-1 ; m <= l+1 ; m++ )
-   {
-         if( m>= 0 && m <= N && ok(m))
-            return m ;
-   }
+    bool is_substring_pallindrom( int i , int j ){
+        return get( i , j ) == get( i , j , 1 );
+    } 
 
-   return -1 ; // not possible 
-}
+    bool isPallindrome()
+    {
+        return get( 0 , N-1 ) == get( 0 , N-1 , 1 );
+    }
+};
 
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    vector<int> A = { 1 , 2 ,  2 , 4 , 1 };
+    auto solve = [&]()->void{
+        
+        cout<<"fjdkla;fjdkal;f"<<endl;
 
-    cout<<f(A,5)<<endl;
+    };
+    
 
+
+solve();
 return 0;
 }   

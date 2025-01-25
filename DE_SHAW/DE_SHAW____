@@ -1,0 +1,83 @@
+solve this problem, in SQL
+
+The other questions were based on joins, indexing in database and the following question:
+
+/*
+restaurant(restaurant_id*, name, city, is_veg_only, rest_rating, location_area_id) // location_area_id: Area where the restaurant is located.
+area(area_id*, area_name, city, density) // Density: Number of persons per sq. KM
+delivery_agent(agent_id*, name, age, vehicle_no, agent_rating)
+customer(customer_id*, name, age, residence_area_id, cust_rating) // residence_area_id: Area of residence of the customer.
+
+Q1. Youngest customer who lives in the most densely populated area of Mumbai.
+Q2. Average rating of all the delivery agents who deliver to India Gate area of New Delhi.
+*/
+Writing query to solve the above 2 questions. If any more information or table is required then add it.
+
+
+
+
+Q1-
+
+
+
+
+
+
+select AVG( cust_rating ) 
+from customer
+where reidence_area_id = 
+(
+	select area_id from area
+	where city = "NEW DELHI"
+	and name = "INDIA GATE"
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+restaurant(
+restaurant_id*, 
+ name, 
+ city, 
+ is_veg_only, 
+ rest_rating, 
+ location_area_id
+) 
+
+
+area(
+area_id*, 
+ area_name, 
+ city, 
+ density
+) 
+
+
+delivery_agent(
+agent_id*, 
+ name, 
+ age, 
+ vehicle_no, 
+ agent_rating
+)
+
+
+customer(
+customer_id*, 
+ name, 
+ age, 
+ residence_area_id, 
+ cust_rating
+) 

@@ -1,0 +1,507 @@
+
+ https://leetcode.com/discuss/interview-experience/5183442/DE-Shaw-MTS-(2023-2024-passout)-Reject
+
+ https://leetcode.com/discuss/interview-experience/5009115/DE-Shaw-or-SMTS-or-Hyderabad-or-Mar-2024-Offer
+
+ https://leetcode.com/discuss/interview-experience/2553627/DE-Shaw-or-Senior-Member-Technical-or-Hyderabad-Accepted
+
+ https://leetcode.com/discuss/interview-experience/2042604/D.E.-Shaw-or-MTS-or-Hyderabad-or-April-2022-Reject
+
+ https://leetcode.com/discuss/interview-experience/1923887/DE-Shaw-or-SDE1-or-Hyderabad-or-Reject
+
+
+https://leetcode.com/problems/car-fleet/description/
+
+Q1-> 10 bags having infinite coins weighing 1 gram, only 1 bag has 1.1 gram coin
+     
+     take: 10 coins from first
+     take: 10^2 coins from second 
+     ....... 10^10 coins from last 
+
+     now minus -> 11111111110 , now the number with 1 will be bag number 
+
+
+
+
+q2-> max of two number without using if and loop: 
+
+	a*(bool(a/b))  + b*(bool(b/a)); // this fails when a == b so 
+
+	int function(){ // this works always 
+	  int condition = (a>b);
+	  int mx = condition*a + (1-condition)*b;
+	  int mn = (1-condition)*a + condition*b
+	}
+
+	int main() {
+	int a,b;
+	cin>>a>>b;
+	cout<<"The maximum number is:"<<((a+b)+abs(a-b))/2<<"\n";
+	cout<<"The minimum number is:"<<((a+b)-abs(a-b))/2<<"\n";
+	}
+
+
+Difference between c++ vs python vs java at compiler and interpreter level , Method overloading vs overriding
+
+
+
+
+
+ Technical Questions
+
+1- Garbage Collector in Java
+2- Why we use static in Java
+3-How HashMap are Implemented
+
+After that questions on OOPs related to abstract class and interface. A question related to SQL query. Basic questions related to React (reasons a React website might work slow).
+
+After this he asked me an SQL query (it's related to correlative subquery or something like that, he mentioned after I gave the solution).
+
+
+This was mainly focussed on databases, what is normalization, normalization on a given database, some questions related to OS, some related to OOPs. Asked me if I know something about Design, I said I know some design patterns. Also asked me some SQL queries at the end.
+
+
+Apart from this, there was lot of focus on Java. They even asked if I know how few classes are implemented inside the JDK.
+
+But many questions were repeated:
+
+Difference between HashMap, ConcurrentHashMap & Synchronized hashmap
+Serialization, what if I want to decide which fields to serialize and which not to, what is sID
+Method overriding vs Hiding
+Everything about sychronized keyword
+Advantages of Spring Boot
+Side effects of overriding equals method, how to solve non-symmetric behaviour
+Types of Sets and implementation differences
+There was no system design or behavioral round at all.
+
+
+
+
+Other questions on Interface, Singelton pattern, Polymorphism etc.
+
+
+Questions asked in CodePair Round of DE Shaw Hyderabad
+
+Replace all spaces in a string with '%79'
+Excel Sheet Column Title
+Find Inorder Successor in Binary Search Tree with parent pointer.
+
+
+
+Code Pair round for SDE 1 lateral hire.
+No DSA questions were asked surprisingly. All questions were based on OOP and DMBS.
+OOP questions were based on Abstract class, inheritance, virtual method, final keyword. A small class diagram was given and some questions were asked on it.
+The other questions were based on joins, indexing in database and the following question:
+
+/*
+restaurant(restaurant_id*, name, city, is_veg_only, rest_rating, location_area_id) // location_area_id: Area where the restaurant is located.
+area(area_id*, area_name, city, density) // Density: Number of persons per sq. KM
+delivery_agent(agent_id*, name, age, vehicle_no, agent_rating)
+customer(customer_id*, name, age, residence_area_id, cust_rating) // residence_area_id: Area of residence of the customer.
+
+Q1. Youngest customer who lives in the most densely populated area of Mumbai.
+Q2. Average rating of all the delivery agents who deliver to India Gate area of New Delhi.
+*/
+Writing query to solve the above 2 questions. If any more information or table is required then add it.
+
+
+To solve the given problems in SQL, we need to ensure our queries join the relevant tables correctly and extract the required information based on the conditions specified.
+
+Let's break down each question and formulate the SQL queries:
+
+Question 1: Youngest customer who lives in the most densely populated area of Mumbai
+Identify the most densely populated area in Mumbai.
+Find the youngest customer residing in that area.
+sql
+Copy code
+-- Subquery to find the area_id of the most densely populated area in Mumbai
+WITH most_dense_area AS (
+    SELECT area_id
+    FROM area
+    WHERE city = 'Mumbai'
+    ORDER BY density DESC
+    LIMIT 1
+)
+
+-- Main query to find the youngest customer in that area
+SELECT c.customer_id, c.name, c.age, c.residence_area_id, c.cust_rating
+FROM customer c
+JOIN most_dense_area mda ON c.residence_area_id = mda.area_id
+ORDER BY c.age ASC
+LIMIT 1;
+Question 2: Average rating of all the delivery agents who deliver to India Gate area of New Delhi
+Identify the area_id for "India Gate" in New Delhi.
+Find all delivery agents who deliver to that area.
+Calculate the average rating of these delivery agents.
+Note: Since the tables provided do not include direct delivery information linking agents to areas, we assume that we would have an additional table deliveries that links delivery agents to delivery areas.
+
+Assumed table:
+
+deliveries(delivery_id*, agent_id, area_id)
+sql
+Copy code
+-- Subquery to find the area_id of India Gate in New Delhi
+WITH india_gate_area AS (
+    SELECT area_id
+    FROM area
+    WHERE area_name = 'India Gate' AND city = 'New Delhi'
+)
+
+-- Main query to calculate the average rating of delivery agents delivering to India Gate
+SELECT AVG(da.agent_rating) AS average_agent_rating
+FROM delivery_agent da
+JOIN deliveries d ON da.agent_id = d.agent_id
+JOIN india_gate_area iga ON d.area_id = iga.area_id;
+Explanation:
+Question 1:
+
+We first find the most densely populated area in Mumbai using a WITH clause (common table expression) to make the main query cleaner.
+We then join the customer table with this result to get the youngest customer in that area.
+Question 2:
+
+We find the area_id for "India Gate" in New Delhi using a WITH clause.
+We join the delivery_agent table with the deliveries table to filter agents delivering to "India Gate".
+Finally, we calculate the average rating of these filtered delivery agents.
+These queries should provide the correct results based on the specified conditions. If the structure of your actual tables or the data differs, the queries might need slight adjustments.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Question: find the smallest sum that can't be represented using subset of this subarray.
+
+we can do sorting and have can variable. 
+
+
+
+We had discussion of Operating System for the next 40-45 mins.
+topics:-
+
+Inter-Process communcation
+Semaphores
+locks
+Mutex
+then a small discussion of 10 mins over OOPS
+Virtual functions
+Polymorphism
+
+
+
+
+
+diamond problem (with ouput questions) i gave the definition but messsed up in output question
+virtual in OOPS
+Inter-process communication
+shared-memory
+process thread (in depth , messed up here too)
+Locking in OS (with code)
+TCP vs. UDP
+Checksum (I told them not to ask much questions from computer network)
+IP addressing
+
+
+I had mentioned that in my current org I was working with distributed systems and we heavily used kafka. There were questions arond concurrency and threads and some questions around kafka (only basic questions)
+I was asked about Producer Consumer problem, how we can signal from one thread to other. Asked to write how would I implement locks in a producer consumer problem etc.
+I had mentioned that in my current company I worked on java, there were questions around why a particular framework was chosen etc.
+Also the manager wanted to know why I wanted to switch my current company.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I recently had interview with Kotak Mahindra Bank for SDE-1 position. In total 3 rounds took place.
+BarRaiser Round(1.5hr):
+This round was divided into 3 parts: LLD, DSA and Distributed Systems
+
+Distributed Systems questions:
+
+ * How to handle consistency in distributed database system?
+ * How to scale a system?
+ * How to handle deployment in failure situation?
+ * And 2-3 more which I don't remember. But these questions can be answered easily if you go through the standard interview questions list on Distributed systems.
+DSA:
+Question was asked: https://leetcode.com/problems/container-with-most-water/description/
+
+LLD:
+Design uber/ola. Coding was expected with class diagrams, api designs and database schema
+
+Overall this round was of medium level difficulty.
+
+DSA Round(1hr):
+This round consists of 2 dsa problems:
+
+https://leetcode.com/problems/group-anagrams/description/
+https://leetcode.com/problems/permutations/description/
+Both the questions were of medium difficulty and a proper running solution was expected.
+
+Resume + DSA round(1hr):
+Questions on kafka were asked:
+
+Difference between partition and topic
+What is consumer and consumer groups?
+If 2 partitions and 3 consumers are there, how would you distribute it?
+How you would ensure that messages are coming in proper order?
+Questions on postgresql:
+
+Difference between primary key and unique constraint.
+Questions on ACID properties:
+
+Explain all A,C,I,D and some counter questions.
+What is transaction?
+How many types of isolation are there?
+DSA questions:
+
+Reverse a string without using extra space
+Find kth smallest number in an array: https://leetcode.com/problems/kth-largest-element-in-an-array/description/
+sde
+kotak
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### DE Shaw Interview Preparation
+
+Here is a structured overview of the information from the provided links and additional topics relevant to DE Shaw interviews:
+
+#### Interview Experiences
+1. **Links to Detailed Experiences:**
+   - [DE Shaw MTS (2023-2024 passout) - Reject](https://leetcode.com/discuss/interview-experience/5183442/DE-Shaw-MTS-(2023-2024-passout)-Reject)
+   - [DE Shaw SMTS, Hyderabad, Mar 2024 - Offer](https://leetcode.com/discuss/interview-experience/5009115/DE-Shaw-or-SMTS-or-Hyderabad-or-Mar-2024-Offer)
+   - [DE Shaw Senior Member Technical, Hyderabad - Accepted](https://leetcode.com/discuss/interview-experience/2553627/DE-Shaw-or-Senior-Member-Technical-or-Hyderabad-Accepted)
+   - [DE Shaw MTS, Hyderabad, Apr 2022 - Reject](https://leetcode.com/discuss/interview-experience/2042604/D.E.-Shaw-or-MTS-or-Hyderabad-or-April-2022-Reject)
+   - [DE Shaw SDE1, Hyderabad - Reject](https://leetcode.com/discuss/interview-experience/1923887/DE-Shaw-or-SDE1-or-Hyderabad-or-Reject)
+
+#### Key Topics and Questions
+
+##### Technical Questions
+1. **Garbage Collector in Java**
+   - Concepts and implementation
+   - Generational garbage collection
+   - Reference counting, mark-and-sweep, and other algorithms
+
+2. **Static in Java**
+   - Static variables and methods
+   - Static blocks
+   - Use cases and benefits
+
+3. **HashMap Implementation**
+   - Internal structure (array of buckets, linked lists, or trees)
+   - Hash function and collision handling (separate chaining and open addressing)
+
+4. **Method Overloading vs. Overriding**
+   - Overloading: Compile-time polymorphism, same method name, different parameters
+   - Overriding: Runtime polymorphism, subclass method with same signature as superclass
+
+5. **Java-Specific Questions**
+   - Differences between HashMap, ConcurrentHashMap, and SynchronizedMap
+   - Serialization, selective field serialization
+   - Method overriding vs. hiding
+   - Synchronized keyword
+   - Spring Boot advantages
+   - Side effects of overriding equals method
+   - Types of Sets and implementation differences
+
+6. **OOP Concepts**
+   - Abstract class and interface
+   - Polymorphism, inheritance, encapsulation
+   - Singleton pattern
+   - Virtual methods and final keyword
+   - Diamond problem and virtual functions
+
+7. **Databases and SQL**
+   - Normalization and its importance
+   - Correlated subqueries
+   - Joins and indexing
+   - Writing complex SQL queries
+
+##### Example SQL Questions
+1. **Youngest customer in the most densely populated area of Mumbai**
+   ```sql
+   WITH most_dense_area AS (
+       SELECT area_id
+       FROM area
+       WHERE city = 'Mumbai'
+       ORDER BY density DESC
+       LIMIT 1
+   )
+   SELECT c.customer_id, c.name, c.age, c.residence_area_id, c.cust_rating
+   FROM customer c
+   JOIN most_dense_area mda ON c.residence_area_id = mda.area_id
+   ORDER BY c.age ASC
+   LIMIT 1;
+   ```
+
+2. **Average rating of delivery agents delivering to India Gate, New Delhi**
+   ```sql
+   WITH india_gate_area AS (
+       SELECT area_id
+       FROM area
+       WHERE area_name = 'India Gate' AND city = 'New Delhi'
+   )
+   SELECT AVG(da.agent_rating) AS average_agent_rating
+   FROM delivery_agent da
+   JOIN deliveries d ON da.agent_id = d.agent_id
+   JOIN india_gate_area iga ON d.area_id = iga.area_id;
+   ```
+
+##### Coding Problems
+1. **Replace all spaces in a string with '%79'**
+2. **Excel Sheet Column Title**
+3. **Find Inorder Successor in a Binary Search Tree with parent pointer**
+
+##### Operating Systems
+- **Inter-Process Communication (IPC)**
+  - Semaphores, locks, and mutexes
+  - Shared memory, message passing
+
+- **Threading and Concurrency**
+  - Producer-consumer problem, signaling between threads
+  - Implementing locks in multi-threaded environments
+
+- **Networking**
+  - TCP vs. UDP
+  - Checksum and IP addressing
+
+#### Example Problem Solutions
+1. **Finding the Smallest Sum That Can't Be Represented Using Subarray**
+   - Approach: Sort the array and use a greedy algorithm to find the smallest sum that cannot be represented.
+
+#### Preparation Tips
+1. **Focus Areas:**
+   - Java-specific questions and internal implementations
+   - In-depth understanding of OOP principles
+   - SQL query writing and optimization
+   - Operating system concepts, especially IPC and threading
+   - Basic networking concepts
+
+2. **Practice Coding:**
+   - Regularly solve coding problems on platforms like LeetCode
+   - Focus on problems involving arrays, strings, trees, and graphs
+
+3. **Mock Interviews:**
+   - Participate in mock interviews to get a feel of the real interview environment
+   - Get feedback and work on areas of improvement
+
+By focusing on these areas and practicing regularly, you can be well-prepared for a DE Shaw interview. Good luck!
+
+
+
+
+
+
+
+Status: New grad, B.Tech in CSE from old IIT
+Location: Hyderabad,India
+Date: Apr-May 2024
+
+This was an off campus drive for 2024 grads
+
+In total had 1 OA , 3 Technical rounds
+
+Online Assesment : It had 3 sections
+
+3 Coding questions (1 Easy (20 Mins ) , 2 Medium (30 mins each)) - you cannont skip and time is not carried forward
+
+Questions were based on dp,greedy,graphs,binary search
+
+10 questions on cs fundamentals ( DSA,OS,CN,OOPS,C ... ) - 20 mins
+10 questions on Quant (Probability , P&C , apptitude ...) - 20 mins
+
+received invitation for Screening round in a week
+
+Screening Round : DBMS ( normalisation , indexing , sharding ) , SQL queries , 2 DSA questions (dp on trees , https://leetcode.com/problems/lru-cache/ ) , was asked to give output of c++ codes based on OOPs , static keyword
+
+received invitation for Onsite/In depth rounds in a week
+
+Onsite Round 1 : 2 DSA questions (medium dp question , https://leetcode.com/problems/minimum-moves-to-equal-array-elements/ )
+
+Design Bookmyshow database schema
+
+There were 5-10 questions on OOPS,C++ (Polymorphism , Virtual functions , inline functions , stack vs heap )
+
+received call for next round same day
+
+Onsite Round 2 :
+
+3 DSA questions ( https://leetcode.com/problems/sliding-window-maximum/ ,https://leetcode.com/problems/min-stack/description/ , generate a random number from (1-n) in each round and the number should not have been appeared in last k rounds )
+
+Design a flight booking system (LLD) - should support concurrent requests
+
+There were 3-5 questions on OS (Threads,process,syncronization,semaphores,mutexes,deadlocks)
+
+received call for hr round next day
+
+Note : In every round there was 10 mins of discussion on resume,projects,internships

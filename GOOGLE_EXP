@@ -1,0 +1,145 @@
+DUMB GOOGLE INTERVIEWER RUINED MY ONSITE
+
+Q: LONG STORY but problem reduced to this one
+
+given  binary matrix M*N size, there is only square matrix with all 1's in this matrix, return the position of upper left corner of that 1 submatrix, if it's size greater >= k.
+
+lets k = 2 ;
+
+matrix is:
+			0000
+			0000
+			0110
+			0110
+
+
+ans would be: ( 2 , 1 ),
+
+the solution is gave i using famous problem: https://leetcode.com/problems/maximal-square/description/
+
+ basically this:
+```
+ 
+  auto dp = A ;
+
+  for( int i = M-2 ; i >= 0 ; i-- )
+  for( int j = N-2 ; j >= 0 ; j-- )
+  {
+  	if( A[i][j] )
+  	t[i][j] = 1 + min({ dp[i+1][j] , dp[i][j+1] , dp[i+1][j+1]});
+  }
+
+  for( int i = 0 ; i < M ; i++ )
+  for( int j = 0 ; j < N ; j++ )
+  {
+  	if( t[i][j] >= k )
+  	{
+  		return { i , j };
+  	}
+  }
+return { -1 , -1 };
+```
+
+
+You must be thinking yaaay i solved it i must pass this interview right? **you are so wrong guys...**
+
+
+i figured it out the solution in 2 mins after seeing the problem  when i started explaining the optimal approach for this problem using technique above. 
+
+she stopped me told me not to solve the most optimally first lets first discuss brute force...(i mean why... i am already short on time that is 45 min **;(** and i need to make room for the follow ups too... )
+
+Now her blunder started, when i said okay we have brute force solution, that we can have (M*N) starting position for submatrix and (M*N) ending position for submatrix and to check wether submatrix is valid or not we need to traverse that submatrix that is also (M*N)
+
+so TC: (M * N) * (M * N) * (M * N)
+
+she could not understand this logic i mean you are in google and my interviewer you dont F**king know this...
+ 
+she told me to write psedu code which is basically writing code itself which i did now i have wasted my first 20 mins already with this detour from problem.
+
+
+now i continued with my orignal appraoch i explained it and wrote the above code now after all of this we have **5 min left and she tells me can you do it faster**
+
+
+as this point i was like is she gone mad i mean, to even travell the each element of matrix i would take (MN) time in case no 1 exist my matrix so how can any solution be faster that MN. 
+
+
+and i Gave her very SOLID fact **so that she understand** what i am talking about.
+
+    fact: T.C >= S.C 
+
+i.e, time complexity will always be greater that space complexity and no one can break this ineqality, so no solution can exist that can do asked task better than O(M*N).
+
+
+
+she is **not satisfied** now at this point i lost all hope because time was gone.
+
+
+in this round I got NO hire for no fault of my own I tried to explain with my recruiter that what the interviewer was asking is impossible and no one can do it faster than that, and recruiter tell's me, actually that's for you only, you can't do faster than that 
+but there will be someone that can do it, now i realised there no way i can explain my recruiter what i am saying if she have not done coding so i left it there and excepted my faith.
+
+
+Is google now stooped this low that interviewer specifically wastes my first 20 mins and then asks me to do something that can't be done,
+
+
+
+- **Same story is for Onsite round 3:**
+
+interviewer did not have a proper mic i mean i could not properly hear him, and he did not even explained the problem he just pasted and i solved different problem  in which i did not consider the some additional constraints for the first 25 mins of round and when i already wrote my solution on the editor he tells me that your solution does not check for this contraints now i realised i am fucked up beuase time was already ticking and even if i solve the problem i can't do the follow up, if only he had explained the problem in the beginning i would have solved it nicely in the end i could not reach even the solution of asked problem because i lost the hope during interview, 
+
+why couldn't he even have a headphone to begin with so i could hear him, during the interview i just heard his hmm, yes and simple word because only that i could hear it.... very bad experience for me.
+
+i told him in starting itself your voice is not clear he tried something but it was't any better than before, if he has used any headphone it would be 10-15 times better i mean litterally why are they playing with candidates future and he did not seem intrested he was very cold.
+
+
+
+I prepared very hard for the interviews I reached the peak during prep i wasn't getting any better if i prepared for more but all of the stuff wont matter now.
+
+
+**a bit about me:** 
+
+I have done more than 2500+( 4 YEARS ) problems in my coding journey and my Leetcode rating is 2015, i know some of the advance stuff  too( did codeforces to enhance some techniques), that is segment tree, heavy light decomposition and etc...
+
+so this was my experience with Google.
+
+you can ask me anything about the google process that i went through
+
+only two things were positive in whole process, nice recruiter and Onsite round 1 interviewer and rest was very bad experience
+
+
+
+
+
+
+
+
+
+
+UPD: many peoples saying in comments that it can be done using sqrt(N) jumping but, 
+
+
+TC >= SC fact from here:
+
+
+
+i am giving you all a challenge write full code in comment that works in sub quadratic time that read the input and prints the result,
+
+
+M N
+a1 b1 ........... N times
+a2 b2 ........... N times
+.
+.
+.
+.
+.
+.
+aM bM.......... N times,
+
+
+
+I want full code that read the input and write the output, if you can't do it faster than quadratic time my statement holds.
+
+
+
+
+

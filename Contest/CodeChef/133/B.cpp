@@ -15,7 +15,7 @@ using namespace __gnu_pbds;
 #define mask(i) (on(i)-1LL)
 #define vi vector<int>
 #define vvi vector<vi>
-const int mod = pow(10,9)+7 ;
+const int mod = pow(10,18) ;
 const int MAX = pow(10,5)+1 ;
 const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
 const int dy[8] = { 0 , 0 , 1 , -1 , 1 , -1 , 1 , -1 } ;
@@ -58,53 +58,59 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-#define ar array<int,2>
-
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
     auto solve = [&]()->void{
+        int N ;
+        cin>>N;
+        vector<int>A(N);
+
+        for( auto &x : A )cin>>x ;
+
+        auto ok = [&]( int a , int b , int k )-> bool
+        {
+            int t = pow( (int)a , k );
             
-           vector<int> x = { 0 , 3 , 0 };
-           vector<int> y = { 0 , 5 , 2 };
+            return t <= b ;
+        };
 
-           vector< ar > A, B ;
+        int res = 0 ;
+        int cnt = 0 ;
 
-           for( int i = 0 ; i < 3 ; i++ )
-            {
-                A.push_back({ x[i] , y[i]});
-                B.push_back({ y[i] , x[i]});
+        for( int i = 0 ; i < N ; i++ )
+        {
+            int a = A[i];
+
+            if( a == 1 ){
+                cnt++;
+                continue;
             }
 
-            sort( A.begin() , A.end() );
-            sort( B.begin() , B.end() );
-
-            int b = 0 ;
-            int h = 0 ; 
-
-            if( A[0][0] == A[1][0] )
+            for( int j = max(0LL,i-3) ; j <= min(N-1,i+3) ; j++ )
             {
-                 b = abs( A[1][1] - A[0][1] );
-                 h = abs( A[0][0] - A[2][0] );
+                int b = A[j];
+                
+                if( b == 1 )continue ;
+                if( ok( a , b , j+1)  ){
+                    res++;
+                }
+                if( ok( b , a , i+1 ) ){
+                    res++;
+                }
             }
+        }
 
-            else if( B[0][0] == B[1][0] )
-            {
-                b = abs( B[1][1] - B[0][1] );
-                h = abs( B[0][0] - B[2][0] );
-            }
-
-
-            double a = h*b*0.5 ;
-            cout<<a<<endl;
-
+        res /= 2 ;
+        res += cnt*N ;
+        cout<<res<<endl;
     };
     
 
 int test = 1 ;
-// cin>>test;
+cin>>test;
 while(test--)
 solve();
 return 0;

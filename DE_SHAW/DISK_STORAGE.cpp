@@ -58,54 +58,76 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-#define ar array<int,2>
+vector< int > dp ;
+
+void dfs( vector<int>g[] , int u , int p , int mask , unordered_map<int,int>&mp , string &A )
+{
+	int n_mask = mask ;
+	int k = (A[u]-'a');
+	n_mask ^= (1<<k) ;
+
+	for( int c = 0 ; c  < 26 ; c++ )
+	{
+		int l_mask = n_mask ^ ( 1<<c ) ;
+		dp[u] += mp[l_mask];
+	}
+
+	dp[u] += mp[n_mask]++;
+
+	for( auto v : g[u] )
+	{
+		if( v == p )continue;
+		dfs( g , v , u , n_mask , mp , A );
+	}
+
+	mp[n_mask]--;
+}
+
+
+vector< int > f( vector< int > &from , vector<int>&to , vector< int > &Q , string &A )
+{
+	int N = A.size();
+	vector<int>g[N];
+
+	for( int i = 0 ; i < N-1 ; i++ )
+	{
+		int a = from[i];
+		int b = to[i];
+
+		g[a].push_back(b);
+		g[b].push_back(a);
+	}
+
+	dp.assign(N,0);
+	unordered_map< int , int > mp ;
+	mp[0]++;
+
+	dfs( g , 0 , -1 , 0 , mp , A );	
+
+	vector<int>res;
+	for( auto x : Q )
+		res.push_back(dp[x]);
+
+	return res ;
+}	
 
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->void{
-            
-           vector<int> x = { 0 , 3 , 0 };
-           vector<int> y = { 0 , 5 , 2 };
 
-           vector< ar > A, B ;
+  		
+  	vector< int > from = { 0 , 0 , 1 };
+  	vector< int > to = { 1 , 2 , 3 };
+  	vector< int > Q = { 3 } ;
+  	string A = "zaaa";
 
-           for( int i = 0 ; i < 3 ; i++ )
-            {
-                A.push_back({ x[i] , y[i]});
-                B.push_back({ y[i] , x[i]});
-            }
+  	auto res = f( from , to , Q , A );
 
-            sort( A.begin() , A.end() );
-            sort( B.begin() , B.end() );
-
-            int b = 0 ;
-            int h = 0 ; 
-
-            if( A[0][0] == A[1][0] )
-            {
-                 b = abs( A[1][1] - A[0][1] );
-                 h = abs( A[0][0] - A[2][0] );
-            }
-
-            else if( B[0][0] == B[1][0] )
-            {
-                b = abs( B[1][1] - B[0][1] );
-                h = abs( B[0][0] - B[2][0] );
-            }
+  	for( auto x : res )
+  		cout<<x<<" ";
 
 
-            double a = h*b*0.5 ;
-            cout<<a<<endl;
-
-    };
-    
-
-int test = 1 ;
-// cin>>test;
-while(test--)
-solve();
 return 0;
 }   
