@@ -1,78 +1,59 @@
-/*
- Author: Aditya Raghav [ zerojude ]
- INDIA 
-*/
-#include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp> 
-#include <ext/pb_ds/tree_policy.hpp> 
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
 using namespace std;
-using namespace __gnu_pbds; 
-
-#define int long long
-#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
-#define all(x) begin(x) , end(x) 
-#define on(i) (1LL << (i))
-#define mask(i) (on(i)-1LL)
-#define vi vector<int>
-#define vvi vector<vi>
-const int mod = pow(10,9)+7 ;
-const int MAX = pow(10,5)+1 ;
-const int dx[8] = { 1 , -1 , 0 , 0 , 1 , 1 , -1 , -1 } ;
-const int dy[8] = { 0 , 0 , 1 , -1 , 1 , -1 , 1 , -1 } ;
-int mod_pow( int a , int b , int md = mod )
-{
-    if( a == 0 || a == 1 ) return a ;
-    if( b == 0 )return 1 ;
-    int ha = mod_pow( a , b/2 ); ha *= ha; ha %= md ; if( b&1 ) ha *= a ;
-    return ha%md ;
-}
-int inverse( int a )
-{
-    return mod_pow(a,mod-2);
-}
-vector<int>factorial_ ; 
-vector<int> factorial( int N = MAX )
-{
-    vector<int>f(N,1);
-    for( int i = 2 ; i < N ; i++ )f[i] = (i*f[i-1])%mod;
-    return f ;
-}
-void init_factorial(){ if(factorial_.size()==0)factorial_ = factorial(); }
-#define oo (int)pow(2L,60)
-#define arr array<int,3> 
-#define ar array<int,2>
-
-int nCr( int N , int R )
-{
-    if(factorial_.size()==0) factorial_ = factorial();
-    int res = factorial_[N]; res *= inverse( factorial_[R] );  
-    res = (res%mod+mod)%mod; res *= inverse( factorial_[N-R] ); 
-    res = (res%mod+mod)%mod; return res ;
-}
-
-
-/********** GO DOWN ***********/
-
-/* 
-   If the genius trains just as hard.... 
-   what chance do I have to beat him? 
-*/
-
-int32_t main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+ 
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     
-    auto solve = [&]()->void{
-                
-               
-
-               
-    };
+    // Read input: first n (number of people) then K (Bob's money)
+    int n; 
+    long long K;
+    cin >> n >> K;
     
-
-int test = 1 ;
-while(test--)
-solve();
-return 0;
-}   
+    vector<long long> A(n);
+    for (int i = 0; i < n; i++){
+        cin >> A[i];
+    }
+    
+    // Count how many people already have money equal to K.
+    long long baseline = 0;
+    for (int i = 0; i < n; i++){
+        if(A[i] == K)
+            baseline++;
+    }
+    
+    // dp[v] will store a value so that the "actual" running sum for candidate v is dp[v] + off.
+    unordered_map<long long, long long> dp; 
+    long long off = 0;            // global offset (cumulative contribution from K's)
+    long long global_best = 0;    // best "actual" value (maximum net gain from some operation)
+    
+    // Process the array in one pass.
+    for (int i = 0; i < n; i++){
+        if(A[i] == K){
+            // For a K, every candidate's running sum decreases by 1.
+            off--;
+        } else {
+            // Only the candidate equal to A[i] gets a contribution.
+            long long v = A[i];
+            long long old_actual = 0;
+            if(dp.find(v) != dp.end()){
+                old_actual = dp[v] + off;
+            }
+            // Kadane-style update:
+            long long new_actual = max(old_actual, 0LL) + 1;
+            dp[v] = new_actual - off;  // store adjusted value so that actual = dp[v] + off.
+            global_best = max(global_best, new_actual);
+        }
+        // (Indices with neither K nor a candidate value don't need an update;
+        //  their contribution is 0 so they merely "bridge" segments.)
+    }
+    
+    // Final answer: add the net gain from our best operation (if any) to the baseline.
+    long long ans = baseline + global_best;
+    cout << ans << "\n";
+    
+    return 0;
+}
