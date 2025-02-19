@@ -1,0 +1,304 @@
+
+
+
+
+
+Author :  id , name , gender  
+Books  :  id , name 
+
+  Many to Many relationship:
+
+Table Author
+{
+   author_id ,
+   name ,
+   gender
+}
+
+
+Table Books
+{
+	book_id,
+	book_name,
+}
+
+
+Table Author_book_mapping
+{
+	id,
+	author_id,
+	book_id
+}
+
+
+
+Q1: all the books names that have female authors 
+
+
+
+slect * from book
+where book_id in
+(
+	
+	Query_A ;
+
+	
+);
+
+
+// A -> author
+// B -> Books
+// ABM -> Author_book_mapping
+
+select distinct(B.*) from
+
+	 book as B 
+	 join
+	 author as A
+     on
+
+
+
+	 join
+	author_book_mapping as ABM
+on
+
+
+
+-----------
+
+
+
+select distinct (B.*) from
+
+   book as B 
+   join 
+   author_mapping as ABM
+
+   on 
+   B.book_id = ABM.book_id 
+
+   join
+
+   author as A
+
+   on 
+   ABM.author_id = A.author_id 
+
+
+where 
+
+ A.gender = 'FEMALE'
+
+limit 10 ;
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------
+
+// (1,2) , (2,2)
+
+
+class key_value_pair
+{
+	int key ;
+	int val ;	
+};
+
+
+class LRU_cache
+{
+	
+	list< key_value_pair > list = new LinkedList<>();
+
+	Map< int , key_value_pair > map = new Map<>() ;
+
+	int mx_sz = 0 ;
+
+	void remove_safely( key_value_pair obj )
+	{
+		auto before = obj.previous();
+		auto after = obj.next();
+
+		// merge before and after 
+	}
+
+
+	public LRU_cache( int sz_of_LRU )
+	{
+		this.mx_sz = sz_of_LRU ;
+	}
+
+
+	void put( int key , int val )
+	{
+		if( map.contains(key) )
+		{
+
+		   // no rebalacing
+
+		   key_value_pair obj = map.get(key);
+		   remove_safely( obj );
+
+		   obj.value = val ;
+		   list.add(obj);
+
+		}
+		else
+		{
+
+		   // ( 11, 2, 3 ,4 ,5 ,6 )
+		  // check size is already mx_sz 
+
+		  if( list.size() == mx_sz )
+		  {
+		  	    auto lru_key = list.front(); 
+		        remove_safely( lru_key );
+		  }
+
+
+		  key_value_pair obj = new key_value_pair( key , val );
+
+		  map[key] = obj ;
+		  list.add(obj);
+
+		}
+
+	}
+
+
+
+
+	int get( int key )
+	{
+
+		if( map.contains(key) )
+		{
+		   key_value_pair obj = map.get(key);
+
+
+		   remove_safely( obj );
+		   list.add(obj);
+
+		  // return value 
+		  // reorganise the LRU
+		}
+		else
+		{
+		    log.debug("key does not exist");
+			return -1;		
+		}
+	}
+};
+
+
+
+
+
+
+
+
+----------------------------------------------------------
+
+2D array 
+sorted rows and colums
+
+find the element in 2d array 
+
+
+void find_element( vector<vector<int>>A )
+{
+	 int M = A.size();
+	 int N = A[0].size();
+
+
+	 // first appraoch is : scan the entire 2d array : O(M*N) 
+
+	 // second appraoch is: O(M*logN) or O(N*logM);
+
+	 // 
+
+	 [
+	 		1 2 3 4
+
+	 ]
+
+	 int i = 0 ;
+	 int j = N-1;
+
+
+
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

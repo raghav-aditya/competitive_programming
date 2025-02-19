@@ -1,0 +1,63 @@
+SomeoneTest: https://www.youtube.com/watch?v=3-LN4XKH6o0
+
+Q1: word count tool: 
+Q2: git 
+Q3: process:
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <set>
+using namespace std;
+
+int getMinimumTime(vector<int>& processSize, vector<int>& capacity) {
+    // Sort processes in descending order.
+    sort(processSize.begin(), processSize.end(), greater<int>());
+    // Sort processor capacities in descending order.
+    sort(capacity.begin(), capacity.end(), greater<int>());
+    
+    // If the largest process cannot be handled by the processor with the highest capacity, return -1.
+    if (processSize[0] > capacity[0]) {
+        return -1;
+    }
+    
+    // Insert all process sizes into a multiset (automatically sorted in ascending order).
+    multiset<int> processes(processSize.begin(), processSize.end());
+    
+    int rounds = 0;
+    
+    // Continue until all processes are assigned.
+    while (!processes.empty()) {
+        // For each processor (in order of decreasing capacity)
+        for (int cap : capacity) {
+            // Find the largest process that this processor can handle.
+            // multiset::upper_bound returns an iterator to the first element greater than 'cap'
+            auto it = processes.upper_bound(cap);
+            if (it != processes.begin()) {
+                // Step back to get the largest element <= cap.
+                it--;
+                processes.erase(it);
+                // If all processes are assigned, we can break out of the loop.
+                if (processes.empty()) break;
+            }
+        }
+        rounds++;
+    }
+    
+    // Calculate total time. First round takes 1 second, subsequent rounds add 2 seconds each.
+    return 2 * rounds - 1;
+}
+
+int main() {
+    // Example input:
+    // n = 3, processSize = [2, 5, 3]
+    // m = 3, capacity = [6, 2, 4]
+    vector<int> processSize = {2, 5, 3};
+    vector<int> capacity = {6, 2, 4};
+    
+    int result = getMinimumTime(processSize, capacity);
+    cout << result << endl;  // Expected output: 1
+    
+    return 0;
+}

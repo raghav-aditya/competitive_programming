@@ -1,0 +1,87 @@
+I had applied on Naukri,
+Recruiter reached out to me, after discussion, She sent me one assesment link.
+
+
+1st round
+Coding round - 2 Coding question - One easy other one medium on DP. 1 Git problem
+Difficulty: 7/10
+2nd round
+Tech Round: Question based on OOPs, Java, Java 8 streams, 1 DSA question, Questions related to microservices, Singleton Design Pattern, Authentication (Spring security and JWT).
+Difficulty: Medium (7/10)
+Upcoming rounds Onsite: Face to face ( Back to back without any gap)
+
+
+3rd round with Technical Architect
+Tech Round: Questions Base on Core Java, OOPs very detailed question with different scenarios, How to make class immutable.
+(multiple follow up questions)
+One Coding question: String Anagram related question
+Question on design patterns used in Projects: Singleton, Factory, Builder
+
+
+Difficulty: hard (9/10)
+
+
+4th Round ( Techno-managerial round)
+Resume Drilled. What and why of every thing.
+Comparison between Kafka and Messaging queues
+Spring boot internal working and classes
+
+
+Difficulty: Hard (9/10)
+
+
+Verdict Selected, (Offered 18 LPA CTC) (16 LPA Fixed + 2 Variable)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________________________________
+
+
+
+Round 1 (90 min)
+3 Questions- 2 Coding question (1 easy, 1 medium to hard level), 1 Git Question (Command line)
+
+
+Round 2 (30 min)
+Interview started with introductions, Very basic question based on spring boot such as spring annotation, difference between rest controller and controller, some questions on docker such as how to build, run, associate with a port.
+
+
+Round 3 (1 hr)
+Interview started with introduction and some discussion on previous experiences. Then some questions on spring boot such as what is DI, ways for DI in spring boot, how to prevent circular dependency (using setter). Some questions on immutable class such as string, what is intern method on string (I couldn’t answer), Then asked me to created a immutable class, and ask me to prevent it from being extended (Used final class). Then I got a question to implement LRU cache, I did it in java. Overall interview went good and lasted for an hour, I last he asked me questions anything I wanted (I asked for their experience and role in company and technology used in UKG).
+
+
+Round 4 (1 hr)
+Interview started with basic java question - Dry run code written on notepad (These question were required very deep knowledge in java), garbage collection knowlege. They asked my some questions on Apache Kafka, how Kafka is different from MQ. In last He asked to ask any questions.
+
+
+Round 5 (1 hr)
+Managerial Round - Started with introduction, this round was with my manager, He asked me about previous rounds. Then some basic knowledge of API (was looking for if I am following standard naming conventions for API paths). Then he asked me some scenerio based questions that are faced in day to day life in a senior software engineer. Then in last he told me about the team work and tech stack. We had some discussion on AI adoption as well.
+
+
+Round 6 (30 min)
+HR round - It was just the compensation discussion round and joining date discussion.
+
+
+
+
+
+
+
+
+
+
