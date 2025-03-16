@@ -1,0 +1,254 @@
+TREE -> views and level orders traversals 
+Graphs-> topo, matrix problems 
+
+
+
+PROCESS: LP 
+
+1: DSA
+2: DSA
+3: HLD
+4: bar raiser
+
+
+
+------------
+PROBLEM SET
+------------
+
+https://leetcode.com/discuss/post/6454930/binary-tree-faang-questions-by-venkatshi-9npu/
+
+[
+
+If you are a beginner to medium level, follow this order (Standard Base🔥):
+
+Q1: Binary Tree Level Order Traversal - (LeetCode 102)
+Q2: Average of Levels in Binary Tree - (LeetCode 637)
+Q3: Level Order Successor of a Node - Google
+Q4: Binary Tree Zigzag Level Order Traversal - (LeetCode 103)
+Q5: Binary Tree Level Order Traversal II - (LeetCode 107)
+Q6: Populating Next Right Pointers in Each Node - (LeetCode 116) - Amazon, London
+Q7: Binary Tree Right Side View - (LeetCode 199) - Amazon, Flipkart
+Q8: Cousins in Binary Tree - (LeetCode 993)
+Q9: Symmetric Tree -(LeetCode 101) - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - (LeetCode 543) - Google, Amazon, Facebook
+Q11: Invert Binary Tree - (LeetCode 226) - Google (Many Times)
+Q12: Maximum Depth of Binary Tree - (LeetCode 104) - Google
+Q13: Convert Sorted Array to Binary Search Tree - (LeetCode 108)
+Q14: Flatten Binary Tree to Linked List - (LeetCode 114) - Facebook
+Q15: Validate Binary Search Tree - (LeetCode 98) - Amazon, Google
+Q16: Lowest Common Ancestor of a Binary Tree - (LeetCode 236) - Amazon
+Q17: Kth Smallest Element in a BST - (LeetCode 230) - Facebook, Amazon, Google
+Q18: Construct Binary Tree from Preorder and Inorder Traversal - (LeetCode 105) - Amazon (Many Times)
+Q19: Serialize and Deserialize Binary Tree - (LeetCode 297) - Google, Facebook, Amazon
+Q20: Path Sum - (LeetCode 112) - Amazon
+Q21: Sum Root to Leaf Numbers - (LeetCode 129) - Microsoft, Apple, Google
+Q22: Binary Tree Maximum Path Sum - LeetCode 124) - Facebook
+Q23: Path Exists in Binary Tree from Root to Leaf
+Q24: Path Exists in Binary Tree at Any Nodes (here not only from root to leaf node it may be any like Leaf to Leaf also...path kind of largest..etc).
+Q25:DFS Using Stack Implementation
+
+If you want to test your problem-solving skills🚀💯🔥:
+
+More than 2 companies asked questions (decreasing order):
+Q7: Binary Tree Right Side View - LC 199 - Amazon, Flipkart
+Q9: Symmetric Tree - LC 101 - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - LC 543 - Google, Amazon, Facebook
+Q17: Kth Smallest Element in a BST - LC 230 - Facebook, Amazon, Google
+Q19: Serialize and Deserialize Binary Tree - LC 297 - Google, Facebook, Amazon
+Q21: Sum Root to Leaf Numbers - LC 129 - Microsoft, Apple, Google
+
+Q15: Validate Binary Search Tree - LC 98 - Amazon, Google
+Q18: Construct Binary Tree from Preorder and Inorder Traversal - LC 105 - Amazon (Many Times)
+Q11: Invert Binary Tree - LC 226 - Google (Many Times)
+
+Amazon-specific order (test yourself here):
+
+Q18: Construct Binary Tree from Preorder and Inorder Traversal - LC 105 - Amazon (Many Times)
+Q6: Populating Next Right Pointers in Each Node - LC 116 - Amazon, London
+Q7: Binary Tree Right Side View - LC 199 - Amazon, Flipkart
+Q9: Symmetric Tree - LC 101 - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - LC 543 - Google, Amazon, Facebook
+Q15: Validate Binary Search Tree - LC 98 - Amazon, Google
+Q16: Lowest Common Ancestor of a Binary Tree - LC 236 - Amazon
+Q17: Kth Smallest Element in a BST - LC 230 - Facebook, Amazon, Google
+Q19: Serialize and Deserialize Binary Tree - LC 297 - Google, Facebook, Amazon
+Q20: Path Sum - LC 112 - Amazon
+
+Google-specific order (test yourself here):
+
+Q11: Invert Binary Tree - LC 226 - Google (Many Times)
+Q3: Level Order Successor of a Node - Google
+Q9: Symmetric Tree - LC 101 - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - LC 543 - Google, Amazon, Facebook
+Q12: Maximum Depth of Binary Tree - LC 104 - Google
+Q15: Validate Binary Search Tree - LC 98 - Amazon, Google
+Q17: Kth Smallest Element in a BST - LC 230 - Facebook, Amazon, Google
+Q19: Serialize and Deserialize Binary Tree - LC 297 - Google, Facebook, Amazon
+Q21: Sum Root to Leaf Numbers - LC 129 - Microsoft, Apple, Google
+
+Edited:
+FaceBook Specific(test yourself here):
+Q1, Q4, Q6, Q12, Q13, Q16, Q18, Q21
+
+]
+
+
+
+----
+Interviewer: Sr. SDE at Amazon (very humble and encouraging)
+I was asked two DSA problems in this round:
+Grid Maximum Sum Path
+Given a grid with integer values, start from (0,0) and reach the bottom-right index.
+Constraints: Cannot pass through negative values (they act as roadblocks).
+Objective: Return the maximum sum possible while traversing.
+Keys and Rooms(exactly same on leetcode)
+This was followed by two Leadership Principles (LP) questions.
+----
+
+
+
+
+-----
+Create a simple Observable class that implements the observer pattern. The class should:
+
+Allow subscribing to data changes via a subscribe method
+Notify all subscribers when data changes via a notify method
+Allow unsubscribing from updates
+Maintain a list of subscriber callbacks
+const observable = new Observable();
+
+// Subscribe to changes
+const subscription = observable.subscribe(data => {
+  console.log('Received:', data);
+});
+
+// Notify subscribers
+observable.notify('Hello!'); // logs: "Received: Hello!"
+
+// Unsubscribe
+subscription.unsubscribe();
+
+// No longer logs anything
+observable.notify('Hello again!');
+Found similar question on PrepareFrontend
+-----
+
+
+
+------
+Low Level Design
+High Level Design
+Data Structures and Algorithms.
+Leadership Principles are asked in Every Round.
+Generally for SDE 2 and above these are asked in Amazon.
+------
+
+
+-----
+Hello,
+I had 4 interview rounds in the loop with each having 2 LPs and 1 technical competency tested.
+Technical Competencies : Problem solving, DSA, Logical and maintainable code and system design.
+
+Round 1:
+LPs : Have backbone, Disagree and commit; Earn trust
+Design a CPU scheduler to find the minimum no of CPU cycles.
+Task i with tasktime tasks[i] ; ex: tasks = [3,3]; cooling period = 2
+Constraints: Every task should get a fair chance and there should be cooling period amount of cycles for ith task to run again.
+
+Round 2:
+LPs : Deliver Results, dive deep
+Check if a directed graph is a tree.
+
+Round 3:
+LPs : Invent and Simplify, Be curious
+Design a shuttle app (bus transit app).
+
+Round 4:
+LPs : Customer Obsession, Ownership
+Multiple questions on the above LPs and surprisingly there was no coding in this round.
+
+Hope this helps. Thanks.
+
+
+-----
+
+
+-----
+My Amazon SDE-1 Interview Experience: A Journey Through Three Rounds
+I have been applying for the Amazon SDE-1 role for quite some time. After submitting my application in December 2024 and again in January 2025, I received an OA (Online Assessment) link for one of the job postings. However, just before I could take the test, I received an email stating that the job posting was no longer available. Despite this, I decided to give the test anyway since the link was still active, and a friend had suggested I take it. I had also used a referral from him to apply.
+
+Later, I took a few more referrals because Amazon had many job postings, and I applied to two more positions. Unfortunately, I got rejected for both.
+
+On February 7th, I received an email informing me that my interview was scheduled for February 20th. I wasn’t sure whether I had skipped the OA or if Amazon had looked at the referral I used from the test I had taken earlier (for the opening where I had received a rejection email). The email contained a live code editor link, and it mentioned that I would be tested on DSA (Data Structures and Algorithms) and leadership principles. From that point, I focused my preparation on DSA, solving standard questions. I also reviewed Operating Systems (OS), DBMS, and OOPS to be well-prepared, and I spent time writing answers to 25-30 leadership principle questions.
+
+Round 1: February 20th – DSA and Leadership Principles
+The first round was scheduled for one hour, from 11 AM to 12 PM. My interviewer was an SDM (Software Development Manager) with over 6 years of experience at Amazon. She introduced herself first, and I did the same. Then, she asked me to open the code editor link, where she pasted a DSA question.
+
+Question 1:
+The problem was related to implementing a "copy-paste" functionality using a class. The challenge was to design a system where:
+
+You can copy any number of words, maintaining their order.
+If you copy a word again, the order is refreshed (e.g., if you copied "interview", "dsa", "a", and then copied "interview" again, the order should become "dsa", "a", "interview").
+The paste function would receive a string, and you needed to check if that string exists in the copied list. If it exists, return the string; if not, return "-1".
+I first implemented a brute-force solution using a simple vector, which took O(N) time for both the copy and paste operations. She then asked me to optimize the solution. I used a map-based approach, which optimized the copy function to O(log N) and the paste function to O(1) on average.
+
+Question 2:
+She asked me how C++ implements hash maps internally. I explained the underlying concepts and working mechanisms of hash maps in C++.
+
+Leadership Principles:
+
+Time when you received feedback: I shared an example from my internship, where I received feedback on improving my code quality.
+A time when you faced a problem and how you handled it: I spoke about a technical issue I faced during a project and how I collaborated with my team to resolve it using a structured approach.
+She then asked if I had any questions, and I asked her about the tech stack she works with. She mentioned she primarily uses Java.
+
+I received an email for round 2 within an hour of the interview ending.
+
+Round 2: February 21st – DSA and Leadership Questions
+This round was similar in structure, with a 1-hour interview from 11 AM to 12 PM. The interviewer was an SDE-2, and the focus was once again on leadership principles and a DSA question.
+
+Leadership Principles:
+
+A time when you went beyond your responsibilities: I shared a story about how I developed a testing tool for the QA team. The interviewer asked how long testing took before and after the tool's implementation, which was unexpected.
+A time when you achieved a goal despite challenges: I discussed how I had a goal to crack JEE Advanced when I was in my high school.
+A project with a strict deadline: I explained the challenges I faced during a project with a tight deadline and how I overcame them he asked a cross question was there any design challenges ?.
+After that, we moved to the technical question. This time, it was a design problem related to implementing an API rate-limiting mechanism.
+
+Question 1:
+The problem was to design four functions:
+
+Initialize user_id, window_size, and max_request for a user.
+Check if the current request for a user is allowed, based on the time window.
+Check how many requests were approved in the last window.
+Check how many requests were rejected in the last window.
+I first implemented a brute-force solution, which took O(N) time. Then, I optimized the solution using binary search, which was fairly straightforward.
+
+He then asked if I have any questions. I asked him about how he spends his time. He said he spend 10-15 % of his time managing SDE Interns another 10-15% minutes goes in meetings. Remaining 70% goes for his daily work.
+
+After the interview, I received a mail for round 3 within two hours.
+
+Round 3: February 25th – Leadership Focus (Nightmare Round)
+This was the most challenging round for me. The interviewer was an SDM with over 12 years of experience, and the interview lasted about 45 minutes. He started by asking about my college, major, and how I transitioned from mechanical engineering to software development.
+
+This round was purely focused on leadership principles, but the questions were much tougher. He would dig deep into every aspect of my answers, making it difficult to keep up.
+
+Leadership Questions:
+
+A time when you had to debug a problem: I shared a story about debugging a data pipeline issue. The interviewer dug deep into the technical details of the code, the data flow, and the fix, asking questions like "Was the data homogeneous or heterogeneous?" I got stuck at a few points.
+A time when you received critical feedback: I mentioned receiving feedback on my pull request code review, where I was asked to avoid excessive conditional nesting. He asked for more details about the task and the code itself, which caught me off guard.
+A time when you had a disagreement with a teammate: I answered this question without much trouble, but I still felt the interviewer was not fully satisfied.
+At the end of the round, I asked him about his day-to-day life, and he explained how he manages SDEs, sprint planning, and meetings. I also asked for feedback on how I could improve. He mentioned that all three interviewers would meet to discuss my feedback, and based on their discussion, they would forward it to the recruiter.
+
+Verdict:
+The verdict is still pending, but I was confident after the first two rounds that I had performed well. Unfortunately, I feel that I wasn’t able to give my best performance in the final round, even though the first two rounds went really well. The interviewer seemed satisfied with my answers in the first two rounds, but the third round was a struggle.
+
+What do you think about my interview ?
+
+Incase you want to connect with me here is the link
+
+
+41
+-----
+
+
+

@@ -1,0 +1,75 @@
+
+ Array[];
+ int[10] A = new int[10];
+ 
+ Employee[10] employee = new Employee[]
+
+ list< Employee > L = new ArrayList<>();
+
+--------------------------------------------------
+ Question: 
+     write a program to find A^B ;
+
+ Sol: 
+
+ 		-> O(B)
+ 		-> 
+
+ 		F(N) = 
+ 		{
+
+ 		     temp = F(N/2)
+
+ 		     int res = temp * temp ; O(1);
+
+ 		     if(N&1)
+ 		     res *= A ;
+
+ 		     return res ;
+ 		 }
+
+
+ int mod = pow(10,9)+7 ;
+
+ int mod_pow( int a , int b )
+ {
+ 		if( a == 0 || a == 1 )
+ 		return a ;
+
+ 		if( b == 0 )
+ 		return 1 ;
+
+
+ 		int temp = mod_pow( a , b/2 );
+
+ 		int res = (temp * temp)%mod ;
+
+ 		if(b&1)
+ 		res *= a ;
+
+ 		res %= mod ;
+
+ 		return res ;
+ }
+
+// -> O(NLOGN)
+
+new Thread( ()->{
+		
+		while(1)
+		{}
+
+} );
+
+Timer timer = new Time();
+
+timer.schedule( ()->{ 
+		// 
+} , 1000*time );
+
+
+
+
+
+
+

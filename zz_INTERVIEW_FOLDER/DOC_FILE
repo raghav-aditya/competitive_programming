@@ -1,0 +1,178 @@
+Q: You are tasked with designing a quiz system for an online learning platform. The system needs to support the following key features:
+
+1. User Authentication: Users must be able to sign up, log in, and track their progress.
+2. Quiz Creation: Admins should be able to create quizzes, which include multiple types of questions (e.g., multiple-choice, true/false, short answer).
+3. Quiz Participation: Users should be able to take quizzes, with features like time limits, randomization of question order, and a scoring mechanism.
+4. Results and Feedback: After completing a quiz, users should receive feedback on their performance, including the score and the correct answers.
+5. Leaderboard: The system should provide a leaderboard to display top users based on quiz scores.
+
+
+Entities: 
+
+  USER , Quiz , Questions , Result , Feedback , LeaderBoardEntry , Score 
+
+
+
+
+interface question_iterface 
+{
+	
+}
+
+MCQ implets questions_interface
+{
+	
+}
+
+TRUE_FALSE implements question(){
+	
+}
+
+Short_ans implemetns quetions 
+{
+	
+}
+
+
+
+------------
+  Quiz{
+      list< question > qs ;
+
+  }
+
+------------
+
+Quizz qz ;
+Timer timer = new Timer();
+
+qz.start();
+
+timer.schedule( ()-> { qz.stop() } , 1000 * qz.getTime()  )
+
+
+Quizz
+{
+	author user_id // admin user
+
+	time_limit ;
+
+	// all the neccessary colums 
+}
+
+Quizz vs Question -> many to many relation 
+
+Question
+{
+	question_id , 
+	string Descption : ( )  	
+};
+
+
+Quiz_vs_qusetion_mapping 
+{
+	quizz_id , fk
+	question_id , fk
+
+	( quizz_id , question_id ) -> pk 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Result 
+{
+    // score 
+	/// /////
+
+    Feedback feedBack ;
+   // feedback 
+}
+
+
+USER
+{
+	user_id , first_name , last_name , 
+	email_id , bool is_admin , 
+	user_password( encrypted ) ,
+
+
+}
+
+
+Result
+{
+	result_id , (PK)
+	score_id , ( FK )
+	feedback_id ( FK )
+	user_id , -> FK 
+
+	// all the neccsary columns of result 
+
+
+
+
+}
+
+
+FEEDBACK
+{
+	feedback_id ,
+	// all the neccssary colums of feeback 
+
+}
+
+
+score
+{
+	score_id , pk
+
+   // all the neccessary columns of score 
+}
+
+
+
+
+
+
+
+----------------------------------------------------------
+
+Quizz_system
+{
+    Priority_queue< LeaderBoardEntry > PQ ;
+    List< users > users ;
+
+
+
+
+    u
+
+
+    // login
+
+    // register
+
+    // createquizz
+
+    // takePartQuizz
+
+
+}
+
+
+
+

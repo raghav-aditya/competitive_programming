@@ -1,0 +1,228 @@
+INDEXES:-
+   HASH 
+   B TREE
+   LS TREE + SS TABLE + BLOOM FILTER
+
+ACID PROPERTIES :-
+    ISOLATION LEVELS
+
+
+COLUMN DB's :- data serialization frameworks
+
+REPLICATION ->
+    single leader 
+    multileader , 
+    leaderless | 
+    Write conflicts -> CRDT's [ conflict free repeatable Data types ]
+
+CONSISTANT HASHING
+PARITIONING : TWO PHASE COMMIT 
+
+
+
+LINEARIZABLE DB | DISTRIBUTED CONSENSUS | ZOOKEEPER 
+ 	SQL vs NO-SQL 
+ 	SQL vs POSTGRESS 
+ 	VOLTDB vs GOOGLE SPANNER
+ 	MONGODB vs CASSANDRA
+
+HADOOP -> 
+	HBASE : ( DB BASED ON HADOOP )
+
+MAPREDUCE -> BATCH COMPUTING
+	APACHE SPARK vs MAPREDUCE 
+
+STREAM PROCESSING:->
+	KAFKA vs RABBIT_MQ
+	APACHE FLINK
+
+SEARCH_INDEXS -> 
+	ELASTIC SEARCHES
+
+DB -> 
+	TIME SERIES DB 
+	GRAPH DB 
+	GEO_SPATIAL_INDEX
+
+CACHING -> 
+	REDIS vs MEM_CHACHED
+
+CDN ( CONTENT DELIVERY NETWORK )-> 
+ OBJECT STORES S3
+
+
+LOAD BALANCING -> 
+TCP vs UDP 
+
+Communication PROTOCOLS:->
+	POLLING
+	LONG POLLING
+	SSE
+	WEBSOCKETS
+
+
+
+DEPLOYMENT AND CODE STRATEGY:
+	MONOLITH
+	MICROSERVICES
+	DOCKER
+	KUBERNETS
+
+
+--------------------------------------------------------
+
+SOLVE THE MAJOR PROBLEMS USING CHATGPT AND PRINT IT for LEARNING 
+
+--------------------------------------------------------
+
+### **How Platforms Store Video Files – System Design Overview**
+Platforms that handle video storage (like YouTube, Netflix, or Twitch) follow a structured system design to ensure scalability, efficiency, and reliability. Below is an outline of how video files are stored and processed in such platforms.
+
+---
+
+## **1. System Architecture Overview**
+A high-level design consists of:
+- **User Uploads/Streaming**: Users upload or stream video content.
+- **Storage Management**: Efficiently store and retrieve videos.
+- **Processing Pipeline**: Encoding, compression, and distribution.
+- **Content Delivery Network (CDN)**: Ensure fast access across the world.
+- **Database & Metadata Storage**: Store video metadata and indexes.
+
+---
+
+## **2. Components of the System**
+
+### **A. Ingest & Upload Service**
+- Handles file uploads from users.
+- Can support resumable uploads (e.g., using S3 Multipart Upload).
+- Stores raw files in **cold storage** or an **object store** like AWS S3, Google Cloud Storage, or HDFS.
+
+### **B. Video Processing Pipeline**
+Once uploaded, the raw video undergoes:
+1. **Transcoding & Encoding**
+   - Convert the video to multiple formats (H.264, VP9, AV1) for different devices.
+   - Generate multiple resolutions (240p, 360p, 480p, 720p, 1080p, 4K).
+   - Convert into adaptive bitrate (ABR) streaming formats like **HLS, DASH**.
+
+2. **Compression & Optimization**
+   - Reduce file sizes while maintaining quality.
+   - Use codecs like H.265 (HEVC) or AV1 for better compression.
+
+3. **Thumbnail & Preview Generation**
+   - Extract frames for thumbnails, previews, and GIFs.
+
+4. **Storage Tiering**
+   - **Cold Storage**: Raw files in object storage (e.g., AWS Glacier for archival).
+   - **Warm Storage**: Transcoded files in high-performance storage.
+   - **Hot Storage**: Frequently accessed files cached in CDN.
+
+---
+
+### **C. Storage Layer**
+1. **Object Storage (Primary)**
+   - Used for storing raw and processed video files.
+   - Examples: Amazon S3, Google Cloud Storage, Azure Blob Storage.
+   - Files are stored as chunks, often in **MP4, MKV, or TS format**.
+
+2. **Database for Metadata**
+   - Stores video metadata (title, description, upload time, owner).
+   - Uses **SQL (PostgreSQL, MySQL)** or **NoSQL (Cassandra, DynamoDB)**.
+
+3. **Indexing & Search**
+   - Indexing stored in **Elasticsearch** for fast retrieval.
+   - Helps users find videos using tags, captions, and descriptions.
+
+---
+
+### **D. Content Delivery (CDN & Caching)**
+1. **CDN for Fast Delivery**
+   - Cached across global edge servers for quick access.
+   - Examples: **Cloudflare, Akamai, AWS CloudFront**.
+   - Uses HLS/DASH for adaptive streaming.
+
+2. **Edge Storage & Caching**
+   - Popular videos cached on edge servers.
+   - Reduces load on origin storage.
+
+---
+
+### **E. Video Playback & Streaming**
+1. **Adaptive Bitrate Streaming (ABR)**
+   - Chooses resolution based on bandwidth (Auto 480p, 720p, etc.).
+   - Uses **HLS, DASH** protocols.
+
+2. **Load Balancers**
+   - Distribute requests across storage nodes.
+   - Ensures **high availability** and **low latency**.
+
+---
+
+## **3. Additional Considerations**
+- **Scalability**: Distributed architecture (Microservices, Kubernetes).
+- **Security**: DRM (Digital Rights Management), Encryption.
+- **Data Replication**: Multi-region storage for redundancy.
+- **Logging & Monitoring**: Track user interactions (Datadog, Prometheus).
+
+---
+
+## **4. Example System Flow**
+1. User uploads a video → Stored in object storage.
+2. Video processing pipeline transcodes it.
+3. Processed files stored in multi-tier storage.
+4. Metadata stored in DB, indexed for search.
+5. Cached via CDN for fast access.
+6. Playback uses ABR streaming.
+
+---
+
+This design ensures **high availability, scalability, and optimized storage** for any video-based platform. Would you like to explore specific optimizations or a real-world case study? 🚀
+
+--------------------------------------------------------
+
+
+
+
+
+--------------
+PROBLEMS:-
+
+- TinyURL + PasteBin  
+- Social Media Platform  
+- Cloud Storage  
+- Messaging Service  
+- Video Streaming Platform  
+- Search Autocomplete  
+- Rate Limiter  
+- Web Crawler  
+- Location-Based Service  
+- Ride Hailing Service  
+- Ticketing System  
+- Collaborative Document Editor  
+- Mapping Service  
+- Distributed Logging & Metrics Framework  
+- E-commerce Platform  
+- Top K Leaderboard  
+- Unique Active Users Counter  
+- Notification Service  
+- Distributed Job Scheduler  
+- Distributed Locking  
+- Recommendation Engine  
+- Multiplayer Battle Royale Game  
+- Video Conferencing System  
+- Live Streaming Platform  
+- Stock Trading Platform  
+- Stock Exchange  
+- Bidding Platform  
+- Payment Gateway  
+- Mutual Connection Search  
+- Distributed Priority Queue  
+- Caching System
+
+--------------
+
+
+
+
+
+
+

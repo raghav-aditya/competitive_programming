@@ -1,0 +1,33 @@
+SLOW FAST POINTER TOPICS
+TOPOLOGICAL SORTING
+SPARTSE TABLE
+SEGMENT TREE ( longest increasing sequestnce using seg tree )
+UNION FIND 
+TREE PROBLEMS AND LCA 
+SWEEP LINE
+TRAVELING SALESMAN PROBLEM DP WITH BITMASK
+sorted and rotated binary search 
+TRIE PROBLEMS
+QUICK SORT
+RECURSION + BACK_TRACKING
+ER diagram and code was fine.
+
+----------------
+
+PS: Guys if you want to join Amazon, focus on leetcode, lld, hld.
+Solve LLD questions on your own, after some practice you'll be able to come with better designs on your own.
+HLD is just about theory, which component should be integrated to help your system.
+First create a note for all these components, for e.g-
+
+sharding - concept and where to use
+queues - concept and where to use...
+db designs and api calls also plays an imp part in designing. Again, to come up with everything in 1 hr interview is really difficult. But more preperation will only increase your luck factor.
+
+-----------------------------------
+
+Weighted randome selection
+mod and multiplication hashing technique
+DP with BITMASK
+KMP 
+MULTISOURCE BFS
+UNIQUE TRIPLETS WITH TARGET SUM

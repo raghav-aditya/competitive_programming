@@ -1,0 +1,36 @@
+Customer Table
+
+ID
+Name
+Location 
+
+------------------------------
+
+Orders Table:
+
+ID
+Customer_id FK 
+Order_date
+total _amount
+
+----------------------------------------------
+Question: 
+	Write a SQL query to find the total Sum of amount of orders placed by each customer in the ‘Mumbai (MUM)’ location and display the results in descending order of total amount.
+
+
+
+C -> customer
+O -> Order 
+
+
+select 
+    C.* , 
+	SUM(O.total_amount) as total_order_amout 
+from 
+ Customer C join Order O on C.id = O.customer_id 
+where 
+	C.location = 'MUM' ;
+Group By C.id
+Order by total_order_amount desc ;
+
+

@@ -1,0 +1,88 @@
+
+A = { } ->N 
+find the position of element of sum left = sum right ;
+
+
+A = { 1 , 1 , 1 };
+
+A = { 1 , 2 , 3 , 4 , 0 , 6 , 2 , 2 };
+
+
+avg = sum/count ;
+
+// A[i] is element of Integer 
+
+// C++ 
+
+int find_index( vector<int>&A )
+{
+	int N = A.size();
+	int sum = accumulate( A.begin() , A.end() , 0LL );
+
+	int left_sum = 0 ;
+	int right_sum = sum ;
+
+	for( int i = 0 ; i < N ; i++ )
+	{
+		right_sum -= A[i];
+		count_right = N - i - 1;
+		count_left = i ;
+
+		//
+
+		if( count_left != 0 || count_right != 0 ){
+			continue ;
+		}
+
+
+		double avg_left = (doube)left_sum/(double)count_left ;
+		double avg_right = (double)right_sum/(double)count_right ;
+
+		if( abs(avg_left-avg_right) < pow(10,-5) ) // 0.00001
+		{
+			return i+1 ;
+		}
+
+		//
+
+		left_sum += A[i] ;
+	}
+
+
+	cout<<"NO solutions exist"<<endl;
+
+	return -1 ;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------
+another appraoch: 
+
+avg_left = sum_left/count_left ;
+avg_right = sum_right/count_right ;
+
+avg_left = avg_right 
+
+sum_left/cout_left = sum_right/count_right ;
+
+
+sum_left * count_right = sum_right * count_left ;
+
+-------------------
+
+
+

@@ -1,0 +1,24 @@
+
+
+	int , Integer 
+	List A = new ArrayList<Integer>() ;
+	A.add(1);
+	A.add(2);
+	A.add( "aditya" );
+
+
+// {23,12,2,11,10,10,1331,21}
+// Question: Nth  largest No from the list 
+
+
+A.stream().sorted().skip(k).FindFirst().Collector(toList<>())
+
+// Semaphore,
+// 
+
+	/*
+		eager
+
+	*/
+
+

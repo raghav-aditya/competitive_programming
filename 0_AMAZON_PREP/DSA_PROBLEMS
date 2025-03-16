@@ -1,0 +1,1159 @@
+easy/medium question - similar to "Minimum cost to merge all elements of List"
+medium/hard binary search on range question - similar concept of https://leetcode.com/problems/split-array-largest-sum/description/
+Started with DP solution with memo. Ended up with binary search.
+easy question on graph - direct application of topological sort
+
+
+
+Add two numbers represented by linked list. lists can be different sizes. Was asked to write complete working code after iterating from brute force to optimal solution.
+Later, problem was extended to include negative numbers. Just discussed the solution, ran out of time for coding.
+
+
+
+You are given n numbers and have you have to find the value of m and n such that you can make a grid of equal size or the next closest value. So if n is 5, a grid of 2,2(3,2 is not valid) is valid and if n is 4 then 2,2 is the valid answer.
+
+I was able to complete it, there were some followups. The interviewer agreed with my solution. Said "perfect".
+
+
+
+IMP: https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/description/
+
+
+-----------------------------------
+
+Convert Postfix expression to Infix
+All anagrams of a given string
+Rain water trapping problem
+Print right view of binary tree
+Clone a linked list with Next and Random pointer
+Diameter of a binary tree
+Longest Inclusive Range Pair
+Zigzag Traversal of a binary tree
+Given N lockers and the location of a person, determine the nearest locker where the person can drop a package (location is represented by coordinates (x, y)).
+Modified Tree, Trie (video explanation)
+Weather data problem - Find min and max temperatures among 5 stations over time
+Form string B from string A by reordering/ignoring characters + min steps to reach
+Lowest Common Ancestor of a Binary Tree III (LeetCode)
+Track user visits API + return first user who visited only once + return first N unique users
+Calculate K-most popular items in a stream (event_id, item_id, timestamp)
+Employee compensation by manager ID using a file with salary data
+Word search problem
+LFU cache implementation
+Concatenated words problem (LeetCode)
+Unix file search API design problem (OOD)
+Buy and Sell Stocks problem
+Meeting Room problems:
+Find min number of rooms required
+Maximum number of rooms booked at a time
+Data Stream problem - find repeated frames in a video within k range
+Course Schedule II (LeetCode)
+Word Ladder and Word Ladder II problems
+Gas Station problem
+Path Sum II problem
+Reverse Linked List II
+Prefix sum problem
+Row with maximum ones (LeetCode)
+Maximum sum without adjacent elements (House Robber)
+Largest binary tree in a BST problem
+Sliding Window Maximum problem (LeetCode)
+Substring problem related to finding pairs
+Deleting a node from a BST
+Seats allocation using Greedy approach
+Compare Version Numbers (LeetCode)
+Merge n sorted lists
+Number of ways to group n people in k groups in increasing order
+Min Stack implementation
+Max path sum in a graph
+LRU cache implementation
+Asteroid Collision problem (LeetCode)
+Alien Dictionary problem
+Basic LPS (Longest Palindromic Subsequence)
+You are given two positive integers startPos and endPos.
+Initially, you are standing at position startPos on an infinite number line.
+With one step, you can move either one position to the left, or one position to the right.
+Given a positive integer k, return the number of different ways to reach the position endPos starting from startPos,
+such that you perform exactly k steps.
+Since the answer may be very large, return it modulo 10^9 + 7.
+Two ways are considered different if the order of the steps made is not exactly the same.
+Note that the number line includes negative integers
+You are given a network of n devices, labeled from 1 to n.
+You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi),
+where ui is the source device, vi is the target device, and wi is the time it takes for a signal to travel from source to target.
+We will send a signal from a device k. Return the minimum time it takes for all the n devices to receive the signal.
+If it is impossible for all the n devices to receive the signal, return -1.
+
+Given an array representing delivery centers location, and a distance d. Calculate total suitable location in the number line. A location is suitable if it is possible to bring all products to that point by traveling a distance of no more than d.
+Example: centers = [-2,1,0], d = 8
+Answer: 3 (because the only suitable locations are {-1, 0, 1} ).
+Explanation: Location 1 is a suitable one because total distance traveled to bring all products to location 1 is 2*|1-(-2)|+2*|1-1|+2*|1-0| = 8 which is <=d.
+
+
+
+-------------------------------------------------------
+
+
+
+-----------------------------------
+
+Convert Postfix expression to Infix - #150
+All anagrams of a given string - #49
+Rain water trapping problem - #42 ***
+Print right view of binary tree - #199
+Clone a linked list with Next and Random pointer - #138
+Diameter of a binary tree - #543
+Longest Inclusive Range Pair - #128
+Zigzag Traversal of a binary tree - #103
+Given N lockers and the location of a person, determine the nearest locker where the person can drop a package (location is represented by coordinates (x, y)). - #1162
+Modified Tree, Trie (video explanation) - #208
+Weather data problem - Find min and max temperatures among 5 stations over time - #244
+Form string B from string A by reordering/ignoring characters + min steps to reach - #583
+Lowest Common Ancestor of a Binary Tree III - #1650
+Track user visits API + return first user who visited only once + return first N unique users
+Calculate K-most popular items in a stream (event_id, item_id, timestamp) - #347
+Employee compensation by manager ID using a file with salary data
+Word search problem - #79
+LFU cache implementation - #460 ***
+Concatenated words problem - #472 ***
+Unix file search API design problem (OOD) - ****
+Buy and Sell Stocks problem - #121
+Meeting Room problems: - #252
+Find min number of rooms required - #253
+Maximum number of rooms booked at a time - #253
+Data Stream problem - find repeated frames in a video within k range - #219
+Course Schedule II - #210
+Word Ladder and Word Ladder II problems - #127 #126
+Gas Station problem - #134
+Path Sum II problem - #113
+Reverse Linked List II - #92
+Prefix sum problem - #303
+Row with maximum ones -
+Maximum sum without adjacent elements (House Robber) - #198
+Largest binary tree in a BST problem - #1373
+Sliding Window Maximum problem - #239
+Substring problem related to finding pairs - #467
+Deleting a node from a BST - #450
+Seats allocation using Greedy approach - #135
+Compare Version Numbers - #165
+Merge n sorted lists - #23
+Number of ways to group n people in k groups in increasing order - #131
+Min Stack implementation - #155
+Max path sum in a graph - #124
+LRU cache implementation - #146
+Asteroid Collision problem - #735
+Alien Dictionary problem - #269
+Basic LPS (Longest Palindromic Subsequence - #516
+You are given two positive integers startPos and endPos. - #2400
+You are given a network of n devices, labeled from 1 to n. - #1319
+You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi) - #743
+Given an array representing delivery centers location, and a distance d. - #1552
+
+
+-----------------------------------
+
+
+---------------------------------
+
+
+House Robber. (LC Medium) - Gave him DP approach and then optimised the space complexity - Dry Run - Space and Time Complexity.
+
+You are given a class LongestConsecutiveSequence which exposes a function addNumberAndCompute that accepts a number as an argument.
+This function can be called by the client any number of times as per their liking. After each computation the function is supposed
+to return the length of the longest consecutive sequence you have seen till now.
+
+
+
+---------------------------------
+
+
+----------------------------
+
+
+Find Median from stream of numbers. (LC Hard)
+
+Find maximum sum level in Binary Tree (LC Medium)
+Was able to get both the questions done within the time and no LP questions were asked as no time was left.
+Got mail for second round after an hour.
+
+
+
+----------------------------
+
+--------------------------
+
+Find Single Element from a sorted array.
+Remove the consecutive nodes from a linked list with sum as zero.
+Was able to answer 1st question but took about 40 min in implementation.
+Did not had much time for 2nd but still was able to code it up by last couple of minutes.
+However for the last problem, not sure if the code would pass all test cases.
+Got mali for third round after 2 days.
+
+--------------------------
+
+
+-----------------------
+Then he asked me a coding problem:
+Given a binary tree find distance between two nodes if each node only know about its parent and not about its child.
+Was able to solve that easily.
+Then he modified the question a little. Earlier root node was having parent as NULL now he said the root node will have parent as any one of the leaf nodes in this tree.
+Explained him an approach to use map to store visited nodes. This approach was taking space complexity O(N)
+
+He asked me to optimize space complexity to O(1).
+I was trying to explain him using the slow and fast pointer approach although I was not able to get the answer but was trying to derive answer using that.
+By that time the time was over he just said its ok he got what he wanted to know and just asked to explain O(N) space complexity approach and left.
+-----------------------
+
+Question: In a game of chess, you are given that there are n players, and a list of m matches between players. If a player has won a match from another player then it is said that the winning player has higher rank than the losing player. Also, if ith player wins from jth player then ith player will win from all the players jth player won from. You're tasked to return the maximum number of players for which you can deterministically identify the ranks.
+
+Example: n=5, m=4, matches=[[A,B],[B,C],[C,E],[D,C]]
+
+Output: 2 we can deterministically identify the ranks for C and D.
+
+------------------------
+
+We moved onto designing a search API function to search for files in a specific directory and sort alphabetically, by size, etc. Wrote decent amount of code for that but spent a lot of time talking about the edge cases and best ways to design it for the user. Felt like he was pretty happy with my answers and asked him ab his role at the end, and he was enthusiastic to tell me. We ran out of time though and he mentioned that he would love to tell me more about it later if I join Amazon, which gave me a little bit of hope lol.
+
+-------------------
+
+Then he gave me a problem that I believe destroyed my chances lol. The problem stated that a robot starts at (0, 0) of a matrix. You are given a list of items the robot needs to collect, and O(1) helper functions where given an item, it will return a list of all the coordinate locations that item is at.
+
+The problems goal was to find the most efficient path the robot could travel to grab all the items it needs in the matrix. He wanted me to first give all the possible ideas I had for a solution.
+
+I mentioned backtracking brute force try all ordering of paths to find the most efficient one. I then explained that I knew it had to do smth with connecting coordinates as nodes and finding the most efficient order to visit the nodes in with least cost.
+
+That’s when it clicked and I realized this was the damn NP-Hard traveling salesman problem disguised. I kept on trying to think of how to solve it efficiently with a graph, but he finally suggested for me to just go ahead and implement the backtracking solution. I believe I implemented the O(n!) permutations backtracking solution correctly and talked through it, but I think he was definitely wanting something not so brute force.
+
+-------------------
+
+Leetcode 847 (Shortest path visiting all nodes), which is a LC hard to solve the TSP with DP and bitmask states to get an efficient exponential solution
+
+-------------------
+Given a list of string, segregate the strings as groups of same anagram. 
+-------------------
+Next Greater element in a circular array
+-------------------
+
+They started with 2 DSA problems.
+
+Allocate Minimum Pages. - Gave the expected approach but could not code the solution properly as I kept doubting my intution which were mostly right
+Maxium Path Sum in Binary Tree - Gave the expected approach but could not code the correct solution at first but later when they asked me dry run found my mistake and corrected it, I know lost my total impression
+
+-------------------
+
+The problem was related to implementing a "copy-paste" functionality using a class. The challenge was to design a system where:
+
+You can copy any number of words, maintaining their order.
+If you copy a word again, the order is refreshed (e.g., if you copied "interview", "dsa", "a", and then copied "interview" again, the order should become "dsa", "a", "interview").
+The paste function would receive a string, and you needed to check if that string exists in the copied list. If it exists, return the string; if not, return "-1".
+
+-------------------
+She asked me how C++ implements hash maps internally. I explained the underlying concepts and working mechanisms of hash maps in C++.
+
+-------------------
+Design a CPU scheduler to find the minimum no of CPU cycles.
+Task i with tasktime tasks[i] ; ex: tasks = [3,3]; cooling period = 2
+Constraints: Every task should get a fair chance and there should be cooling period amount of cycles for ith task to run again.
+
+https://leetcode.com/problems/task-scheduler/description/
+
+
+-------------------
+
+Check if a directed graph is a tree.
+
+-------------------
+
+https://leetcode.com/problems/rotting-oranges/description/
+
+slightly harder because
+
+hexagon shapes instead of squares (6 directional)
+it was a wildfire simulator instead with brushes spreading the fire
+also there is directional windspeed that can make fire spread at a longer variable distance at 1 certain direction
+
+
+-------------------
+
+JUMP GAME 1 , and 2 leetcode 
+
+-------------------
+
+Problem Statement: Given a log file containing entries with timestamp, customer ID, and the page visited on Amazon’s website, determine the most frequently visited 3-page sequence by any customer.
+Approach:
+Sort the log file based on timestamp.
+Use two hash maps:
+One to store the sequence of pages visited by each customer.
+Another to maintain the frequency of 3-page sequences.
+Find the most frequent sequence.
+Difficulty Level: Easy-Medium
+
+-------------------
+
+
+Problem 1: A variation of the Rotten Oranges problem (Graph/BFS-based).
+Problem 2: Given an array of weights representing items to be shipped from one port to another in the same order, and a constraint of maxDays, find the minimum ship capacity required.
+Approach:
+Use Binary Search to determine the minimum feasible capacity.
+The lower bound is the maximum weight in the array.
+The upper bound is the sum of all weights.
+
+-------------------
+
+Grid Maximum Sum Path
+Given a grid with integer values, start from (0,0) and reach the bottom-right index.
+Constraints: Cannot pass through negative values (they act as roadblocks).
+Objective: Return the maximum sum possible while traversing.
+
+-------------------
+
+Keys and Rooms(exactly same on leetcode)
+This was followed by two Leadership Principles (LP) questions.
+
+-------------------
+
+https://leetcode.com/problems/task-scheduler/ 
+
+sol: 
+
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        unordered_map<char,int>mp;
+        int count = 0;
+        for(auto e : tasks)
+        {
+            mp[e]++;
+            count = max(count, mp[e]);
+        }
+        
+        int ans = (count-1)*(n+1);
+        for(auto e : mp) if(e.second == count) ans++;
+        return max((int)tasks.size(), ans);
+    }
+};
+
+
+-------------------
+
+https://leetcode.com/problems/unique-length-3-palindromic-subsequences/description/
+
+-------------------
+
+This was a standard DSA round where 2 questions were asked:
+Question 1: Count all the number of uni-valued subtrees
+Question 2: Search in a Rotated Sorted Array
+Follow-up questions on Time Complexity (TC), Space Complexity (SC), and edge cases were asked. I solved both questions efficiently, and the interviewer was happy with the solution.
+Verdict: Cleared
+
+-------------------
+
+Another DSA round with 2 questions:
+Question 1: Variation of Maximum Falling Path Sum
+Question 2: Variation of Rotten Oranges
+Again, there were follow-up questions on TC, SC, and edge cases. I solved both questions optimally and the interviewer was satisfied.
+Verdict: Cleared
+
+-------------------
+
+Question 1: Nodes at a k distance in a Binary Tree
+Question 2: Lowest Common Ancestor (LCA) in Binary Tree
+
+-------------------
+are 2 binary trees balanced?
+-------------------
+in a BST 2 elements are swapped, tell the 2 element
+This had to be done in place without using any extra array. Already gave the extra array approach.
+If you give an approach too early, they will tell you to come up with a better approach.
+Told him the approach, explained to him, wasnt able to fully code on paper but he sounded content with it. The approach was similar to LCA.
+-------------------
+Write partition function of quick sort.
+-------------------
+
+Given a string, tell the lexographical position of the string amongst all its combinations- Applied some PnC, gave the mathematical approach first and then coded the same, she was happy with the approach
+
+-------------------
+
+Given arrival and departure time of the train, tell the number of platforms required so that all trains can be accomated at any given time.
+
+-------------------
+
+If you are a beginner to medium level, follow this order (Standard Base🔥):
+
+Q1: Binary Tree Level Order Traversal - [LeetCode = 102]
+Q2: Average of Levels in Binary Tree - LC 637
+Q3: Level Order Successor of a Node - Google
+Q4: Binary Tree Zigzag Level Order Traversal - LC 103
+Q5: Binary Tree Level Order Traversal II - LC 107
+Q6: Populating Next Right Pointers in Each Node - LC 116 - Amazon, London
+Q7: Binary Tree Right Side View - LC 199 - Amazon, Flipkart
+Q8: Cousins in Binary Tree - LC 993
+Q9: Symmetric Tree - LC 101 - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - LC 543 - Google, Amazon, Facebook
+Q11: Invert Binary Tree - LC 226 - Google (Many Times)
+Q12: Maximum Depth of Binary Tree - LC 104 - Google
+Q13: Convert Sorted Array to Binary Search Tree - LC 108
+Q14: Flatten Binary Tree to Linked List - LC 114 - Facebook
+Q15: Validate Binary Search Tree - LC 98 - Amazon, Google
+Q16: Lowest Common Ancestor of a Binary Tree - LC 236 - Amazon
+Q17: Kth Smallest Element in a BST - LC 230 - Facebook, Amazon, Google
+Q18: Construct Binary Tree from Preorder and Inorder Traversal - LC 105 - Amazon (Many Times)
+Q19: Serialize and Deserialize Binary Tree - LC 297 - Google, Facebook, Amazon
+Q20: Path Sum - LC 112 - Amazon
+Q21: Sum Root to Leaf Numbers - LC 129 - Microsoft, Apple, Google
+Q22: Binary Tree Maximum Path Sum - LC 124 - Facebook
+Q23: Path Exists in Binary Tree from Root to Leaf
+Q24: Path Exists in Binary Tree at Any Nodes - DFS Using Stack
+
+If you want to test your problem-solving skills🚀💯🔥:
+
+More than 2 companies asked questions (decreasing order):
+Q7: Binary Tree Right Side View - LC 199 - Amazon, Flipkart
+Q9: Symmetric Tree - LC 101 - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - LC 543 - Google, Amazon, Facebook
+Q17: Kth Smallest Element in a BST - LC 230 - Facebook, Amazon, Google
+Q19: Serialize and Deserialize Binary Tree - LC 297 - Google, Facebook, Amazon
+Q21: Sum Root to Leaf Numbers - LC 129 - Microsoft, Apple, Google
+
+Q15: Validate Binary Search Tree - LC 98 - Amazon, Google
+Q18: Construct Binary Tree from Preorder and Inorder Traversal - LC 105 - Amazon (Many Times)
+Q11: Invert Binary Tree - LC 226 - Google (Many Times)
+
+Amazon-specific order (test yourself here):
+
+Q18: Construct Binary Tree from Preorder and Inorder Traversal - LC 105 - Amazon (Many Times)
+Q6: Populating Next Right Pointers in Each Node - LC 116 - Amazon, London
+Q7: Binary Tree Right Side View - LC 199 - Amazon, Flipkart
+Q9: Symmetric Tree - LC 101 - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - LC 543 - Google, Amazon, Facebook
+Q15: Validate Binary Search Tree - LC 98 - Amazon, Google
+Q16: Lowest Common Ancestor of a Binary Tree - LC 236 - Amazon
+Q17: Kth Smallest Element in a BST - LC 230 - Facebook, Amazon, Google
+Q19: Serialize and Deserialize Binary Tree - LC 297 - Google, Facebook, Amazon
+Q20: Path Sum - LC 112 - Amazon
+
+Google-specific order (test yourself here):
+
+Q11: Invert Binary Tree - LC 226 - Google (Many Times)
+Q3: Level Order Successor of a Node - Google
+Q9: Symmetric Tree - LC 101 - Amazon, Google, Apple
+Q10: Diameter of Binary Tree - LC 543 - Google, Amazon, Facebook
+Q12: Maximum Depth of Binary Tree - LC 104 - Google
+Q15: Validate Binary Search Tree - LC 98 - Amazon, Google
+Q17: Kth Smallest Element in a BST - LC 230 - Facebook, Amazon, Google
+Q19: Serialize and Deserialize Binary Tree - LC 297 - Google, Facebook, Amazon
+Q21: Sum Root to Leaf Numbers - LC 129 - Microsoft, Apple, Google
+
+-------------------
+
+Topological sort, with many followups, ultimately the interviewers intention was to make it object oriented and throwed some couple of very interesting followups which required understanding of DSA + OOD, very good round and the interviewer was very friendly, providing active feedback, (completed this in first 40 mins)
+
+I was given another question since there is lot of time left, to be precise, I was given the exact same house robber, which i solved like a 100 times already, but made sure to pretend as if i'm seeing for the first time and solved that on the spot
+
+-------------------
+
+Round 1: Given list of logs with each log containing userId and WebpageId. Give the 3-page sequence that is visited maximum times by the user. This 3-page sequence is aggregated on userId.
+
+Round 2:
+
+Given a binary tree and a node where a fire is started. Fire spreads to adjacent nodes in 1 unit of time. FInd time for tree to burn completely.
+
+
+second problem: Frog Jump
+
+-------------------
+
+Round 1:
+i) Next Greater Element in array, follow up : Array is circular.
+ii) Given a 2D grid, count unique islands, islands are same even if they are in differently rotated.
+
+-------------------
+ii) Topological sort question
+-------------------
+ Word Search (Both) leetcode problems
+-------------------
+
+Given two nodes of a binary tree. Find the distance between two nodes in a tree with unique values.
+Tree with pointers from child to parent.
+
+TreeNode{
+	int val;
+	TreeNode parent;
+}
+			1
+          /   \
+        5       3
+       / \       \
+      4   8       7
+Ex: distance(5, 7) output: 3
+Distance(8,7) output: 4
+Distance(4,8) output: 2
+My solution:
+First Approach: Iterating from node1 to root with storing distance to each node in the path using hashmap. iterating from node2 to root also checking current node exist in the map if it exists then I am returning current Distance + value from map.
+Interviewer told me to not use the map. So, I came up with set-based solution.
+Second Approach: First, I will add all the nodes into set which are in the path from node1 to root. second, i will iterate from node 2. using set i can find lowest common ancestor (LCA) from node2. paralally, i can calculate distance from node2 to LCA. Again, iterate from node1 to LCA to find dist from node1 to LCA.
+Return total distance.
+Time & space complexity is O(h). h is height of tree.
+I have coded for both approaches.
+Edit: it is possible to solve in O(1) space. sea the solution section of https://leetcode.com/problems/intersection-of-two-linked-lists/description/
+I think interviewer wanted to ask one more question. But, explaining both the approaches took 32 mins. So, Interviewer just asked me what are all edge cases I am thinking. I explained all the edge cases.
+
+-------------------
+clone a linked list using random pointer.
+. The discussion went from naive approach to space optimized approach. The interviewer in this round was quite friendly and the round went well.
+
+After that I was asked a DSA question which included insertion and deletion in DLL in real time and sorting in DLL ( merge sort ).
+
+-------------------
+Interview Flow:
+The interviewer introduced himself and asked me to do the same.
+DSA Questions:
+First Question: It was to design a Datastructure to do a task which was easy but tricky Question it was based on ArrayList/LinkedList
+
+Second Question: Question was related to Backtracking although it was not straight forward Question , the answser was
+using standard Backtracking approach
+-------------------
+
+I was asked two DSA problems in this round:
+First Question: Question was related to contigous subarray and sliding window
+
+Second Question: This was related to Trie And Strings about uique prefixs
+
+For both Questions Explaining the approach ,Writing the Code ,Explaning the Dryrun of the code and TimeComplexity was Important
+
+This was followed by two Leadership Principles (LP) questions.
+I answered both based on my internship and full time experiences,
+
+Result: Passed ✅
+
+-------------------
+Round 3: Bar Raiser (19th December 2024)
+I received a call from HR on 17th December for scheduling my final interview on 19th Decemeber.
+This round was conducted by a Software Development Manager.
+
+Interview Flow:
+The interviewer outlined the interview structure.
+1 DSA Question and Rest Leadership Principles Questions
+
+Dsa Question :This question was related to Maps and Strings medium level
+For Dsa Explaining the approach ,Writing the Code ,Explaning the Dryrun of the code and TimeComplexity was Important
+-------------------
+
+I was asked two DSA problems in this round:
+1 - Similar to Two sum problem
+2 - Design a data structure which supports two operations;
+Record(timestamp, user, action) and getUserAction(start_time, end_time).
+
+I was able to do first question from naive to optimised approach.
+In Second question, i was able to come up with an O(n) solution but could not optimise it.
+
+-------------------
+
+COURSE SCHEDULE SERRIES LEETCODE FULL PRACTICE
+
+-------------------
+https://leetcode.com/problems/maximum-number-of-groups-with-increasing-length/description/ 
+
+touch problem
+-------------------
+
+Given an array of integers and a number x. FInd the minimum length of the subarray with a sum greater than the given value of x.
+Input array: {1,4,45,6,0,19}, x = 51, Output = 3
+
+Given an array of strings words(without duplicate), return all the concatenated words in the given list of words. A concatenated word is basically a string which comprise entirely of at least two shorter words (not necessarily distinct) in the given array.
+
+Example 1:
+Input: words={"cat","cats","catsdogcats", "dog", "dogcatsdog", "hippopotamases","rat","ratcatdogcat"}
+Output: {"catsdogcats", "dogcatsdog", "ratcatdogcat"}
+Explanation: "catsdogcats" can be concatenated by "cats", "dog" and "cats";
+"dogcatsdog" can be concatenated by "dog", "cats" and "dog";
+"ratcatdogcat" can be concatenated by "rat", "cat", "dog" and "cat";
+
+-------------------
+
+1. Two Sum
+2. Add Two Numbers
+4. Median of Two Sorted Arrays
+5. Longest Palindromic Substring
+8. String to Integer (atoi)
+12. Integer to Roman
+13. Roman to Integer
+20. Valid Parentheses
+23. Merge k Sorted Lists
+36. Valid Sudoku
+39. Combination Sum
+46. Permutations
+56. Merge Intervals
+61. Rotate List
+64. Minimum Path Sum
+75. Sort Colors
+79. Word Search
+93. Restore IP Addresses
+98. Validate Binary Search Tree
+100. Same Tree
+101. Symmetric Tree
+102. Binary Tree Level Order Traversal
+109. Convert Sorted List to Binary Search Tree
+113. Path Sum II
+116. Populating Next Right Pointers in Each Node
+121. Best Time to Buy and Sell Stock
+126. Word Ladder II
+127. Word Ladder
+135. Candy
+146. LRU Cache
+155. Min Stack
+200. Number of Islands
+207. Course Schedule
+210. Course Schedule II
+211. Design Add and Search Words Data Structure
+212. Word Search II
+239. Sliding Window Maximum
+273. Integer to English Words
+289. Game of Life
+295. Find Median from Data Stream
+300. Longest Increasing Subsequence
+417. Pacific Atlantic Water Flow
+529. Minesweeper
+543. Diameter of Binary Tree
+767. Reorganize String
+
+
+-------------------
+Q1 : finding maximum length subarray with first and last element having difference k.
+solved this within 20 mins from brute force to optimal solution.
+Q2 : finding maximum product L shaped path within a matrix.
+needed some hints but solved fully.
+no LP questions were asked.
+I think the interviewer seems satisfied with my answers.
+-------------------
+First DSA question was very similar to Sort Colors. Second one was around queries on Infinite Integer stream.
+-------------------
+https://leetcode.com/problems/regions-cut-by-slashes/description/
+SCALLED UP GRID SOLUTION:
+
+class Solution {
+
+    int dx[4] = { 1 , -1 , 0 , 0 };
+    int dy[4] = { 0 , 0 , 1 , -1 };
+
+    vector<vector<int>>vis ;
+
+    void dfs( int i , int j , vector<vector<int>>&A )
+    {
+        int N = A.size();
+        if( i < 0 || i >= N || j < 0 || j >= N || A[i][j] == 1 || vis[i][j] == 1 )
+        return ;
+
+        vis[i][j] = 1 ;
+
+        for( int p = 0 ; p < 4 ; p++ )
+        {
+            int a = i + dx[p];
+            int b = j + dy[p];
+
+            dfs( a , b , A );
+        }
+    }
+
+    int solve( vector<vector<int>>&A )
+    {
+        int N = A.size();
+        int cnt = 0 ;
+        vis.assign( N , vector<int>(N,0));
+        for( int i = 0 ; i < N ; i++ )
+        for( int j = 0 ; j < N ; j++ )
+        {
+            if( A[i][j] == 0 && vis[i][j] == 0 )
+            {
+                cnt++;
+                dfs( i , j , A );
+            }
+        }
+
+        return cnt ;
+    }
+
+public:
+    int regionsBySlashes(vector<string>& A ) {
+        int N = A.size();
+        int M = 3*N ;
+        vector<vector<int>>B( M , vector<int>(M,0));
+
+        for( int i = 0 ; i < N ; i++ )
+        for( int j = 0 ; j < N ; j++ )
+        {
+            int a = 3*i ;
+            int b = 3*j ;
+
+            if( A[i][j] == '/' )
+            {
+                B[a][b+2] = 1 ;
+                B[a+1][b+1] = 1 ; 
+                B[a+2][b] = 1 ;
+            }
+            else if( A[i][j] == '\\')
+            {
+                B[a][b] = 1 ;
+                B[a+1][b+1] = 1 ;
+                B[a+2][b+2] = 1 ;
+            }
+        }
+
+        return solve(B);
+    }
+};
+
+-------------------
+https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/description/
+
+MY SOLUTION: DSU
+
+class DSU
+{
+    vector<int>P;
+    int N ;
+    vector<int>A;
+
+
+    public:
+
+    DSU( int sz )
+    {
+        this->N = sz ;
+        P.assign(N,0);
+        A.assign(N,INT_MAX);
+        for( int i = 0 ; i < N ; i++ )
+        P[i] = i ;
+    }
+
+    int find( int a )
+    {
+        if( P[a] == a )
+        return a ;
+
+        return P[a] = find( P[a] );
+    }
+
+    void join( int a , int b , int d )
+    {
+        int va = A[find(a)];
+        int vb = A[find(b)];
+        int res = min( va , vb );
+        res = min( res , d );
+
+        P[find(a)] = find(b);
+        A[find(a)] = res ;
+        A[find(b)] = res ;
+    }
+
+    int ans( int a  )
+    {
+        return A[find(a)];
+    }
+};
+
+
+class Solution {
+public:
+    int minScore(int N , vector<vector<int>>& A ) {
+        DSU tool(N);
+        for( auto x : A )
+        {
+            int a = x[0];
+            int b = x[1];
+            int d = x[2];
+            a--;b--;
+
+            tool.join( a , b , d);
+        }
+
+        return tool.ans(0);
+    }
+};
+
+-------------------
+
+Amazon Onsite SDE2 package dependencies
+
+Anonymous User
+16309
+Jan 24, 2021
+Interview
+a) You have a package repository in which there are dependencies between packages for building like package A has to be built before package B. If you are given dependencies between the packages and package name x, we have find the build order for x.
+Ex: A → {B,C}
+B → {E}
+C → {D,E,F}
+D → {}
+F → {}
+G → {C}
+
+For package A, build order is E B F D C A (may not unique)
+
+Given a function Set getDependencies (Package packageName) which returns a set of dependencies for a given package name, write a method List getBuildOrder(Package packageName) which returns the build order
+
+b) How would you handle cyclic dependencies (Algo only)
+
+
+
+-------------------
+
+DSA Question: Given a 2D array [n*2] with [timestamp, value], aggregate values per minute. Leetcode medium level
+
+Approach: Used HashMap (discussed alternative approaches like TreeMap, sparse arrays, and tradeoffs).
+LP: 3 questions.
+
+-------------------
+https://leetcode.com/problems/reorganize-string/solutions/
+
+767. Reorganize String
+Medium
+Topics
+Companies
+Hint
+Given a string s, rearrange the characters of s so that any two adjacent characters are not the same.
+
+Return any possible rearrangement of s or return "" if not possible.
+
+solution: 
+ans depends only on the max freq of a character otherwise i always have greedy strategy 
+
+-------------------
+
+weighted randome selection
+
+proper algorithm:
+Below is a complete C++ implementation along with an explanation:
+
+---
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <random>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+private:
+    vector<int> prefixSum;
+    int total;
+    mt19937 gen; // Mersenne Twister random number generator
+
+public:
+    // Constructor: compute the prefix sum array.
+    // Each prefixSum[i] stores the sum of weights from index 0 to i.
+    // total stores the sum of all weights.
+    Solution(vector<int>& w) {
+        total = 0;
+        // Seed the random engine with a random device
+        random_device rd;
+        gen = mt19937(rd());
+        for (int weight : w) {
+            total += weight;
+            prefixSum.push_back(total);
+        }
+    }
+
+    // pickIndex: randomly picks an index with probability proportional to its weight.
+    int pickIndex() {
+        // Generate a random integer in the range [1, total]
+        uniform_int_distribution<> dis(1, total);
+        int target = dis(gen);
+
+        // Use binary search (lower_bound) to find the first index where prefixSum[i] >= target.
+        auto it = lower_bound(prefixSum.begin(), prefixSum.end(), target);
+        return it - prefixSum.begin();
+    }
+};
+
+int main() {
+    // Example: weights vector where index 0 has weight 1 and index 1 has weight 3.
+    // This means index 0 should be picked with probability 1/4 and index 1 with probability 3/4.
+    vector<int> weights = {1, 3};
+    Solution sol(weights);
+    
+    // Run pickIndex() multiple times to observe the distribution.
+    int count0 = 0, count1 = 0;
+    const int trials = 10000;
+    for (int i = 0; i < trials; i++) {
+        int idx = sol.pickIndex();
+        if (idx == 0)
+            count0++;
+        else if (idx == 1)
+            count1++;
+    }
+    cout << "Index 0: " << count0 << " times, Index 1: " << count1 << " times\n";
+    return 0;
+}
+```
+
+---
+
+### Explanation
+
+1. **Prefix Sum Array Construction:**
+   - In the constructor, we iterate over the input vector `w`. For each weight, we update the running total and add it to the `prefixSum` vector. For example, if `w = [1, 3]`, the `prefixSum` becomes `[1, 4]` where:
+     - Index 0 covers numbers from 1 to 1.
+     - Index 1 covers numbers from 2 to 4.
+   - The variable `total` stores the sum of all weights, which is used to define the range of the random number.
+
+2. **Random Index Selection:**
+   - The `pickIndex()` method generates a random integer `target` in the range `[1, total]` using `std::uniform_int_distribution`. This ensures that every number in that range is equally likely.
+   - Then, we use `std::lower_bound` to perform a binary search on the `prefixSum` vector. This finds the smallest index `i` such that `prefixSum[i] >= target`.
+   - Since each index’s range in the prefix sum corresponds to its weight, the probability of selecting a particular index is proportional to its weight (i.e., `w[i] / total`).
+
+3. **Probability Distribution:**
+   - With `w = [1, 3]`, the interval for index 0 has a length of 1 and for index 1 a length of 3. Thus, the probability of picking index 0 is `1/4` and index 1 is `3/4`, which meets the problem's requirements.
+
+This implementation is efficient with a time complexity of O(n) for the constructor (to build the prefix sum) and O(log n) for each call to `pickIndex()` due to binary search.
+
+-------------------
+
+Q1: I don’t remember the exact problem, but it was something related to jumbled words. I was able to solve it using a brute force approach.
+
+Q2: It was a standard matrix problem. For each cell that contained a multiple of five, I had to replace the corresponding row and column with zeros.
+
+-------------------
+
+Q1. Given a matrix that is sorted row-wise and column-wise, search for a given element. If it is present, return its row and column index; otherwise, return [-1, -1].
+
+Q2. Given a positive integer array with repeated values, modify it in-place to remove duplicate values while maintaining the original order of the elements.
+
+-------------------
+
+very important problem
+
+https://leetcode.com/problems/maximum-width-ramp/description/
+
+A ramp in an integer array nums is a pair (i, j) for which i < j and nums[i] <= nums[j]. The width of such a ramp is j - i.
+
+Given an integer array nums, return the maximum width of a ramp in nums. If there is no ramp in nums, return 0.
+
+my solution:
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& A ) {
+
+        int N = A.size();
+        auto B = A ;
+        for( int i = N-2 ; i >= 0 ; i-- )
+        B[i] = max( B[i] , B[i+1] );
+
+        int j = 0 ;
+        int res = 0 ;
+
+        for( int i = 0 ; i < N ; i++ )
+        {
+            while( j < N && A[i] <= B[j] )
+            {
+                j++;
+            }
+            res = max( res , j-i-1);
+        }        
+        return res;
+    }
+};
+
+-------------------
+
+course sechdeule 1 , 2 , 3 
+
+
+-------------------
+Two Pointers: Efficient array/list traversal (e.g., cycle detection, pair finding).
+Backtracking: Exploring solution spaces for combinatorial problems (e.g., permutations, Sudoku).
+Dynamic Programming (DP): Optimizing solutions by breaking down problems into subproblems (e.g., Knapsack, Fibonacci).
+Binary Search: Fast element location in sorted data (e.g., square root finding, searching in rotated arrays).
+Binary Tree Traversal & Views: Navigating tree structures (in-order, pre-order, post-order, top/bottom view).
+Graph Algorithms: Analyzing relationships (BFS, DFS, Dijkstra's).
+Monotonic Stack: Next greater/smaller element problems.
+Bit Manipulation: Low-level operations (power of two checks, counting set bits).
+String Manipulation & Pattern Matching: Text processing (substring search, pattern matching).
+BFS + DFS: Graph exploration techniques.
+Sliding Window: Optimizing subarray/substring problems.
+-------------------
+
+2 DSA Questions:
+Similar to intersection of Y-shaped linked lists.
+A variation of Word Break.
+
+-------------------
+
+2 DSA Questions:
+Similar to Number of Islands II (missed one edge case).
+Next Greater Element in a Circular Array (shared approach but couldn’t code due to time).
+
+-------------------
+
+DSA Question: Implement x^n
+
+Started with the brute force approach and optimized it using the modular exponentiation technique.
+Did a dry run of all the test cases.
+The interviewer asked me to optimize the code further to handle edge cases like 1^10000 and -1^11111.
+Fixed them after feedback but made minor mistakes in handling some cases.
+
+-------------------
+There are n players, every player have played with every other player. find any valid sequence of arrangement of these players as per below conditions
+
+whoWon(playerA, playerB) returns player who won the game
+the immediate left of a player should have lost to the player
+the immediate right of a player should have won aganist the player
+
+solution: hamiltonion path in tournament graph:
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Dummy implementation of whoWon.
+// In an actual tournament, this function returns the winner between two players.
+int whoWon(int playerA, int playerB) {
+    // For demonstration, assume: if playerA < playerB then playerB wins; else playerA wins.
+    // Replace this with the actual match results.
+    return (playerA < playerB) ? playerB : playerA;
+}
+
+// Function to find a valid sequence (Hamiltonian path) of players.
+vector<int> findArrangement(int n) {
+    vector<int> order;
+    // Start with the first player (using 0-indexing)
+    order.push_back(0);
+    
+    // Process every new player
+    for (int player = 1; player < n; player++) {
+        // We'll insert 'player' into the current ordering.
+        // Find the rightmost position such that the player on the left loses to 'player'.
+        int pos = order.size() - 1;
+        // Move left until we find a player that 'player' beats.
+        while (pos >= 0 && whoWon(order[pos], player) != player) {
+            pos--;
+        }
+        // Insert at position pos+1.
+        // If pos == -1, then 'player' loses to everyone in 'order'
+        // and should be placed at the beginning.
+        order.insert(order.begin() + pos + 1, player);
+    }
+    return order;
+}
+
+int main() {
+    int n;
+    cout << "Enter number of players: ";
+    cin >> n;
+
+    vector<int> arrangement = findArrangement(n);
+
+    cout << "A valid arrangement of players is:\n";
+    for (int player : arrangement) {
+        cout << player << " ";
+    }
+    cout << "\n";
+    return 0;
+}
+
+
+-------------------
+
+https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/description/
+
+You are given an array of integers nums and an integer target.
+
+Return the number of non-empty subsequences of nums such that the sum of the minimum and maximum element on it is less or equal to target. Since the answer may be too large, return it modulo 109 + 7.
+
+similar to 2 sum problem
+
+-------------------
+
+First problem
+ find max subarray sum such that the start and end element of the subarray are equal.
+
+
+Second problem
+
+ We can combine any two numbers and their sum is added to our score and the sum is added to the array and the original numbers are removed, we need to combine all numbers in the array such that our score is the minimum at the end when we are left with only one number.
+-------------------
+a custom tree problem similar to the Lowest Common Ancestor (LCA), for finding a value comon to both nodes (with no root given)
+-------------------
+
+String manipulation, focused on processing strings and producing various outputs using mathematical logic.
+Similar to https://leetcode.com/problems/integer-to-english-words/
+
+-------------------
+
+a priority queue problem involving value updates and finding the top n values.
+Similar to https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/description/
+
+-------------------
+kth smallest in bst
+
+https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/
+
+
+You are given an integer array bloomDay, an integer m and an integer k.
+
+You want to make m bouquets. To make a bouquet, you need to use k adjacent flowers from the garden.
+
+The garden consists of n flowers, the ith flower will bloom in the bloomDay[i] and then can be used in exactly one bouquet.
+
+Return the minimum number of days you need to wait to be able to make m bouquets from the garden. If it is impossible to make m bouquets return -1.
+-------------------
+https://leetcode.com/problems/word-search-ii/description/
+Given an m x n board of characters and a list of strings words, return all words on the board.
+
+Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+-------------------
+https://leetcode.com/problems/binary-tree-maximum-path-sum/description/
+-------------------
+Given a list of urls from a API, which have a referrer field and a actual url field among other meta data, tell of a particular url is visited from a particular referrer
+Created a graph data structure and then its plain DFS traversal.
+-------------------
+https://leetcode.com/problems/reverse-nodes-in-k-group/description/
+-------------------
+https://leetcode.com/problems/koko-eating-bananas/description/
+-------------------
+
+-------------------
+https://leetcode.com/problems/copy-list-with-random-pointer/description/
+-------------------
+https://leetcode.com/problems/trapping-rain-water/description/
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+
+-------------------
+

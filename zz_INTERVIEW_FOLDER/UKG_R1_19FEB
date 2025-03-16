@@ -12,7 +12,7 @@ Table Author
 {
    author_id ,
    name ,
-   gender
+   gender  
 }
 
 

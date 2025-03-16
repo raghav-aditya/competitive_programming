@@ -1,0 +1,189 @@
+Design a file download application, handling all negative cases.
+Ex: How to efficiently restart download when network goes down, without redownloading whole file again
+Follow up to above question, How do you make sure data integrity is preserved of the downloded file.
+Give Low level and High Level design of different components.
+
+--> https://leetcode.com/discuss/post/1071562/design-a-file-download-application-syste-7kg2/
+
+
+---------------------------
+
+Design a url shortner service
+
+he did throw a question, which was: how I was going to be generating URLS. "What strategy?" I told him I would assign ranges to servers to create hashes, did not seem convinced. So make sure you have multiple strategies for such type of questions.
+
+----------------------------
+
+
+Pastebin system design
+
+
+-------------------------
+
+Expiry-time-based throttling (20 mins)
+
+-------------------------
+
+Email-based system design (45 mins)
+-----------------------
+
+After that, we moved to the technical question. This time, it was a design problem related to implementing an API rate-limiting mechanism.
+
+The problem was to design four functions:
+
+Initialize user_id, window_size, and max_request for a user.
+Check if the current request for a user is allowed, based on the time window.
+Check how many requests were approved in the last window.
+Check how many requests were rejected in the last window.
+
+-------------------
+Design a shuttle app (bus transit app).
+
+-------------------
+
+System Design - High level design Interview - Bar raiser
+Design Ad Click Aggregator
+
+scale up to 10m clicks a minute
+advertisers should be able to query their click data in real time < 2 minutes
+customers should be redirected to ads with minimal latency < 200ms
+Result:
+
+I did great, best interview, struggled with one deep dive but did well in another
+LP went amazing
+
+
+-------------------
+
+1. System Design round
+This round was taken by the hiring manager and she was very sweet, best hiring manager i've interacted with so far
+
+She asked me to design a system, a full stack application that could fetch all "marked favorite" and "currently watching" shows from various streaming platforms aggregate them and display them in this application
+
+Initially i was asked to design for 1 person, and then scale that to 1M users, incorporated all kind of jazz (load balancers, sharding, replication and caches) this question was straight forward and on the easier end compared to other system design questions
+
+I felt she was more interested in my decisions, my consideration of tradeoffs before zeroing in on specific features, the round went good no specific red flags i could recall
+
+-------------------
+
+Bar raiser HLD. Design Notification Service.
+
+-------------------
+ System Design (Notification Service)
+-------------------
+
+Design Email domain server (LLD). Firstly, I didn’t understand the question properly. Interviewer explained it one more time. I never seen this question before. I was not able to think about the solution. Interviewer gave lot of hints he also suggested some APIs which are needed. Because of lack of preparation, I couldn’t solve it fully. Solved it partially. He also breakdown the problem into two parts. First part, to do domain name registration and second part email creation, sending email between same domain users and different domain users and handling privacy.(35 mins)
+Expectation from Interviewer: I need to come up with high level design with DB selections and other components details. later deep dive into APIs and schemas and indexing and scalability.
+Example: user must be able to register their domain. Example leetcode.com.
+owner can create emails like xyz@leetcode.com
+sending mail between same domain and different domains like leetcode.com & codeforce.com
+Learnings:
+
+Don’t just watch videos on youtube. try to solve it on your own. Also use timer while practicing. You need to solve it in 35 mins.
+Solve using online platforms like draw.io. practice it more because this makes you faster in the interview and comfortable with the online platform.
+Always discuss with interviewer before selecting something. Example Sql or NoSql. Remember interviewer is there to help you. Explain what you are thinking. He will correct you if you are wrong.
+
+-------------------
+
+Design a loyality program system for Amazon Fresh shoppers, that rewards customers for their shopping behaviour, manages point allocation and handles tier based benefits through a points wallet. 
+   Vairious tiers like: Silver, Gold, Platform tier. and a redemption system
+   Parameters of the exact question I don't remember.
+
+-------------------
+
+ Design Inventory Management System, and same type of LP's as mentioned above.
+
+-------------------
+Discuss what happens when a user clicks on amazon.com.
+Explain the architecture of BookMyShow.
+Rate limiter system design
+Explain the architecture of a project from your resume with class diagrams.
+Design a WhatsApp-like service, detailing load balancing, microservice communication, notification services, message queuing, database sharding, and maintaining message sequence with unreliable client timestamps.
+Design MakeMyTrip with detailed component design, database diagrams, and APIs used, discussing pros and cons of each component.
+Design a system to update a Mars Rover.
+Design a solution for Google Photos.
+Design a system that processes messages from one queue, classifies them, and outputs to another, handling 200,000 messages per second.
+Implement an unbounded set with expiration.
+Design a system for Amazon warehouses to prioritize truck deliveries.
+Design YouTube architecture.
+Design an e-commerce platform.
+Create a system that identifies word matches from a dictionary, such as prefix and suffix matches.
+Design an app store allowing authors to publish apps and users to download, ensuring scalability and global availability.
+Design a search engine.
+Design a file system to create files, add content, list files from directories, create directories, and search for files.
+-------------------
+design notification system with focus on building message content for different channels.
+-------------------
+and the design question was to design a logging and monitoring system.
+-------------------
+Design a system for Hotel Reservation
+
+   
+-------------------
+Design customer reviews for products in Amazon (LLD)
+-------------------
+
+System Design: Design Tiny URL
+Discussion: Scaling, caching, DB design, URL encoding strategies.
+LP: 2 questions. this round went well.
+
+-------------------
+
+Design Instagram
+
+-------------------
+To crack system design interviews, you need to have a strong understanding of architecture. These resources will give you insights into crucial system design topics:
+B-Trees vs. LSM Trees: Understanding tradeoffs for scalable storage.
+Database Replication: Strategies for fault tolerance and high availability.
+SQL vs. NoSQL Databases: Choosing the right database for the job.
+Consistent Hashing: Essential for distributed systems and load balancing.
+Cache Writing Policies: Optimizing data retrieval.
+Cache Eviction Policies: Efficient memory management.
+Content Delivery Network (CDN): Global performance optimization.
+Batch Processing vs. Stream Processing: Real-time vs. batch data handling.
+Long Polling vs. WebSockets vs. Server-Sent Events: Real-time communication strategies.
+Search Index and Elasticsearch: Building scalable search.
+Resources for System Design Excellence:
+
+1️⃣ 𝐁-𝐓𝐫𝐞𝐞𝐬 𝐯𝐬 𝐋𝐒𝐌 𝐓𝐫𝐞𝐞𝐬: https://lnkd.in/gEj3vggD
+2️⃣ 𝐃𝐚𝐭𝐚𝐛𝐚𝐬𝐞 𝐑𝐞𝐩𝐥𝐢𝐜𝐚𝐭𝐢𝐨𝐧: https://lnkd.in/gA5empRB
+3️⃣ 𝐒𝐐𝐋 𝐯𝐬 𝐍𝐨𝐒𝐐𝐋 𝐃𝐚𝐭𝐚𝐛𝐚𝐬𝐞𝐬: https://lnkd.in/gP-XGGvM
+4️⃣ 𝐂𝐨𝐧𝐬𝐢𝐬𝐭𝐞𝐧𝐭 𝐇𝐚𝐬𝐡𝐢𝐧𝐠: https://lnkd.in/gVSyD92j
+5️⃣ 𝐂𝐚𝐜𝐡𝐞 𝐖𝐫𝐢𝐭𝐢𝐧𝐠 𝐏𝐨𝐥𝐢𝐜𝐢𝐞𝐬: https://lnkd.in/gcA3wS7d
+6️⃣ 𝐂𝐚𝐜𝐡𝐞 𝐄𝐯𝐢𝐜𝐭𝐢𝐨𝐧 𝐏𝐨𝐥𝐢𝐜𝐢𝐞𝐬: https://lnkd.in/gctMe8ZU
+7️⃣ 𝐂𝐨𝐧𝐭𝐞𝐧𝐭 𝐃𝐞𝐥𝐢𝐯𝐞𝐫𝐲 𝐍𝐞𝐭𝐰𝐨𝐫𝐤 (𝐂𝐃𝐍): https://lnkd.in/g6xCerMU
+8️⃣ 𝐁𝐚𝐭𝐜𝐡 𝐏𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠 𝐯𝐬 𝐒𝐭𝐫𝐞𝐚𝐦 𝐏𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠: https://lnkd.in/gBKAtkuG
+9️⃣ 𝐋𝐨𝐧𝐠 𝐏𝐨𝐥𝐥𝐢𝐧𝐠 𝐯𝐬 𝐖𝐞𝐛𝐒𝐨𝐜𝐤𝐞𝐭𝐬 𝐯𝐬 𝐒𝐞𝐫𝐯𝐞𝐫-𝐒𝐞𝐧𝐭 𝐄𝐯𝐞𝐧𝐭𝐬: https://lnkd.in/gX2iXDJ3
+🔟 𝐒𝐞𝐚𝐫𝐜𝐡 𝐈𝐧𝐝𝐞𝐱 𝐚𝐧𝐝 𝐄𝐥𝐚𝐬𝐭𝐢𝐜𝐒𝐞𝐚𝐫𝐜𝐡: https://lnkd.in/gpGEttki
+The FAANG interview journey is a marathon. Stay persistent, learn continuously, and approach each challenge strategically.
+-------------------
+
+System design for a smart city with millions of sensors, collecting and averaging data every hour. I came up with a basic solution and discussed tradeoffs where needed, even discussed the one point failuers and percentage of tolerance, to their question but didn’t have time for scaling to other cities and other trade-offs.
+
+-------------------
+Write a Notification System that validates a request of notification to be valid. The problem was vague, so I spent too much time trying to get constraints and problem statement as a coding problem. While he wanted an OOPs design from me but did not even utter the word "Design" or "OOPs" in whole interview. I wrote whole lot of code from what I could scope out and it was syntactically correct. I only realized late in last 10 mins that it was an OOPs question, after few asks that he wrote down, so I rushed a basic design for validating notification JSONs.
+-------------------
+
+This was an HLD round and I was asked to design a proximity service. I think this round went well.
+
+-------------------
+System Design (e.g., designing Instagram reels, TikTok).
+-------------------
+-------------------
+Design health monitoring service for million services
+
+-------------------
+Design Google Docs. Rather than actual code, focus was on class design, database design, how to handle conflicts, design patterns. This round was very interactive with the interviewer challenging assumptions and asking reasoning behind various decisions.
+-------------------
+HLD for a Amazon logistics system. The question involved users creating orders for parcel delivery through various transportation modes. Discussed functional requirements, NFRs, APIs, DB design and some estimations. It wasn't a complex system and the interviewer was expecting basic optimizations like using caches, message queues etc.
+-------------------
+
+-------------------
+System Design - Weather App
+-------------------
+
+-------------------
+
+-------------------
+THIS GIT HUB FOR LEARNING: https://github.com/Anshul619/HLD-System-Designs/tree/main/0_HLDUseCasesProblems
+-------------------

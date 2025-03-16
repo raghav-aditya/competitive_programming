@@ -1,0 +1,29 @@
+Solve this System problem considering these things, should be very indepth and detailed each and every details should be there
+
+About Me:
+	1. I am Java Back-End Engineer Provide Code using Java Tech only 
+	2. I want to learn Flow diagram using texual representation only, as you can't redner images, use step by step flow representation
+
+About Problem:
+	
+	1. Problem statement :-> FACEBOOK
+	2. Problem Solution should be done assuming we are google level company needs to serve that many people daily
+
+About Solution:- 
+   
+   whater technology you will use in solution please justify why this choice was important, also explain the trade off too, solution should be very indepth
+	
+	1. DB schema Design shoule be inside code block
+	2. ALL microservices involved 
+	3. architecture patterns event driven and API driven
+	4. API design of all the needed functionalities dont forget to include all of them, 
+	5. Also explore the Security Aspect of API to provide the Technology solutions 
+	6. Rate limiting and abusive user preventions must be considered
+	7. also explore Logging and metrix etc
+	8. DC and DR clustures discussion, CDN etc other discussion for interviews
+
+
+About Response Format:
+
+	1. First thign should be heading of the problem and start the solution
+	2. Answere Well structured manner where ever use are using some code use code block 

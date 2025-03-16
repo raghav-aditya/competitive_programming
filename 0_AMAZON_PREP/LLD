@@ -1,0 +1,399 @@
+Design LRU cache
+
+LLD
+Design APIs(as in class and objects) for alexa which would take a string as input, match it up against rules and perform validations.
+
+
+
+-------------------
+
+Design an extensible solution to implement a search filter in OOD for a directory, matching files by size or name.
+Design a library to read a directory and perform operations such as filtering by file type and size constraints.
+Design a job scheduler.
+Design an inventory management system with queuing for incoming requests.
+Design a data structure similar to a HashMap.
+Create a class diagram for a standalone chess game and explain design decisions with pseudo code for piece movements.
+Create the low-level design of a download manager capable of handling multiple downloads.
+
+
+
+-------------------
+
+
+I was asked to design cricket scoreboard application, something similar to Cricbuzz with commentary, score updates, innings analysis, and player analysis. I had to expose this application via API. I was able to design the entities but due to lack of practice ran out of time for a full solution.
+------------------
+
+
+Logical and Maintainable - Low level Design Interview
+Designe a Grocery Cart Checkout
+
+a food has a list of ingredients
+the cart should check for ingredients that add extra taxes
+the total should account for basic tax + ingredient taxes
+Result:
+
+i didnt finish because i was confused that this was an OOP interview, thought it mightve been leetcode style. but was 90% complete
+The LP asked went very well
+
+-------------------
+
+Amazon | Round 3(Onsite) | Billing System LLD
+
+class Billing{
+    User user,
+    List<Items> items,
+    Payment payment
+    
+    public void createUser(user){
+        // check if user is already there or not, if user is already created then we will use existing userId
+    }
+    
+    public float createBill(userId,items){
+        float total=0
+        for(int i=0;i<items.length;i++){
+            total+=items[i].price*items[i]*quantity
+        }
+        return total
+    }
+}
+
+class User {
+    int id,
+    String Name,
+    int phoneNo
+}
+
+class Items{
+    int id,
+    Category category
+    float price,
+    int quantity
+}
+
+enum Category{
+    KIDS,SPORTS,PANTRY
+}
+
+class Payment{
+    PaymentType type,
+    PaymentStatus status
+    public bool doPayment(typeOfPayment){
+        
+    }
+}
+
+enum PaymentStatus{
+    DONE,PENDING
+}
+
+enum PaymentType{
+    CASH,UPI,DEBIT_CARD,CREDIT_CARD
+}
+
+-------------------
+
+Logical and Maintainable - Low level Design Interview
+Designe a Grocery Cart Checkout
+
+a food has a list of ingredients
+the cart should check for ingredients that add extra taxes
+the total should account for basic tax + ingredient taxes
+Result:
+
+i didnt finish because i was confused that this was an OOP interview, thought it mightve been leetcode style. but was 90% complete
+The LP asked went very well
+
+-------------------
+LLD Question : Design Amazon locker
+
+given 25 mins to code that out, i couldn't finish it, was able to define classes but left some methods empty but clearly communicated what the methods will do and which classes can it be accessed,
+
+25 mins felt very less to incorporate every feature of amazon locker, coded till very last minute, and also spent time as i did to communicate to the interviewer
+-------------------
+
+DSA question was very simple a standard, number of islands question from leetcode, once i am done with it in under 15 mins, the interviewer asked to implement it without changing the input array, did it in under 5 mins, then out of no where another interviewer who i didn't know is in the call, asked me to share screen
+
+-------------------
+Leadership Principles: Customer Satisfaction & Dealing with Setbacks (30 min)
+Design a Task Scheduler to append tasks and fetch them based on priority (30 min)
+Example:
+class Task:
+    def __init__(self, id, priority, code):
+        self.id = id
+        self.priority = priority
+        self.code = code
+class TaskScheduler:
+    def add(task):  # Add a task
+    def fetch():  
+ # Fetch task with the highest priority
+-------------------
+
+20 mins to half time on amazon LP, remaining on LLD mostly sudo code(classes and Entities) and db schema.
+
+-------------------
+Design Parking system. Focus was on classes, fields, methods.
+-------------------
+
+Next, I was asked to create an interface to implement package installations in operating systems. I was told, the actual installation API has been already written called installPackage() in the same class. I just needed to design the class which will have this public API along with other necessary APIs and/or variables. Basically, an OOD question with a hint of LLD.
+
+-------------------
+
+Here was the question i got
+
+Question: Design a package installer system that can install a package
+along with all its dependencies.
+Each package has an "install()" method to install itself.
+Implement a solution that, given a package,
+installs the given package and its dependencies.
+Here is an example of a package structure that we would need to install:
+
+‘nodejs’ depends on ‘npm’, ‘v8engine’
+‘npm’ depends on ‘nodejs-core’
+‘v8engine’ depends on ‘libuv’
+‘react’ depends on ‘nodejs’, ‘babel’
+‘babel’ depends on ‘core-js’
+‘typescript’ depends on ‘nodejs’
+and here's the solution i coded. The solution changed over time, i had to make abunch of assumptions about what the expected input and output should look like
+
+But they had me change my assumptions in the middle of the assesment a few times to make sure i checked for edge cases.
+example. I started by saying we're assuming that the input dependency map represents a valid DAG. They said that was fine, but later asked me to assume that it's an arbitrary graph and then handle the case for cycles.
+
+
+
+# runtime O(V + E)
+# space O(E)
+example_dep_map = {'npm' : ['nodejs-core'], 'nodejs' : ['npm', 'v8engine']}
+
+loop_example = {'a': ['b'], 'b': ['a']}
+
+multi_dependents = {'a': ['b', 'c'], 'c' : ['b']}
+
+from something import install, isValidPackage
+
+# visited {'nodejs', 'npm',v8engine , react, babel, typescript }
+# installed {npm, v8engine, nodejs, babel, react, typescript }
+# ordered [nodejs-core, npm, libuv, v8engine, nodejs, corejs, babel, react, typescript ]
+
+def install(dep_map):
+    already_installed = set()
+    visited = set()
+    
+    ordered = []
+    
+    def dfs(package_name):
+        if package_name not in dep_map:
+            if not isValidPackage(package_name):
+                throw Exception('undefined package')
+            
+            #already_installed.add(package_name) optional
+            ordered.append(package_name)
+            return
+            #
+            
+        if package_name in already_installed:
+            return
+        if package_name in visited : 
+            throw Exception('error')
+        visited.add(package_name)
+        deps = dep_map[package_name]
+        for d in deps:
+            dfs(d)
+        install(package_name)
+        ordered.append(package_name)
+        already_installed.add(package_name)
+    
+    #dfs(package_name)
+    
+    for package_name in dep_map.keys():
+        dfs(package_name)
+        
+    return ordered
+
+
+
+SOLUTION:
+
+class PackageInstaller {
+  constructor(dependencies) {
+    this.dependencies = dependencies; // Adjacency list
+    this.installed = new Set(); // Keeps track of installed packages
+    this.visiting = new Set(); // Keeps track of packages in the current recursion stack
+  }
+
+  installPackage(pkg) {
+    if (this.installed.has(pkg)) {
+      console.log(`${pkg} is already installed.`);
+      return;
+    }
+    
+    if (this.visiting.has(pkg)) {
+      throw new Error(`Cycle detected! ${pkg} is part of a dependency cycle.`);
+    }
+
+    console.log(`Installing ${pkg}...`);
+    this.visiting.add(pkg);
+
+    if (this.dependencies[pkg]) {
+      for (const dep of this.dependencies[pkg]) {
+        this.installPackage(dep);
+      }
+    }
+
+    this.visiting.delete(pkg);
+    this.installed.add(pkg);
+    console.log(`${pkg} installed successfully.`);
+  }
+}
+
+// Example dependency graph
+const dependencies = {
+  "nodejs": ["npm", "v8engine"],
+  "npm": ["nodejs-core"],
+  "v8engine": ["libuv"],
+  "react": ["nodejs", "babel"],
+  "babel": ["core-js"],
+  "typescript": ["nodejs"]
+};
+
+const installer = new PackageInstaller(dependencies);
+
+// Installing a package with dependencies
+try {
+  installer.installPackage("react");
+} catch (error) {
+  console.error(error.message);
+}
+
+// Cycle detection
+dependencies["libuv"] = ["nodejs"]; // Creating a cycle
+
+const installerWithCycle = new PackageInstaller(dependencies);
+try {
+  installerWithCycle.installPackage("react");
+} catch (error) {
+  console.error( error.message);
+}
+
+
+-------------------
+
+Design an extensible solution to implement a search filter in OOD for a directory, matching files by size or name.
+Design a library to read a directory and perform operations such as filtering by file type and size constraints.
+Design a job scheduler.
+Design an inventory management system with queuing for incoming requests.
+Design a data structure similar to a HashMap.
+Create a class diagram for a standalone chess game and explain design decisions with pseudo code for piece movements.
+Create the low-level design of a download manager capable of handling multiple downloads.
+
+-------------------
+design notification system with focus on building message content for different channels.
+
+-------------------
+ I was asked to write a Logger, the discussion was primarliy focused around supporting multiple formats for the log message, and string parsing.    
+-------------------
+Design a system for Hotel Reservation
+-------------------
+Design customer reviews for products in Amazon (LLD)
+-------------------
+LLD Question: E-commerce API to fetch products for a category & its subcategories.
+Hiccup: Took too long to catch the hint for using Strategy Pattern for filtering.
+LP: 3 questions. This round didn't go that well, reason of rejection is this round
+-------------------
+
+
+Design Tic Tac Toe
+
+-------------------
+
+Design a lottery system where a customer can buy a lottery ticket ranging from 1 cent to 100 dollars. At the end of sale of all lottery ticket we will have a lucky draw where a winner will be chosen randomly and the chances of winning a customer should be according to the price they have paid for the ticket in other words the one who paid more should have more chances of winning.
+
+Interviewer had a certain solution in mind, struggled a lot to arrive at that, came up with something similar, not sure if this helped
+
+import java.util.*;
+
+class LotterySystem {
+    private final NavigableMap<Integer, String> ticketMap;
+    private final Random random;
+    private int totalWeight;
+
+    public LotterySystem() {
+        this.ticketMap = new TreeMap<>();
+        this.random = new Random();
+        this.totalWeight = 0;
+    }
+
+    public void buyTicket(String customer, int amount) {
+        if (amount < 1 || amount > 10000) {
+            throw new IllegalArgumentException("Ticket price must be between 1 cent and 100 dollars");
+        }
+        totalWeight += amount;
+        ticketMap.put(totalWeight, customer);
+    }
+
+    public String drawWinner() {
+        if (ticketMap.isEmpty()) {
+            throw new IllegalStateException("No tickets sold, cannot draw a winner");
+        }
+        int luckyNumber = random.nextInt(totalWeight) + 1;
+        return ticketMap.ceilingEntry(luckyNumber).getValue();
+    }
+
+    public static void main(String[] args) {
+        LotterySystem lottery = new LotterySystem();
+        lottery.buyTicket("Alice", 500); // Alice buys a ticket worth $5.00
+        lottery.buyTicket("Bob", 1000); // Bob buys a ticket worth $10.00
+        lottery.buyTicket("Charlie", 200); // Charlie buys a ticket worth $2.00
+        
+        System.out.println("The winner is: " + lottery.drawWinner());
+    }
+}
+
+-------------------
+Design a memory allocator
+Designed a memory allocator using linked lists. Implemented requested functionalities.
+-------------------
+Design a system to track recently viewed items (with int limit initialized with class) for customers, similar to an LRU cache. I implemented the core part (O(1) for adding items) but couldn't complete return function but explained my thoughts and runtime (O(limit)).
+-------------------
+Clarify vague questions early, especially for OOPs and system design. Focus on high-level structure before diving into details.
+Recommened to be direct in asking if the problem is OOPs or Code or System Design, because some interviewers would just see you struggle and not help.
+-------------------
+
+Round1 : LLD , Design StackOverflow
+Requirements:
+
+A valid user should be able to post a question
+A valid user should be able to answer to a question
+upvote/downvote to a question and answer
+add comment to a answer
+search for a question
+
+-------------------
+This was an LLD round and I was asked to design a board game. I think this round also went well.
+-------------------
+-------------------
+Create a lottery system with weighted probability to ensure fairness (problem solving + DSA)
+
+-------------------
+How do you appraoch OOD Question Design a Pizza Shop in Amazon interview.
+question is something like - design a pizza billing system where user can add topping and cost would be calculated accordingly.
+How will you approach this problem, Which is the best design pattern for this?
+Can you some give me the code in python?
+-------------------
+
+-------------------
+Design Google Docs. Rather than actual code, focus was on class design, database design, how to handle conflicts, design patterns. This round was very interactive with the interviewer challenging assumptions and asking reasoning behind various decisions.
+-------------------
+Design a JEE style online MCQ exam application.
+Lots of discussion along topics like:
+
+Security
+Browser storage
+API signature
+Client-Server Interaction
+Offline capabalities
+Authentication / Authorization
+and more...
+-------------------
+ LLD to implement a project management system like JIRA
+-------------------
+

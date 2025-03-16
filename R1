@@ -1,0 +1,129 @@
+"(1 + 2 - 3)"
+
+O/P : 0
+
+"(1 + (2 + 7))"
+o/P : 10
+
+INPUT: string 
+1: always valid equation and parenthesis
+
+   + , - , ( , )
+
+   F =  " A  + B - C "
+
+
+
+
+
+vector<int> match;
+
+
+int solve( string &A , int st , int en )  // [ 0 , N-1 ]
+{
+	
+	int global_res = 0 ;
+	int last_num = 0 ;
+	int sign = 1 ; // 1 -> positive , -1 -> negative 
+
+
+	int i = st ;
+	while( i <= en )
+	{
+
+		if( A[i] == '(' )
+		{
+			int local_solution = solve( A , i+1 , match[i]-1 )
+
+			global_res += sign * local_solution ;
+
+			// "-............ ( ...... ) ... "
+			i += match[i] + 1 ;
+			last = 0 ; 
+
+		}
+		else if( A[i] == '+' || A[i] == '-' )
+		{
+
+			// stop building the local_num 
+
+			globa_res += sign*last_num ;
+
+			last_num = 0 ;
+
+			// ..........1920 + ................
+
+		   if( A[i] == '+')
+			sign = 1
+			else
+			sign = -1 ;
+
+			i++; 
+
+		}
+		else if( A[i] >= '0' && A[i] <= '9' )
+		{
+			int new_num = last*10 + (A[i]-'0');
+			last = new_num ;
+			i++;
+		}
+	}
+
+
+	// 1
+
+	if( last_num != 0 )
+	{
+	   global_res += sign*last_num ;
+	}
+
+
+	return global_res ; 
+}
+
+
+
+int function( string A )
+{
+
+
+    preprocess( A ); // it will remove all the extra spaces
+	
+	match.assign( A.size() , -1 );
+	stack< int > st ;
+
+
+	for( int i = 0 ; i < A.size() ; i++ )
+	{
+	   if( A[i] == '(')
+	   st.push(i);
+
+	   else if( A[i] == ')')
+	   {
+	      int a = st.top() ; st.pop();
+	      int b = i ;
+
+	      match[a] = b ;
+	      match[b] = a ;
+	   }
+	}
+
+	return solve( A , 0 , A.size()-1 );
+}
+
+
+
+TIME: O(N) linear
+SPACE: O(N) linear
+
+
+A =                    (1-(-2+3))
+                       0123456789
+      0123456789 
+match:9   8   30 
+
+
+
+
+i: 8 , 3 
+st: 0

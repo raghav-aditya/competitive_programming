@@ -1,0 +1,34 @@
+ 1 - 1 
+ 1 - many
+ many - many 
+
+
+: 1 to many 
+
+ user vs songs
+  many to many 
+
+ user
+ {
+    user_id , 
+    // all the neccessary colums 
+ }
+
+
+  // A ------- [  ]  ------ B 
+
+ songs 
+ {
+    songs_id ,
+ }
+
+  user_songs_mapping 
+  {
+      user_id ,  FK 
+      songs_id,  FK
+
+      PK ( user_id , songs_id );
+  }
+
+
+
