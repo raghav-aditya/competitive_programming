@@ -1,0 +1,12 @@
+2004286(Software Engineer at Paytm Payments Bank) , PBT-253(Software Engineering Intern Paytm Payments Bank)
+
+
+string A = "abc def efg";
+stringstream ss(A);
+string x ;
+
+while(ss>>x)
+{
+	cout<<x<<endl;
+}
+ 
