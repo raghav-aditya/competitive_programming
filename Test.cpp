@@ -58,127 +58,62 @@ int nCr( int N , int R )
    what chance do I have to beat him? 
 */
 
-ar join( ar a , ar b )
-{
-    if( a[0] > b[0] )
-        return a ;
-    else if( b[0] > a[0] )
-        return b ;
-
-    else if( a[0] == b[0] )
-    {
-        if( a[1] <= b[1] )
-            return a ;
-        else
-            return b ;
-    }
-
-    return a ;
-}
-
-class seg_tree
-{
-public:
-    vector<ar>T ;
-    int N ;
-
-    seg_tree(vector<int>A)
-    {
-        N = A.size();
-        T.resize(2*N);
-        
-        for( int i = 0 ; i < N ; i++ )
-            T[i+N] = { A[i] , i } ;
-
-        for( int i = N-1 ; i > 0 ; i-- )
-            T[i] = join( T[i<<1] , T[i<<1|1]);
-    }
-
-    void update( int p , int x )
-    {
-        
-        for( T[p+=N][0] = x ; p >>=1 ;  ){
-            T[p] = join(T[p<<1] , T[p<<1|1]) ;
-        }
-    }
-
-    ar get( int a , int b )
-    {
-        ar res = { -1 , -1 } ;
-        for( a += N , b += N+1 ;  a < b ; a >>= 1 , b >>= 1 )
-        {
-            if(a&1) res = join( res , T[a++] );
-            if(b&1) res = join( res , T[--b] );
-        }
-        return res ;
-    }
-
-};
-
 int32_t main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
     
-    auto solve = [&]()->int {
+    auto solve = [&]()->void{
         
-        int k = 3 ;
-        vector<int>A = 
-        
-        // { 17 , 12 , 10 , 2 , 7 , 2 , 11 , 20 , 8 }; // test case 2 
-        {10,20,10,15,5,30,20}; // test case 1 
+      vector< string > A = {
+            "zero",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+      };
 
-        int T = 2 ;
+      map< char , vector<int> > mp ;
+      for( int i = 0 ; i < A.size() ; i++ )
+      {
+          for( auto x : A[i] )
+            mp[x].push_back({i});
+      }
 
-        int sum = accumulate( A.begin() , A.end() , 0LL );
-        if( A.size() <= T )
-        {
-            return sum ;
-        }
+      vector< vector<int> > B ;
 
-        int N = A.size();
-        seg_tree st(A);
+      for( auto x : mp )
+      {
+          char a = x.first ;
+          auto b = x.second ;
+          sort( b.begin() , b.end() );
+          b.insert( b.begin() , b.size() );
+          b.push_back(a);
+          B.push_back(b);
 
-        int curr = 0 ;
-        int res = 0 ;
+      }
 
-        int l1 = 0 ;
-        int r1 = k-1 ;
-
-        int l2 = N-k ; 
-        int r2 = N-1 ;
-
-        while( curr++ < T )
-        {
-
-            auto a = st.get( l1 , r1 );
-            auto b = st.get( l2 , r2 );
-
-            auto c = join( a , b );
-
-
-            if( a[0] == b[0] || a == b || c == a )
-                r1++;
-            else
-                l2--;
-
-            l2 = max( 0LL , l2 );
-            r1 = min( N-1 , r1 );
-            
-
-            st.update( c[1] , 0 );
-
-            res += c[0] ;            
-        }
-
-        return res ;
+      sort( B.begin() , B.end() );
+      for( auto x : B )
+      {
+          char ch = x.back(); x.pop_back();
+          cout<<ch<<" -> ";
+          x.erase( x.begin() );
+          for( auto i : x )
+            cout<<i<<" ";
+          cout<<endl;
+      }
 
     };
     
 
 int test = 1 ;
-// cin>>test;
 while(test--)
-cout<<solve()<<endl;
+solve();
 return 0;
 }   

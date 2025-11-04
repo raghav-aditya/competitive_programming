@@ -1,0 +1,52 @@
+  
+
+@Transactional
+A( )
+{
+	db.save();
+	B();
+}
+
+@Transactional	
+B()
+{
+	db.save();
+	throw exception();
+}
+
+
+// -> Elastic search 
+//  Abfbda fe jekal;f jfekl;afkl; kla fjla -> [logger_statement id-1] 
+
+	map{ fe } -> { id-1 , id-2 }
+
+----------------------------------------
+
+Q-> given list of start and end times 
+	find the minimum number of rooms ?
+
+	[2,6] 
+	[3,6] 
+	[6,8] 
+	[8,9] 
+	[7,10]
+
+-> [ 1 , 2 ] [ 2 , 3 ] ->  [1, 2)
+
+
++1        -1
+  ---------
+  	-------
+  	+1    -1
+
+.....................................
+1 2 3 4 5 6 7 8 9 
+----------------------------
+0 1 2 2 2 0 0 0 0
+
+int getMinRoom( vector< vector<int> > A )
+{
+	
+
+	
+}

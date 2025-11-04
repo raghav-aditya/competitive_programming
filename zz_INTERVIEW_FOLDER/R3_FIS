@@ -1,0 +1,145 @@
+
+log:	customer_id , page_id , time_stamp
+
+-------------------------------------------
+
+
+Ask: List of repeat customers in entire file  
+						 day	
+RepeatCustomer: u1 , 1 , 1 -> 
+				u1 , 20, 3
+
+
+
+	D( t1 , t2 ) > 24 HR -> millisecond  
+
+-------------------------------------------------------
+
+			|  |  |   |   |
+ Time ->    ..............................................
+		  		
+
+
+1 - 1000 
+1 - 1001
+1 - 1025
+
+
+
+Map< user_id , last_visit_time > M ;
+
+
+
+
+
+
+
+list<> f()
+{
+
+	Map< int , int > mp = new HashMap<>() ;
+    ....
+
+    Set< int > res ; 
+
+    while( nextLine() )
+    {
+    	int time ;
+    	int user_id ;
+
+
+    	if( mp.get(user_id) == null )
+    	{
+    		// put inside 
+    		mp.put( user_id , time );
+    	}
+    	else
+    	{
+    		int last_visit_time = mp.get(user_id);
+    		// 
+    		if( time - last_visit_time > 24 Hr )
+    			res.add( user_id );
+
+    	}
+    }
+
+}
+
+
+
+
+
+
+HashMap< user_id , int > 
+
+HashSet < user_id ( int) > setBefore24Hr ;
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------
+Logs are in terray byte 
+
+LSM -> 
+
+
+
+--------------------------------------------------
+
+  			redis ->  
+  			
+
+  			memcached -> 
+
+
+
+
+-------------------------------------------------
+  .   			.
+[........] | [........]
+    1           2 
+
+
+-------------------------------------------------
+
+
+
+
+Thread1 -> odd number 
+Thread2 -> even number 
+
+Semaphore f = new Semaphre(1);
+Semaphore s = new Semaphore(0);
+
+Thread1 
+{
+	for( int i = 0 ; i < N ; i += 2 )
+	{
+		f.accuire();
+		print(2*i+1);
+		s.release();
+	}
+}
+
+Thread2
+{
+	for( int i = 0 ; i < N ; i += 2 )
+	{
+		s.accuire();
+		print(2*i+2);
+		f.release();
+	}
+}
+
+
+
+
+

@@ -1,0 +1,122 @@
+SOLID principles 
+
+
+S -> class calculates price of your cart -> price_calulation( tax_stratefg, p)
+O -> open for extension but closed for modification 
+L -> listkov subsitution 
+I -> interface segregation 
+D -> followed 
+
+
+-----------------------------------------------------------------------------------------
+
+class Product
+{
+	string name ;
+	double price; 
+	string category ;
+}
+
+class CartItem
+{
+	Product product ;
+	int count ;
+
+	double getTotalPrice()
+	{
+		return count * product.getPrice(); 
+	}
+}
+
+
+interface TaxStrategy 
+{
+	calcuateTax( CartItem myItem );
+}
+
+
+class OldTaxRegime implementss TaxStrategy
+{
+	private final double tax_cut = 0.05 ;
+
+	@overrride
+	public double calcuateTax( CartItem myItem )
+	{
+
+		return myItem.get(count) * my.getProduct().getPrice() * tax_cut ;
+	}
+}
+
+class NewTaxRegime implements TaxStrategy
+{
+	private final double tax_cut = 0.054 ;
+
+	@overrride 
+	calculateTax( CartItem myItem )
+	{
+		return myItem.get(count) * my.getProduct().getPrice() * tax_cut ;
+	}
+}
+
+
+public class PriceCalcuation
+{
+	List< CartItem > myCart ;
+
+	TaxStrategy myTaxStrategy ;
+
+	private final double service_cut = "0.03";
+
+
+	PriceCalcuation( List< CartItem > boughtCart )
+	{
+		this.mycart = boughtCart ;
+	}
+
+	void setTaxStrategy( TaxStrategy taxStrategy )
+	{
+		this.myTaxStrategy = taxStrategy ;
+	}
+
+	doublt getCartPrice()
+	{
+		double res = 0 ;
+		for( CartItem cart : myCart )
+		{
+			double basePrice = cart.getPrice();
+			res += basePrice + ( serviceCut * basePrice ) + myTaxStrategy( cart );
+		}
+	}
+}
+
+
+Public Ticket
+{
+	List< CartItem > myCart ;
+	double Tax ;
+	doubles serviceCharge ;	
+	double price ;
+};
+
+
+pubilc class PriceCalculationExtension extend priceCalculation
+{
+	public Ticket calcuatePriceReturnTicket()
+	{
+		double tax = 0;
+		double price = 0 ;
+		double service_charge = 0 ;
+
+		for( CartItem cart : myCart )
+		{
+			double base_price = cart.getPrice();
+
+			price += base_price ;
+			tax += myTaxStrategy( cart );
+			service_charge += base_price * serviceCut ;
+		}
+
+		return new Ticekt( myCart , tax , service_charge , price );
+	}
+
+}

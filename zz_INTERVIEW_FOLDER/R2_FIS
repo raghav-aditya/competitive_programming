@@ -1,0 +1,144 @@
+
+	JWT ->
+	{
+		ISS,
+		exp
+		.....
+
+		request_body_hash: hash
+
+
+
+
+	}
+
+------------
+
+GetRequest(
+   clientId, 
+   cust_id,
+   token ,
+
+)
+{
+  // 
+
+
+}
+
+
+
+
+	body:
+	{
+		json
+	}
+
+
+
+	----------------------------------
+
+
+
+-----------------------------------
+ jar -> RaviEmail.class , C:ravi
+ 3rd party ->  , C:aditya
+
+-----------
+
+imports java.util.* ;
+
+
+
+--------------------
+
+
+String s1 = new String("Ravi")
+String s2 = new String("Ravi")
+s1==s2 -> false 
+s1.equals(s2) -> true , 
+
+------------------------
+
+s1.concat(s2) -> s1 += s2 ; => s1 = s1 + s2 ;
+sysout(s1) -> 
+
+
+
+Class Person name, age
+p1 = new Person("Ravi",40);
+p2 = new Person("Ravi",40);
+p1.equals(p2) -> false , -> equal , hashcode
+
+Ravi 40
+Ramu 25
+Suren 30
+Kiran 20
+
+compare{ Obj a , Obj b 
+		 
+		a.age < 
+
+}
+
+
+try {
+ 
+//statement
+} catch (Throwable e)
+{
+
+}
+
+
+---------------------
+try( ....... )
+{
+	
+}	
+catch{
+	
+}
+
+---------------------------------------
+
+	// @sheduled ->  spring
+	Timer timer = new Timer();
+	timer.schedule()
+
+
+
+----------------------------
+	
+	1-> general -> extend thread or implement runnable 
+
+
+		class -> 
+
+		A -> B->(i am b) 
+		  -> C->(i am c)
+
+		B,C-> D-> D.f(); 
+
+		------------------------
+
+		-> 
+		user_id , pass_word,
+					1=1 or
+
+		->alphanumeric->._
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+

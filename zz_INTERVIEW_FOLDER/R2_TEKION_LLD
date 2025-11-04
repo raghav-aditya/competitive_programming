@@ -1,0 +1,167 @@
+Problem: Build Book My Show
+
+	1. get_move_list_based_onlocation
+	2. Book a show for a particular movie 
+	3. 
+
+
+
+----------------------------------------------
+		user_app
+	//	get_movie( location , price , distance );
+	//  post_api_booking(  theater_id , move_id, show_id , );
+
+
+----------------------------------------------
+
+
+DB -> API -> 
+
+
+//  
+SQL 
+user_db
+{
+	first_name , 
+	last_name ,
+	phone_no ,
+	email, 
+	is_privelaged_user : ( super_user , theater_owner , consumer ) 
+	meta_data ,
+}
+
+SQL 
+movie_db
+{
+	name , 
+	description , 
+}
+
+SQL:
+show_db
+{
+	string move_id , fk 
+	long time , 
+	screen_id ,	fk
+	float price ,
+}
+
+screen_db
+{
+	screen_id ,
+	theater_id -> fk 
+}
+
+SQL
+theater_db
+{
+	string name , 
+	int owner , fk 
+	Location location_id , fk 
+
+	// relavant infomation 
+}
+
+
+Location_store
+{
+	int location_id ,
+
+	float lattitutde , 
+	float longitude , 
+}
+
+
+---------------------------------------------------------------------------------------------
+
+	consumer_APP :
+
+	API: 	
+
+		@Autowired
+		Core
+
+		TimeQuery
+		{
+			start_time ,
+			end_time ,
+		}
+
+		@GetMapping("/userApi/search")
+		public getCall(
+		 @RequestHeader token ,
+		 @RequestHeader DeviceParamer deveice_parameter , @RequestParam Float price , @RequestParameter Location location ,
+								@RequestParam Float dist_in_km , @RequestParam TimeQuery )
+		{
+
+			try
+			{
+				int user_id = oauth.autherise(token);
+
+
+
+			} catch( Exception ex )
+			{
+
+			}
+
+
+		}
+
+
+
+------------------------------------------------
+Response:
+
+	{
+	    theaters : [ theader_id_1 ,  ............ ]
+	    HTTP: 
+	}
+
+
+------------------------------------------------
+
+
+user_ is selecting different location
+
+
+------------------------------------------------
+
+user_is_now in selecting seats 
+
+  temporary -> 
+
+  list_seats -> 
+  	payments_step -> 
+
+
+  
+
+  seat
+  {
+  	 status : [ avaialble , temp_reserved , booked ] -> 
+  }	
+
+
+------------------------------------------------
+
+U1 -> { 1 , 2 }
+U2 -> { 2 , 3 }
+
+-------------------------
+
+Topic: 
+parition_key: 
+kafka_topic_partition:    
+
+
+------------------------------------------------
+
+
+Semaphore ss = new Sephaore(10);
+
+{
+	
+	ss.accuire();
+
+}

@@ -6,42 +6,67 @@
 using namespace std;
 #define int long long 
 
-void solve(){
+vector<string> go( string A )
+{
+    sort( A.begin() , A.end() );
+    vector<string> res ;
+    res.push_back(A);
+    while(next_permutation( A.begin() , A.end() ))
+    {
+        res.push_back(A);
+    }
 
-    vector<int>A(12,0); 
-    iota( A.begin() , A.end() , 1 );
+    return res;
+}
 
-    rotate( A.begin() , A.begin()+2 , A.end() );
-    for( auto x : A )
-      cout<<x<<",";
+void solve( int N ){
 
-    cout<<endl;
 
+    int limit = log10(N);
+
+
+
+    vector<int>t;
+    for( int i = 1 ; i <= 9 ; i++ )
+        t.push_back(i);
+
+    vector<string> res ;
+
+    for( int bit = 1 ; bit < pow(2,9) - 1 ; bit++ )
+    {
+        string A ; 
+        for( int i = 0 ; i < 9 ; i++ )
+        {
+            if( bit&(1<<i) )
+            {
+                int cnt = t[i];
+                char d = cnt + '0' ;
+                while(cnt--)
+                    A.push_back(d);
+            }
+        }
+
+        if( abs( limit - (int)A.size() ) > 1 )continue ; // speed up
+        auto half = go(A);
+
+        for( auto x : half )
+            res.push_back(x);
+
+    }
+
+    vector<int>A ; // numbers 
+    for( auto x : res )
+        A.push_back(stoll(x));
+
+    sort( A.begin() , A.end() );
+    cout<<*lower_bound( A.begin() , A.end() , N)<<endl;
+
+    return ;
 }
 
 int32_t main() {
 
-  solve();
+  solve(10101);
 
 return 0;
-}    
-
-
-/*
-  
-  Prateek Downstream wala task, 
-  Is week dev complete krk QA me move krdenge,
-  on track for this task
-
- [a,b] [c,d]
-
- |a-c| + |b-d|
-
- -> a - c + b - d ->  a+b - ( c+d )
- -> a - c - b + d ->  a-c - ( c-d )
-
-*/
-
-
-
-
+}   

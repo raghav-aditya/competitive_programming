@@ -1,0 +1,28 @@
+user
+{
+	
+}
+
+
+Gift_card
+{
+	card_id, 
+	Balance,
+}
+
+Transaction
+{
+	user_id , -> FK,
+	card_id , -> FK,
+	ticket_id,	
+}
+
+Ticket
+{
+	user_id, -> FK
+	Amount , 
+	product_id -> FK
+	time,
+
+	etc ;
+}

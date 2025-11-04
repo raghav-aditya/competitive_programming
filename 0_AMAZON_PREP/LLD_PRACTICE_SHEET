@@ -1,0 +1,204 @@
+PROBLEM_1: 
+	JIRA SOFTWARE MANAGEMENT SYSTEM:
+
+
+
+		1. USERS 
+		2. PROJECTS 
+		3. ISSUES
+		4. COMMENTS
+		5. WORKFLOW 
+
+
+USER
+{
+	user_id, pk
+	name,
+	email,
+	Role, ( enum )
+}
+
+PROJECTS
+{
+	project_id,-> pk
+	name,
+	description,
+	created_by,
+	created_at,
+	List< users > project_members 
+	List< issue > issues 
+}
+
+1 -> MANY
+PROJECT_USERS_DB
+{
+	id, pk
+	project_id , fk
+	user_id , fk 
+}
+
+ISSUE_TYPE
+{
+	id, 
+	name ,
+}
+
+ISSUES
+{
+	issue_id,
+	issue_type_id -> fk 
+	title,
+	created_by,  -> fk 
+	assigned_to, -> fk
+	state_id -> fk  
+	project_id , fk 
+	List< Comment > comments 
+}
+
+COMMENT
+{
+	comment_id , pk 
+	issue_id , fk
+	user_id  , fk 
+	time timestamp ,
+	string description 
+}
+
+STATE_DB
+{
+	state_id, pk 
+	state_name,
+}
+
+WORKFLOW_TRANSITIONS_DB
+{
+	work_flow_id , pk
+	project_id , fk 
+	from_state_id , fk 
+	to_state_id , fk 
+}
+
+issue_audit
+{
+
+	issue_id , fk 
+	all 
+}
+
+
+--------------------------------------------------------------------------------------------
+
+
+	1. create [ issue , project ]
+	2. modify 
+	3. delete 
+	4. search 
+	5. comment 
+
+
+
+	----------------------------------------------------
+
+	public class JiraManager
+	{
+		private JiraManager(){
+
+		}
+
+		JiraManager instance = new JiraManager() ;
+
+		pubilc syncrhonized static getInstance(){
+			return instance ;
+		}
+
+
+		@Autowired
+		CoreManagementSystem cms ;
+
+
+		public createIssue( RequsetForm request )
+		{
+			try{
+				validatRequest(request);
+			    cms.createIsusse(request);
+			} catch ( Exception ex )
+			 {
+
+			 }
+			
+		}
+
+
+	}
+
+
+-----------------------------------------------------------------------------------
+
+PROBLEM 2: 
+
+Real Time Location Tracking 
+
+
+	1. realtime tracking 
+	2. support query over a period of time( analytical DB TB serires DB )
+	3. Batch ingestion 
+
+	-----------------------------
+
+	non_functional:
+
+	4. batch_ingestion
+	5. out_of_order data hanling 
+
+
+
+user_db
+{
+	user_id ,
+	first_name,
+	last_name,
+	email,
+	....
+}
+
+Best to TimeSeries DB:
+
+Redis
+{
+	user_id : lattitude + longitude 
+}
+
+
+Buffering_through_redis 10 Min -> 1 min
+{
+	we wiill maintain the buffer to manage out of order data	
+}
+
+
+Time_series_db
+location_store
+{
+	user_id,
+	lattitude
+	longitude
+	timestamp
+}
+
+
+
+------------------------------------
+
+for  doing batch ingestion we can use
+
+	kafka + apache spark for batching 
+
+
+
+and in reality to we will getting this location data through kafka only 
+
+-----------------------------------------------------------------------------------
+
+
+
+
+

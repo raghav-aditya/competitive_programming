@@ -1,0 +1,33 @@
+
+
+
+
+Problem: 
+
+
+	
+
+ API: Get "userQuery/userQuery?"
+ 	 Query-> tshirt
+
+ API: GET "v1/userQuery/"
+
+ 	 "amazon.com/search/tshirt"
+
+
+
+
+{
+	
+	"core_filter" : [ type1 , type2 , ............ typeN ]
+	"brand_filter": [ string1 . ....... string ]
+	 results: [ products , .... ........  ]
+}
+
+type1 -> 
+
+type2 -> 
+
+
+
+

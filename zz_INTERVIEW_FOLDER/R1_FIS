@@ -1,0 +1,204 @@
+
+	List< Integer > A = ArrayList< Integer >() ;
+
+	// 1 -> red
+	// 2 -> green 
+
+	A.add(1);
+	A.add(2);
+	A.add(2);
+	A.add(2);
+	A.add(2);
+	A.add(1);
+	A.add(1);
+	A.add(1);
+	A.add(1);
+
+
+// 
+A.parrellstream().forEach( x -> {
+		if( x == 2 )
+		log.info("green");
+		else
+		log.info("red");
+});
+
+
+void green()
+{
+	
+}
+
+void red(){
+	
+}
+
+Thread t1 = new Thread();
+Thread t2 = new Thread();
+
+for( int i = 0 ; i < N ; i++ )
+{
+	if(A[i]==2)
+	{
+	  t1.execute(()->{green()});
+	}
+	else
+	t2.execute(()->{red()});
+}
+
+
+
+
+void synchronised green_red( int i )
+{
+	if( A[i] == 2 )
+	green();
+
+	else
+	red();
+}
+
+
+
+
+// copyOnwriteArrayList<>
+
+// semaphore
+
+Semaphore s = new Semaphore();
+
+// -- stream -> 
+
+ 1 -> green()
+
+
+ -> F -> 1 -> red
+ 	  -> 2 -> green
+
+
+-----------------------
+
+	green_red_topic
+ --------------------
+ credit  -> p1           Consumer group -> { c1 , c2 , c3 ....... }
+ --------------------
+ debit  ->  p2
+ --------------------
+
+
+------------------------
+
+
+// Dealer -> multipler cars ->  each car have attribute color 
+// Query ->  list all red cars 
+
+class car 
+{
+	name,
+	brand,
+	model,
+	engine ,
+	color ,
+
+	etc	
+};
+
+
+public interface Vehical 
+{
+		
+};
+
+truck implement Vehical 
+{
+	
+}
+
+car implement Vehical 
+{
+	
+}
+
+
+// 
+
+@RestController
+public CarDealerController
+{
+
+	@Autowired
+	private DealerShipService Dss ;
+	
+
+	@GetMapping( "vehical/color")
+	public ApiResponse getVehical( @RequestHeader String token ,  @RequestParamer String color )
+	{
+
+		try
+		{
+
+		OauthService.autherise(token);
+
+
+
+		List< Vehical > vehicals = Dss.getVehical( color );
+
+		ApiResponse apiResponse = new ApiResponse ;
+
+		apiResponse.setBody(vehical);
+
+
+		return apiResponse ;
+
+
+		} catch( OauthException ex)
+		{
+			log.error(" token is not validated or expired" );
+			throw ex ;
+		}
+
+
+
+	}
+
+	
+}
+
+
+JWT -> 
+
+iss:
+iat:
+customer_id:
+field_A: 
+
+
+secret_key -> 
+
+
+
+---------------------------
+
+
+AES ->  124432421  -> fjdkal;fjdk;afjdklajfkl;ajfk;lajkl;a
+
+
+
+
+
+
+
+
+
+select * from car where color = 'RED' ;
+
+
+
+
+
+
+
+
+
+
+
