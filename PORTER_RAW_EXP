@@ -1,0 +1,450 @@
+TECH:
+
+  1. kotlin + ktor 
+  2. GCP
+  3. argocd 
+  4. ci -> github actions
+  5. cd -> helm + kubernetes 
+  6. terraform 
+  7. redis 
+  8. kafka
+  9. clean architecture
+  10. docker + colima
+  11. grafana dashboard
+  12. python + FAST API 
+  13. pub/sub
+
+
+1. Github Actions
+2. Kotlin 
+3. KTOR
+4. PubSub in Kotline + KTOR 
+5. ArgoCD
+6. K8 
+7. Notion for wiki
+8. Grafana
+9. DataDogs
+10.Postgres
+11. Terraform
+12. Helm
+13. DEPLOYMENT STRATEGY: canary - blue green 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TASK:
+
+1. Intercity Surges: 
+	
+	Initially all the surges while booking porter was based only on the source city, but product requirement came, that we need to implement the surges based on the destination city as well. so if a pair of city get more than avg order volume then the surge will be effective on the further order. 
+
+	implemented this feature such that business team, can enter the surge multiplier in the table, and as soon as the order volume increases surges will be applied 
+
+2. VAPT FIXES:
+	
+	- username enumeration -> post OTP unification solution
+
+
+		Worked on a set of related VAPT issues involving username enumeration
+		vulnerabilities on the login page:
+		AVDMS-57
+		AVDMS-49
+		AVDMS-70
+		I proposed a post-OTP unification model to mitigate enumeration risks. ERD:
+		Notion Link. While the proposed solution addressed the issue effectively, it
+
+
+
+	- Session Invalidation Vulnerability
+   
+
+    -> here when loggin out from application, app was not invoking the logout API from back-end, due to which session was still active and any ill actor can use that session to imporsonate on the app.
+
+    Ticket: AVDMS-76
+		Context: The PNM Android app was vulnerable due to missing session
+		invalidation
+		Backend changes weren’t required; the issue was with the Android app not
+		invoking the logout API
+
+
+
+  - Publicly Exposed Internal cURL Requests**
+		Ticket: AVDMS-80
+		Identified that internal Porter cURL requests were exposed via the Postman
+		public network
+		Reached out to Postman Support and got the public visibility revoked
+		Sent out a security awareness message on Tech-Charcha to prevent
+		recurrence
+
+
+
+
+3. Github permission: 
+
+		Organization-wide GitHub Permissions Audit
+		I undertook the task of auditing GitHub access across the organization,
+		including identifying:
+		All organization owners
+		All members
+		All external collaborators
+		A key challenge was that, not being part of the EP or Infra teams, I did not
+		have read:admin access to the GitHub org. As a workaround, I used GitHub
+		Apps and GitHub Actions to fetch the required data.
+		TO_DEL 3
+		I successfully captured:
+		All GitHub teams in Porter
+		Their corresponding repository access
+		Users mapped to each team
+
+
+
+4. Github RBAC -> 
+	
+	I was tasked with conducting a discovery exercise and drafting a strategy to
+	enforce RBAC across GitHub. One of the main challenges is that Porter’s
+	repositories are highly cross-functional, with no clear ownership boundaries
+	across teams.
+	The Infosec team’s requirement is to restrict even read-level access where
+	unnecessary, which demands a more stringent access control model.
+	I created a preliminary document outlining how GitHub RBAC can be enforced.
+	However, several open discussions remain with the EP and Infosec teams.
+	As per current direction, I’ve been asked to:
+	First enumerate the set of actions a developer can perform on GitHub
+	(e.g., pull, push, create repo, etc.)
+	Then draft a policy outlining the proposed permission boundaries.
+	We are currently in the policy design stage. Implementation work will begin
+	once the policy is reviewed and approved by Infosec and EP.
+
+
+I successfully implemented Role-Based Access Control (RBAC) for GitHub Enterprise by integrating Google Workspace with GitHub using SAML (for SSO) and SCIM (for automated provisioning). This enabled hierarchical, project-centric access control fully aligned with the Principle of Least Privilege.
+
+As part of the rollout, I onboarded two engineering teams — CGE and NI — to the new GitHub RBAC model. Each team’s structure and permissions are now automatically managed via Google Groups, ensuring consistent access governance and eliminating manual permission drift.
+
+This implementation establishes Google Workspace as the single source of truth for user and team management, with GitHub repository access now controlled entirely through synchronized team hierarchies. The new model has been validated and is currently in production for both teams, serving as the reference architecture for broader organization-wide adoption.
+
+
+
+
+6. GCP secrets inventory, stale secret detection:
+	
+		wrote a script to list down all the secrets under GCP-lz folder, calculate their ages, and setup an 
+
+		ALERT: ops_genies, grafana integration ops_genies :
+
+		CRON: kubernetes -> 
+
+		DB -> user_name and pass 
+
+---
+
+### 🔗 Integration Overview
+
+Grafana → sends alerts → Opsgenie → notifies on-call engineers (via SMS, call, email, or Slack).
+
+The integration allows:
+
+* Grafana alert rules to **automatically trigger incidents** in Opsgenie.
+* Opsgenie to manage **alert routing, deduplication, and escalation**.
+* **Bidirectional updates** (acknowledge/close alerts in one system reflected in the other).
+
+---
+
+### ⚙️ How to Set It Up
+
+#### **Option 1: Using Grafana’s Native Opsgenie Integration (Recommended for Grafana v8+)**
+
+1. In Grafana → Go to **Alerting → Contact Points → Add contact point**
+2. Choose **Opsgenie** from the list.
+3. Enter:
+
+   * **Opsgenie API URL** → usually `https://api.opsgenie.com`
+   * **API Key** → from your Opsgenie integration (see below).
+4. Configure additional fields like:
+
+   * Message (alert title)
+   * Description (alert details)
+   * Responders (optional)
+5. Test and save the contact point.
+
+#### **Step on Opsgenie Side**
+
+1. In Opsgenie, navigate to **Integrations → Add integration → Grafana**.
+2. Copy the **API Key** from the integration page.
+3. Paste that key in Grafana (Step 3 above).
+
+---
+
+### 🧩 Option 2: Using Webhooks (Custom Integration)
+
+If you’re using older Grafana versions or custom workflows:
+
+1. Create a **Webhook integration** in Opsgenie.
+2. Copy the webhook URL and secret key.
+3. In Grafana, configure a **Webhook contact point** and paste the Opsgenie URL.
+4. Customize JSON payload to match Opsgenie’s expected format.
+
+---
+
+### 🧠 Benefits of Integration
+
+* Centralized alert management & escalation.
+* Avoids alert noise (Opsgenie dedupes alerts).
+* Supports **on-call rotations** and **alert policies**.
+* Easy audit trail of alert acknowledgements and resolutions.
+
+---
+
+### 🧰 Typical Stack
+
+| Component             | Purpose                                     |
+| --------------------- | ------------------------------------------- |
+| **Grafana**           | Visualization & Alert Rules                 |
+| **Prometheus / Loki** | Metrics & Logs feeding Grafana              |
+| **Opsgenie**          | Incident management & On-call scheduling    |
+| **Slack / Teams**     | Notification channels connected to Opsgenie |
+
+---
+
+Would you like me to show an **example JSON payload or YAML config** (e.g., how Grafana sends alert data to Opsgenie via webhook)? It can help if you’re setting it up manually.
+
+
+
+7. Service Account keys older age calculation, older than 90 days:
+	
+		wrote a script to calculate the age of service account older than 90 days, sets the alerts 
+
+
+		Perfect — that’s a great automation task 👏
+Let’s break it down clearly so you can **explain it confidently in interviews or documentation**.
+
+---
+
+## 🧩 What are **Service Account Keys** in Google Cloud?
+
+A **Service Account** in GCP is a **special identity used by applications or services**, not by humans.
+It lets programs authenticate and call Google Cloud APIs **securely**.
+
+However, for an external application (say a backend job, CI/CD tool, or script) to **act as a service account**, it needs **credentials** — and that’s where **Service Account Keys** come in.
+
+---
+
+### 🔐 Service Account Key = Private Key Credential File
+
+When you create a key for a service account in GCP, it generates a **JSON key file** like:
+
+```json
+{
+  "type": "service_account",
+  "project_id": "my-project",
+  "private_key_id": "abc123...",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEv....",
+  "client_email": "my-sa@my-project.iam.gserviceaccount.com",
+  ...
+}
+```
+
+This file is downloaded and used by external systems to authenticate via the **Google Auth Library**.
+
+Think of it as the **password** for your service account — whoever has this key can act as that service account.
+
+---
+
+## ⚠️ Why Are Service Account Keys Risky?
+
+Because they’re long-lived secrets, **if leaked, anyone can impersonate your service**.
+Google **recommends rotating keys every 90 days** and using **Workload Identity Federation** instead of static keys where possible.
+
+Old keys → Security risk → Audit needed ✅
+
+---
+
+## 🧠 What Your Script Does
+
+Your script automates **security auditing** of all Service Accounts and their keys across projects.
+
+### Step-by-step breakdown:
+
+1. **Load list of Service Accounts**
+
+   * Reads from `SA.txt` or uses sample test data.
+
+2. **Connects to IAM API**
+
+   * Uses `googleapiclient.discovery` + `google.auth.default()` for authentication.
+   * Builds IAM client to call:
+
+     * `projects.serviceAccounts.get()`
+     * `projects.serviceAccounts.keys.list()`
+
+3. **Fetches Metadata**
+
+   * Gets:
+
+     * Service Account creation time
+     * Keys attached to that service account (only `USER_MANAGED` keys)
+
+4. **Calculates Age**
+
+   * Computes:
+
+     * Service Account age = now − createTime
+     * Key age = now − validAfterTime
+   * If age > 90 days → potential security alert condition.
+
+5. **Writes Outputs**
+
+   * `sa_key_ages.csv` → All key details (age, creation date)
+   * `sa_age_info.csv` → All SA details (creation date, age)
+   * `needs_iam_permission.txt` → SAs where the script couldn’t read (missing permissions)
+   * `processed_successfully.txt` → Successfully processed SAs
+
+6. **Multithreading**
+
+   * Uses `ThreadPoolExecutor(max_workers=15)` for concurrency.
+   * Ensures results are thread-safe using `Lock()`.
+
+7. **Logging**
+
+   * Writes detailed logs to `logs.txt`
+   * Prints info/errors to console
+
+---
+
+## 🛠️ Example Output (Simplified)
+
+**`sa_key_ages.csv`**
+
+| Service Account Email                                                               | Key ID | Created At          | Age (days) |
+| ----------------------------------------------------------------------------------- | ------ | ------------------- | ---------- |
+| [app-prod@xyz.iam.gserviceaccount.com](mailto:app-prod@xyz.iam.gserviceaccount.com) | a1b2c3 | 2025-07-01 12:30:00 | 125        |
+
+**Interpretation:** → This key is **older than 90 days**, should trigger alert/rotation.
+
+---
+
+## 📢 How You Could Explain It in Your Resume / Interview
+
+> **Service Account Key Age Auditor – Python + GCP IAM**
+>
+> * Automated GCP Service Account key audit using Python and IAM API.
+> * Calculated service account and key ages, identified keys older than 90 days, and generated alerts/reports.
+> * Implemented multi-threaded processing for scalability (15 concurrent accounts).
+> * Added error handling, permission tracking, and structured CSV output for compliance dashboards.
+> * Improved security posture by identifying stale credentials across projects.
+
+---
+
+## 🚀 Extensions You Can Mention
+
+* **Integrate with Cloud Monitoring / Slack / PagerDuty** for alert notifications.
+* **Auto-delete keys older than 90 days** (optional with approvals).
+* **Replace with Workload Identity Federation** (keyless authentication).
+
+---
+
+Would you like me to show how to **add email/slack alerts** to your script when a key is older than 90 days? That would make it production-grade.
+
+
+
+
+8. Policy engine:( created internal policy engine server that was used to enforce orgwide policies on resources
+	
+		1. java version 8 is outdated, it will start reporting the teams
+		2. cant change the resource like kafka partition more than twice in PR: it will be blocked at the before merging.
+
+
+)
+
+	GOAL: shift left 
+
+IDEA:
+	
+	 Plan -> Code -> Build -> Test -> Deploy -> Monitor
+               ↑
+          (Shift checks left)
+
+
+⚙️ Why “Shift Left” Matters
+
+Traditional flow:
+
+Developers code freely
+
+CI/CD runs builds
+
+QA or Security teams find issues late
+
+Fixes are costly and time-consuming
+
+With Shift Left:
+
+Developers get immediate feedback (via linters, scanners, or policy engines)
+
+Security, compliance, and quality become part of coding itself
+
+CI/CD pipelines reject unsafe or non-compliant changes before merge/deploy
+
+So it reduces cycle time, risk, and cost of fixing problems later.
+
+
+
+
+
+🧭 The Core Philosophy
+
+✅ Catch problems as soon as they are created,
+❌ Not after they’ve already reached staging or production.
+
+
+
+
+
+
+
+
+
+
+ 
+
+problem solved: 
+Currently, most of the feature flags are hardcoded. As a result, any changes—whether enabling or disabling a feature, or adjusting its rollout—require code modifications and deployments.
+
+In addition to this, we are also using LaunchDarkly (a feature management tool). However, it introduces some latency and incurs additional cost.
+
+
+
+
+
+
+
+
+* **Resolved multiple VAPT vulnerabilities** including username enumeration, session invalidation, by implementing a Post-OTP unification model, enforcing proper session revocation, and significantly strengthening Porter’s application security posture.
+
+
+* **Redesigned feature flag management** by replacing hardcoded toggles and costly LaunchDarkly dependency with a dynamic, config-driven in-house system, enabling instant rollouts without redeployment and reducing latency and cost.
+
+
+* **Led organization-wide GitHub access audit and implemented RBAC**, automating visibility and control across 600+ repositories using GitHub Apps & Actions, and integrating Google Workspace with GitHub via SAML & SCIM to enable least-privilege, project-centric access management aligned with enterprise security standards.
+
+
+Developed GCP Secret Inventory & Stale Secret Detection System, automating discovery of secrets under GCP-LZ folders, computing their age, and generating Grafana → Opsgenie alerts for rotation compliance.
+
+
+* **Engineered an internal Policy Enforcement Engine** integrated within CI/CD pipelines to validate organizational compliance and security policies in real time, providing teams with remediation windows, tracking unresolved violations, and automatically triggering Opsgenie and Slack alerts for timely incident awareness and resolution.

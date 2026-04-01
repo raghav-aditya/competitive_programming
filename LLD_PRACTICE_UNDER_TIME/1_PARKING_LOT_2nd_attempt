@@ -1,0 +1,125 @@
+ENTITY: 	
+	
+	FLOOR , SPOT , VEHICAL , TICKET 
+
+
+Enum VechicalType
+{
+	CAR , TRUCK , BIKE , VAN ;	
+}
+
+Class Vechical
+{
+	String vechicalId ;
+	VechicalType vechicalType ;
+}	
+
+Enum SpotType
+{
+	COMPACT , LARGE , HANDICAPPED , MOTORBIKE ;
+}
+
+Class Spot
+{
+	Int FloorId ; 
+	String spotId = Java.UUID ; 
+	SpotType type ;
+	Bool vacant = true ;
+}
+
+
+class Ticket
+{
+	Vechical vechical ;
+	Spot spot ;
+
+	Double Price ;
+
+	DateTime inTime  ;
+	DateTime outTime ;
+}
+
+PriceCalculationService
+{
+	private Constant PRICE_FACTOR = 32.000 ;
+
+	public Ticket calcualte( Ticket ticket )
+	{
+		double hour = Math.abs( ticket.inTime - ticket.outTime  );
+		hour = Math.max( 1.000 , Math.ciel(hour) )
+
+		ticket.price = PRICE_FACTOR*hour ;
+
+		return ticket ;
+	}
+}
+
+SpotAssignmentService
+{
+	Map< String , Spot > freeSpots ;
+	Map< String , Spot > parkedSpots ;
+
+
+
+	@Autowired 
+	PriceCalculationService service;
+
+	public void initilize(){
+
+	}
+
+	public Ticket getParking( Vechical vechical )
+	{
+		// scan the avaialbe spots 
+		// check for the vehicalType vs spot mapping assigne only valid spot for particular vechical type 
+		// assign to ticekt and vechical Id 
+		// mark the spot not avaible 
+		// push ot unableSpots map
+		// remove from freeSpots 
+		// handle if no free spots availbe put logger
+	}
+
+	public Tickect unPark( Ticket ticket )
+	{
+		// get Spot id from ticket 
+		// markt if avaiable 
+		// push it to freeSpots 
+		// remove it from parkedSpots
+
+		// hanle when ticket is invalid and put the logger.erro();
+
+		service.calculate( ticket ) ;
+
+		return ticket ;
+	}
+
+}
+
+
+ParkingLotManagementService
+{
+		
+	@Autowired
+	private SpotAssignmentService spotService;
+
+
+	public Ticket Park( Vechical v )
+	{
+
+		Ticket ticket = spotService.getParking(v);
+		if( ticket.isNotNull()) 
+		return Ticket;
+
+		logger.info( "No available spot" );
+	}
+
+	publi Ticket UnPark( Ticket T )
+	{
+		sporService.unparkt( T );
+
+		return T ;
+	}
+
+	
+
+}

@@ -50,3 +50,4 @@ int getMinRoom( vector< vector<int> > A )
 
 	
 }
+

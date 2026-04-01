@@ -1,0 +1,97 @@
+
+
+Int f( vector<string> A , int k )
+{
+	Int N = A.size();
+	
+	unordered_map< string , int > mp ;
+	
+	String who ; 
+	Int mx_freq  = 0 ; 
+
+	for( auto x : A )
+	{
+		Mp[x]++;
+
+		if( mx_freq < mp[x] )
+		{
+			Mx_freq = mp[x] ;
+			Who = x ;
+		}
+	}
+
+
+
+//  A --------- A ------- A -------
+	
+
+	// [ enque_time , -frequency  ,  string ]  -----> {     }
+
+	multi_set< tuple< int ,  int , string > > available_jobs ;
+
+	 for( auto x : mp )
+	 {
+	 	string job = x.first ;
+	 	int freq = x.second ;
+
+	 	available_jobs.insert({ 
+
+	 		1 , -freq , job 
+
+	 	});
+	 }
+
+
+	 time = 1 ;
+	 while( avaialble_jobs.size() )
+	 {
+
+	 	 auto beg = *available_job.begin(); 
+	 	 available_job.erase(beg);
+
+
+	 	 int time_availble = beg[0];
+	 	 int freq = -beg[1]; // ( trick )
+	 	 string task = beg[2];
+
+
+
+	 	 if( time >= time_avaialble )
+	 	 {
+	 	 	int enque_time = time + k ;
+
+
+	 	 	time++;
+	 	 	freq--;
+
+	 	 	if( freq > 0 )
+	 	 	{
+	 	 		available_jobs.insert({ enque_time , -freq , task });
+	 	 	}
+
+	 	 }
+	 	 else if( time < time_available )
+	 	 {
+	 	 	time = time_availble-1 ;
+	 	 	time++;
+	 	 }
+	 }
+
+
+
+	 return time ;
+
+}
+
+
+T = 1 
+
+[{ 2 , -3 , "cooking"} , { 2 , -2 , "cleaning"} ]
+
+
+TIME : O(N*LOGN) --> N = number of unique jobs 
+SPACE : O(N) ---> 
+
+
+
+

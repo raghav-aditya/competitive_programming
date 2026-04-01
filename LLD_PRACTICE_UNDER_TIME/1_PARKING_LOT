@@ -1,0 +1,130 @@
+
+ENTITY:
+	FLOORS , SPOTS , VEHICAL , TICKET , PRICE CALCULATION
+
+
+
+enum spotType
+{
+	COMPACT , LARGE , HANDICAPPED , MOTORBIKE ; 	
+}
+
+class Spots 
+{
+	int floorId ;
+	int spotId ;
+	enum spotType ;
+}
+
+enum vechicalType
+{
+	CAR , TRUCK , BIKE , VAN ;
+}
+
+class Vehical {
+	int vehicalId ;
+	enum vehicalType ;
+}
+
+
+class Ticket{
+	
+	Vehical vechical ;
+	Spot spot ; 
+
+	DateTime parkingTimein ;
+	DateTime parkingTimeOut ;
+
+}
+
+class PriceCalcualateionService
+{
+
+	Double PRICE_FACTOR = 32.00 ;
+	Ticket ticket; 
+
+
+	public Double Caclualte()
+	{
+		int hours = Math.max( 1 , Ciel(parkingTimeOut - parkingTimein) ); 
+
+		Double ticketPrice = PRICE_FACTOR * hours ;
+
+		log.info( "ticket price for ticket {} is {} " , ticket , ticketPrice );
+
+		return ticketPrice ;
+	} 
+}
+
+
+
+class Floor
+{
+	int floorId ;
+	Map< int , Spots> avialableSpots ;
+	Map< int , Spots> parkedSpots ;
+
+	// initilize spots ; 
+
+	Ticket park( Vechical vechical )
+	{
+		// park vehical generate ticket 
+
+		// remove from the the list of avialbleSpots and push it to parkedSpots
+
+		// entry -> { vechical , Spot } 
+
+		// if not avaiable return nulloblject
+	}
+
+	Price unPark( Ticket ticket )
+	{
+		// search from vechical ID for spots 
+		// unpark make it avaialble 
+
+		PriceCalcualtionservice.Calculate( ticket )
+	}
+}
+
+ParkingLotService
+{
+
+	List< Floor > floor ; 
+	PriceCalculationService;
+
+
+
+
+	Ticekt park( Vechical vechical )
+	{
+		for( auto x : floor ) 
+		{
+			if( x.park() != nullObject )
+			{
+				return x.park(vechical);
+			}
+		}
+
+		log.info("no spots available");
+	}
+
+	Double unpart( Ticket) )
+	{
+		for( auto x : floor )
+		{
+			
+		}
+
+	}
+
+}
+
+	
+
+
+
+
+	
+}
+
+	

@@ -1,0 +1,233 @@
+
+	NOTIFICATION SYSTEM:
+
+		1-> multiple channel ( EMAIL , SMS , PUSH )
+		2-> NOTIFICATION priority 
+		3-> 
+
+
+		NFR:
+
+			Flexible design 
+
+------------------------------------------------------------------------
+
+
+SOLUTION: 
+				|  NOTIFICATION                                |
+	CLIENT ---> API --->(prod) KAFKA ---> (consumer) --------> worker ------ ENDUSER
+
+
+
+	two topic:
+
+		general_notification -> [ m1 , m2 , .... ]  -> MARKETING , OUTREACH...
+
+		priority_notification -> [ pm1 , pm2, ........ ] --> OTP, TRANSACTION,  
+
+
+--------------------------------------------------------
+
+LLD:
+
+ENUM{ EMAIL , PUSH , SMS .... }
+
+ENUM Priority{ HIGH , LOW , MEDIUM }; 
+
+
+class MessageRequest
+{
+	ChannelType channel ;
+	String message ;
+	String userId ; 
+	Priority msgPriority ;
+
+}
+
+Client 
+{
+	sending  API: msg request --> 
+}
+
+
+
+
+
+
+
+
+------------------------------------------------
+
+
+
+
+///
+
+APi --> /send_notification/v1  ---> parsing --> validation ---> service 
+
+
+
+Class NotificationService
+{
+	KafkaPublisher kafka ;
+	
+
+
+	public sendNotification( MessageRequest msg )
+	{
+			if( Objects.isNull(msg) )
+			log.info("msg is null ....");
+
+			if( HIGH.equalIgnoreCase(msg.getPriority() ) )
+			{
+				kafka.publish( msg , high_priority_topic );
+			}
+			else if( MEDIUM.equalIgnoreCase(msg.getPriority()))
+			{
+				kafka.publish( msg , med_priority_topic );
+			}
+			else if( LOW.equalIgnoreCase(msg.getPriority()))
+			{
+				kafka.publish( msg , med_priority_topic );
+			}
+
+
+-----------------------------------------------------------
+
+ConsumerGroup -> [ c1 , c2 , c3 , c4 ]
+
+TOPIC ->  [ p1 , p2 , p3 , p4 ........ ]
+
+paritikey( 1 )
+
+partitikey( 2 )
+
+-----------------------------------------------------------
+
+
+
+	}
+
+
+}
+
+
+interface notificationChannel
+{
+	public void sendNotification( MessageRequest msg );
+}
+
+
+EmailChannel implements notificationChannel{
+	@ovveride
+	public void sendNotification( MessageRequest msg )
+	{
+		log.info("sending notification to {} " , msg );
+		notification.send()
+	}
+}
+
+
+SmsChannel implements notificationChannel{
+///	
+}
+
+PushChannel implements notificationChannel{
+	
+}
+
+
+NotificatinoChannelFactory
+{
+	public static notification getChannel( ChannelType type )
+	{
+		if( EMAIL == type )
+		return new EmailNotificationChannel();
+		else if( PUSH == type )
+		return new PushNotificationChannel();
+		else if( SMS == type )
+		return new SmsNotificaitonChannel();
+	}
+} 
+
+
+
+
+@Topic:( med )
+Class NotificationServiceConsumer
+{
+	
+	
+
+	void sendNotifiaction( MessageRequest msg )
+	{
+		
+		Channel myChannel = ChannelFactory.getChannel(msg.getChannelType()).sendNotificatino(msg);
+		
+		myChannel.sendNotifation(msg);
+	}
+
+
+	@equalAndHascode()
+
+	HashMap
+	{
+		anything key ,
+	}
+
+
+	private HashMap<Student,int> myhashMap = new HashMap<>();
+
+
+
+	---------------------
+	List< Student > list = [ STUDENT1 , STUDEN2 , STUDENN3 , STUDENT1 ] ;
+
+	myHashmap.get(STUDENT1) = { STUDENT1 , 2 } ;
+
+
+-----------------------------------
+
+	EXACT:
+
+
+		hash_key = key ---> key%N --> ( 0 , N-1 )
+
+		[0] ---> { { STUDENT1 , 2 }  , { STUDENT2, 1 } }
+		[1] ---> 
+		[2]
+		[3]
+
+
+----------------------------
+
+set --> 
+
+hashset
+
+
+------------------
+
+TreeSet -> ( 10 , 4  ,3 , 100 )
+
+
+--------------------------
+
+		
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+------------------------

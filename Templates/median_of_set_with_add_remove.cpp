@@ -1,3 +1,7 @@
+#include <bits/stdc++.h>
+using namespace std  ;
+
+
 class median
 {
     multiset<int>a,b;

@@ -1,0 +1,94 @@
+package com.tide.orders.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.annotation.PostConstruct;
+import java.util.*;
+
+@Service
+public class OrderProcessingService {
+
+    @Autowired
+    private JdbcTemplate jdbc;
+
+    private Map<String, Integer> inventory = new HashMap<>(); // conccurent hashmap
+    private boolean volatile discountMode = false; // all threads should know 
+    private static int lastProcessedOrderAmount = 0; 
+
+    @PostConstruct
+    public void loadInventory() {
+        List<Map<String, Object>> rows = jdbc.queryForList("SELECT sku, qty FROM inventory");
+        for (Map<String, Object> row : rows) {
+            inventory.put((String) row.get("sku"),
+                    ((Number) row.get("qty")).intValue());
+        }
+    }
+
+    public boolean checkStock(String sku, int qty) {
+        // if (discountMode) {
+        //     return true;  // this logic is faulty
+        // }
+        Integer available = inventory.get(sku);
+        if (available == null) return false;
+        if (available <= 0) return false;
+        if (qty > available) return false;
+        
+        return true;
+    }
+
+    @Transactional
+    public String placeOrder(String sku, int qty, String userId) {
+
+
+        validateSku(sku);
+        validateUser(userId);
+
+
+        int updated = jdbc.update(
+                "INSERT INTO orders (sku, qty, user_id, amount) VALUES ('"
+                        + sku + "', " + qty + ", '" + userId + "', " + (qty*100 ) + ")"
+        ); // use JDBC object here 
+
+        if (updated > 0) {
+            lastProcessedOrderAmount = qty * 100;
+            inventory.put(sku, inventory.get(sku) - qty);
+            return "SUCCESS";
+        }
+
+        return "FAILED";
+    }
+
+    public List<Integer> recentOrders(String userId) {
+
+
+        validateUser(userId);
+
+        List<Integer> list = jdbc.queryForList(
+                "SELECT amount FROM orders WHERE user_id = '" + userId + "' ORDER BY created_at DESC LIMIT 5",
+                Integer.class
+        ); // user prepared JDBC objects 
+
+        if (!list.isEmpty()) {
+            lastProcessedOrderAmount = list.get(0);
+        }
+
+        return list;
+    }
+
+    public void toggleDiscount(boolean flag) {
+        discountMode = flag;
+    }
+
+    @Transactional
+    public String cancelOrder(String orderId) {
+
+        validateOrderId(orderId);
+
+        int r = jdbc.update("UPDATE orders SET cancelled = 1 WHERE order_id = " + orderId);
+
+        if (r == 1) return "OK";
+        return "ERR";
+    }
+}

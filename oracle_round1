@@ -1,0 +1,136 @@
+try{
+	
+} catch( Exception ex ){
+	
+
+
+} catch( 1 ){
+
+	
+} catch( 2 ){
+	
+} catch( Exceptin ex ){
+	
+}
+
+
+----------------------------
+
+
+select * from table1 where name = "A" group by name having count(name) > 2 ;
+
+
+-------------------------
+
+
+Hashmap ---> 
+
+	hasing:
+
+sz = 10 ;
+
+		hashing
+object ---->     Integer % sz =-> [0, sz-1]
+
+put( key1 ,val1 )
+put( key2, val2 )
+
+
+							0
+get( key2 ) ----> index ---> 
+
+[0] ---> [ val1, val2 ]
+[1] ---> [  ]
+[2] --->
+[3] --->
+
+
+
+good hash ---> good hashing 
+
+
+Array->  O(1) ---> O(N) ---> [ 1 2 4 5 6 ]
+LinkList-> node1--> node2 ---> node3  ----> O(1)  | O(N)
+
+
+Queue ---> 1 2 3 4 
+Stack ---> 1 2 3 4 
+
+-----------------------------------------------
+
+queue --> 1 2 3 4 
+
+push - 1 
+push - 2 
+push - 3 
+pop 
+pop 
+push - 4
+
+
+
+
+
+
+
+stack1 --> 
+stack2 --> 3 2 1 
+
+
+
+---------------------------------------------
+
+list ->   NULL<-1<-2 | 3->4
+		
+	prev = 1
+	curr = 2 
+	next_node = 3 ( curr -> next )
+
+	curr->next = prev | 2->1 
+
+	prev = curr ;
+	curr = next_node ;
+
+
+
+		4->3->2->1->NULL
+
+temp
+
+
+
+---------------------------------------------
+
+elemens -> 1000 elemtn 
+
+binary_search :
+	
+	// sorted 
+
+	log2(1000) --> O(10) --> 
+
+linear : 
+
+	O(1000) -->O(N)
+
+
+-------------------------
+
+
+	amortized : O(N)
+
+
+	// monotonic stack :
+
+
+
+	// O(N)
+
+
+	fail_safe 
+
+	fail_fast 
+	
+
+
+---------------------------------------------

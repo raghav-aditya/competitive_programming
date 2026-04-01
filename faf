@@ -1,0 +1,31 @@
+
+
+function( vector<int> A )
+{
+	list<int>AL ;
+	int l = A.size()-1; 
+
+	unordered_map< int , list<int>::iterator > mp ;
+
+	while( l >= 0 )
+	{
+		AL.push_begin(l);
+		mp[l] = AL.begin();
+		l--;
+	}
+
+	int last = -1 ;
+	list<int>::iterator it ;
+	for( auto x : A )
+	{
+		if( x > l )
+		{
+			it = mp[x];
+		}
+		else
+		{	
+			AL.erase(it);
+			it--;
+		}
+	}
+}
