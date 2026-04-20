@@ -1,0 +1,319 @@
+
+/*
+
+---
+
+# 🧩 LLD Problem: Pub-Sub Messaging System
+
+## 🎯 Goal
+
+Design a **lightweight Publish-Subscribe system** where producers send messages to topics and consumers receive them asynchronously.
+
+---
+
+## 📌 Functional Requirements
+
+### 1. Topic Management
+
+* Create a topic
+
+  * `topicId`
+  * `name`
+* A topic can have multiple subscribers
+
+---
+
+### 2. Publisher
+
+* A publisher should be able to:
+
+  * Publish a message to a topic
+* Message should contain:
+
+  * `messageId`
+  * `payload`
+  * `timestamp`
+
+---
+
+### 3. Subscriber
+
+* A subscriber should be able to:
+
+  * Subscribe to one or more topics
+  * Unsubscribe from topics
+* Each subscriber receives messages from subscribed topics
+
+---
+
+### 4. Message Delivery
+
+* When a message is published to a topic:
+
+  * It should be delivered to **all active subscribers**
+* Delivery should be:
+
+  * **Asynchronous**
+  * **At-least-once** (duplicate delivery allowed)
+
+---
+
+### 5. Offset Tracking
+
+* System should track:
+
+  * Last consumed message per subscriber per topic
+* Subscriber should be able to:
+
+  * Resume from last offset
+
+---
+
+## 📌 Non-Functional Requirements
+
+* Should support **multiple publishers and subscribers concurrently**
+* Should handle **high throughput (thousands of messages/sec)**
+* Delivery should be **low latency**
+* System should be **thread-safe**
+
+---
+
+## 📌 Constraints / Scope
+
+* In-memory implementation (no DB required)
+* No need for persistence across restarts
+* No ordering guarantee across topics
+  (ordering within a topic is good to have, not mandatory)
+* No retry/backoff logic required (basic retry is fine)
+
+---
+
+## 📌 Expected in Solution
+
+* Class design:
+
+  * `Topic`
+  * `Message`
+  * `Publisher`
+  * `Subscriber`
+  * `Broker / PubSubService`
+* Subscription management
+* Message dispatch mechanism (async)
+* Offset tracking logic
+
+---
+
+If you want next step:
+I can grill you like interviewer + give ideal class diagram + Java code.
+
+
+*/
+
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * Pub-Sub System (In-Memory)
+ * - Async delivery
+ * - At-least-once semantics
+ * - Offset tracking
+ */
+public class PubSubSystem {
+
+    // ===================== MESSAGE =====================
+    static class Message {
+        private final int messageId;
+        private final String payload;
+        private final long timestamp;
+
+        public Message(int id, String payload) {
+            this.messageId = id;
+            this.payload = payload;
+            this.timestamp = System.currentTimeMillis();
+        }
+
+        public int getMessageId() { return messageId; }
+        public String getPayload() { return payload; }
+
+        @Override
+        public String toString() {
+            return "Message{id=" + messageId + ", payload='" + payload + "'}";
+        }
+    }
+
+    // ===================== SUBSCRIBER =====================
+    interface Subscriber {
+        void consume(Message message);
+        String getId();
+    }
+
+    static class PrintSubscriber implements Subscriber {
+        private final String id;
+
+        public PrintSubscriber(String id) {
+            this.id = id;
+        }
+
+        public String getId() { return id; }
+
+        @Override
+        public void consume(Message message) {
+            System.out.println("Subscriber " + id + " consumed: " + message);
+        }
+    }
+
+    // ===================== TOPIC =====================
+    static class Topic {
+        private final String topicId;
+        private final String name;
+
+        // All messages published to topic
+        private final List<Message> messages = new ArrayList<>();
+
+        // Subscriber -> Worker
+        private final Map<String, SubscriberWorker> subscribers = new ConcurrentHashMap<>();
+
+        public Topic(String topicId, String name) {
+            this.topicId = topicId;
+            this.name = name;
+        }
+
+        public synchronized void addMessage(Message message) {
+            messages.add(message);
+        }
+
+        public List<Message> getMessages() {
+            return messages;
+        }
+
+        public void addSubscriber(Subscriber subscriber) {
+            subscribers.put(subscriber.getId(), new SubscriberWorker(subscriber, this));
+        }
+
+        public void removeSubscriber(String subscriberId) {
+            subscribers.remove(subscriberId);
+        }
+
+        public Collection<SubscriberWorker> getSubscribers() {
+            return subscribers.values();
+        }
+    }
+
+    // ===================== WORKER (ASYNC CONSUMER) =====================
+    static class SubscriberWorker {
+        private final Subscriber subscriber;
+        private final Topic topic;
+
+        // Offset per subscriber
+        private int offset = 0;
+
+        // Queue for async delivery
+        private final BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
+
+        public SubscriberWorker(Subscriber subscriber, Topic topic) {
+            this.subscriber = subscriber;
+            this.topic = topic;
+
+            startWorker();
+        }
+
+        // Add message to queue
+        public void enqueue(Message message) {
+            queue.offer(message);
+        }
+
+        // Worker thread
+        private void startWorker() {
+            new Thread(() -> {
+                while (true) {
+                    try {
+                        Message msg = queue.take(); // blocks
+                        subscriber.consume(msg);
+                        offset++; // update offset after processing
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+                }
+            }).start();
+        }
+    }
+
+    // ===================== PUBSUB SERVICE =====================
+    static class PubSubService {
+        private final Map<String, Topic> topics = new ConcurrentHashMap<>();
+        private final AtomicInteger messageIdGenerator = new AtomicInteger(0);
+
+        // Create Topic
+        public void createTopic(String topicId, String name) {
+            topics.put(topicId, new Topic(topicId, name));
+        }
+
+        // Subscribe
+        public void subscribe(String topicId, Subscriber subscriber) {
+            Topic topic = topics.get(topicId);
+            if (topic != null) {
+                topic.addSubscriber(subscriber);
+            }
+        }
+
+        // Unsubscribe
+        public void unsubscribe(String topicId, String subscriberId) {
+            Topic topic = topics.get(topicId);
+            if (topic != null) {
+                topic.removeSubscriber(subscriberId);
+            }
+        }
+
+        // Publish Message
+        public void publish(String topicId, String payload) {
+            Topic topic = topics.get(topicId);
+            if (topic == null) return;
+
+            Message message = new Message(
+                    messageIdGenerator.incrementAndGet(),
+                    payload
+            );
+
+            topic.addMessage(message);
+
+            // Deliver to all subscribers (async)
+            for (SubscriberWorker worker : topic.getSubscribers()) {
+                worker.enqueue(message);
+            }
+        }
+    }
+
+    // ===================== MAIN (TEST) =====================
+    public static void main(String[] args) throws InterruptedException {
+
+        PubSubService service = new PubSubService();
+
+        // Create Topic
+        service.createTopic("T1", "Orders");
+
+        // Create Subscribers
+        Subscriber s1 = new PrintSubscriber("S1");
+        Subscriber s2 = new PrintSubscriber("S2");
+
+        // Subscribe
+        service.subscribe("T1", s1);
+        service.subscribe("T1", s2);
+
+        // Publish Messages
+        service.publish("T1", "Order-1 Created");
+        service.publish("T1", "Order-2 Created");
+
+        // Wait to see async output
+        Thread.sleep(1000);
+
+        // Unsubscribe one
+        service.unsubscribe("T1", "S2");
+
+        // Publish again
+        service.publish("T1", "Order-3 Created");
+
+        Thread.sleep(1000);
+    }
+}
