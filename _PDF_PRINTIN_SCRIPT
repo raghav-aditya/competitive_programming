@@ -1,0 +1,30 @@
+(function() {
+    // 1. Force the page to act like a normal document, not a "web app"
+    const style = document.createElement('style');
+    style.innerHTML = `
+        /* Force height and overflow on every possible wrapper */
+        html, body, #__next, main, [class*="layout"], [class*="container"], [class*="wrapper"] {
+            height: auto !important;
+            min-height: 100% !important;
+            overflow: visible !important;
+            position: static !important;
+            display: block !important;
+        }
+        
+        /* Hide common distractions (Navbars, Sidebars, Footers) */
+        nav, header, footer, aside, 
+        [class*="navbar"], [class*="Sidebar"], [class*="sticky"],
+        .no-print, #sidebar, .sidebar {
+            display: none !important;
+        }
+
+        /* Ensure images don't cut off */
+        img { max-width: 100% !important; height: auto !important; }
+    `;
+    document.head.appendChild(style);
+
+    console.log("Layout unlocked. Launching print dialog...");
+    
+    // 2. Trigger the native print
+    window.print();
+})();
